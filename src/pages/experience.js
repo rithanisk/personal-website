@@ -9,11 +9,11 @@ export default function Experience() {
         <title>{`Experience | ${site.name}`}</title>
         <meta name="description" content={`Experience and background of ${site.name}`} />
       </Head>
-      <div className="mx-auto max-w-4xl px-6 py-12">
-        <h1 className="text-2xl font-bold text-black">
+      <div>
+        <h1 className="font-serif text-3xl font-semibold text-neutral-900 dark:text-white">
           Experience
         </h1>
-        <p className="mt-2 text-black/70">
+        <p className="mt-2 text-neutral-600 dark:text-neutral-400">
           Roles, internships, and work history.
         </p>
         <div className="mt-10">

@@ -6,7 +6,7 @@ import SocialIcons from "./SocialIcons";
 
 export default function Hero() {
   return (
-    <section className="relative border-b border-brand-pink/30 bg-white overflow-hidden">
+    <section className="relative border-b border-brand-pink/30 bg-white dark:bg-[var(--background)] dark:border-neutral-800 overflow-hidden">
       <HomePageBackground />
       <div className="relative z-10 mx-auto max-w-5xl px-6 py-16 sm:py-24">
         <div className="flex flex-col items-center gap-10 md:flex-row md:items-start md:gap-12">
@@ -23,13 +23,13 @@ export default function Hero() {
             </div>
           </div>
           <div className="min-w-0 flex-1 text-center md:text-left">
-            <h1 className="text-3xl font-bold tracking-tight text-black sm:text-4xl">
+            <h1 className="text-3xl font-bold tracking-tight text-black dark:text-white sm:text-4xl">
               {site.name}
             </h1>
-            <p className="mt-2 text-lg text-black/80">
+            <p className="mt-2 text-lg text-black/80 dark:text-neutral-300">
               {site.tagline}
             </p>
-            <p className="mt-6 max-w-2xl text-black/70 md:mx-0 md:mr-auto">
+            <p className="mt-6 max-w-2xl text-black/70 dark:text-neutral-400 md:mx-0 md:mr-auto">
               {site.about}
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4 md:justify-start">

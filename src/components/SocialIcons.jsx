@@ -1,7 +1,7 @@
 import { site } from "@/content/site";
 
 const iconSize = 20;
-const iconClass = "text-black/70 transition hover:text-brand-pink";
+const iconClass = "text-black/70 dark:text-neutral-400 transition hover:text-brand-pink";
 
 export default function SocialIcons({ className = "" }) {
   return (

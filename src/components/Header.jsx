@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { navLinks, site } from "@/content/site";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
   return (
-    <header className="border-b border-brand-pink/30 bg-white/95 backdrop-blur">
+    <header className="border-b border-brand-pink/30 bg-white/95 backdrop-blur dark:bg-neutral-950/95 dark:border-neutral-800">
       <nav className="mx-auto flex max-w-4xl items-center justify-between gap-4 px-6 py-4">
         <Link
           href="/"
-          className="text-lg font-semibold text-black"
+          className="text-lg font-semibold text-black dark:text-white"
         >
           {site.name}
         </Link>
@@ -16,7 +17,7 @@ export default function Header() {
             <li key={href}>
               <Link
                 href={href}
-                className="text-sm font-medium text-black/70 transition hover:text-brand-pink"
+                className="text-sm font-medium text-black/70 transition hover:text-brand-pink dark:text-neutral-300 dark:hover:text-brand-pink"
               >
                 {label}
               </Link>
@@ -32,6 +33,9 @@ export default function Header() {
             >
               LinkedIn
             </a>
+          </li>
+          <li>
+            <ThemeToggle />
           </li>
         </ul>
       </nav>

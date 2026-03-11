@@ -41,16 +41,15 @@ export default function WorldMap() {
   };
 
   return (
-    <section className="border-b border-brand-pink/30 bg-white py-16 sm:py-20">
-      <div className="mx-auto max-w-5xl px-6">
-        <h2 className="text-2xl font-bold text-black sm:text-3xl">
+    <div>
+      <h2 className="font-serif text-2xl font-semibold text-neutral-900 dark:text-white sm:text-3xl">
           Where I’ve worked
         </h2>
-        <p className="mt-2 text-black/70">
-          Hover or click on highlighted countries to see projects and roles.
-        </p>
-        <div
-          className="relative mt-8 overflow-hidden rounded border border-brand-pink/20 bg-brand-green-soft/30"
+        <p className="mt-2 text-sm text-neutral-600 dark:text-neutral-400">
+        Hover or click on highlighted countries to see projects and roles.
+      </p>
+      <div
+          className="relative mt-6 overflow-hidden rounded-xl border border-neutral-200 bg-brand-green-soft/30 dark:bg-brand-green-soft/20 dark:border-neutral-700"
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
@@ -94,31 +93,31 @@ export default function WorldMap() {
           </ComposableMap>
           {tooltip && (
             <div
-              className="pointer-events-none fixed z-50 max-w-xs rounded-lg border border-brand-pink/30 bg-white p-4 shadow-lg"
+              className="pointer-events-none fixed z-50 max-w-xs rounded-lg border border-brand-pink/30 bg-white dark:bg-neutral-900 dark:border-neutral-700 p-4 shadow-lg"
               style={{
                 left: tooltipPos.x + 12,
                 top: tooltipPos.y + 12,
               }}
             >
-              <p className="font-semibold text-black">{tooltip.name}</p>
-              <ul className="mt-2 space-y-1.5 text-sm text-black/80">
+              <p className="font-semibold text-black dark:text-white">{tooltip.name}</p>
+              <ul className="mt-2 space-y-1.5 text-sm text-black/80 dark:text-neutral-300">
                 {tooltip.projects.map((p, i) => (
                   <li key={i}>
                     <span className="font-medium text-brand-green">
                       {p.role}
                     </span>
                     <br />
-                    <span className="text-black/70">{p.company}</span>
+                    <span className="text-black/70 dark:text-neutral-400">{p.company}</span>
                     {p.period && (
                       <>
                         <br />
-                        <span className="text-black/60">{p.period}</span>
+                        <span className="text-black/60 dark:text-neutral-500">{p.period}</span>
                       </>
                     )}
                     {p.location && (
                       <>
                         <br />
-                        <span className="text-black/60">{p.location}</span>
+                        <span className="text-black/60 dark:text-neutral-500">{p.location}</span>
                       </>
                     )}
                   </li>
@@ -126,8 +125,7 @@ export default function WorldMap() {
               </ul>
             </div>
           )}
-        </div>
       </div>
-    </section>
+    </div>
   );
 }

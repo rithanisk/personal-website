@@ -9,14 +9,14 @@ export default function Projects() {
         <title>{`Projects | ${site.name}`}</title>
         <meta name="description" content={`Projects and work by ${site.name}`} />
       </Head>
-      <div className="mx-auto max-w-3xl px-6 py-14 sm:py-16">
-        <h1 className="text-3xl font-bold tracking-tight text-black sm:text-4xl">
+      <div>
+        <h1 className="font-serif text-3xl font-semibold text-neutral-900 dark:text-white">
           Projects
         </h1>
-        <p className="mt-3 text-black/70">
+        <p className="mt-2 text-neutral-600 dark:text-neutral-400">
           Research, ML pipelines, and side projects.
         </p>
-        <div className="mt-12">
+        <div className="mt-10 grid gap-6">
           <ProjectsList />
         </div>
       </div>

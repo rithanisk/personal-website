@@ -16,21 +16,15 @@ export default function Passions() {
   const images = getTopicImages(activeTopic.id, activeTopic.imageCount);
 
   return (
-    <section id="passions" className="border-b border-brand-pink/30 bg-white py-16 sm:py-20">
-      <div className="mx-auto max-w-4xl px-6">
-        <h2 className="text-2xl font-bold text-black sm:text-3xl">
-          Get to know me
-        </h2>
-        <p className="mt-2 text-black/70">
-          Beyond work—here’s what I’m into and what keeps me inspired.
-        </p>
+    <div id="passions">
+      <div>
 
         {/* Umbrella + sliding topic bar */}
-        <div className="mt-8">
-          <p className="mb-3 text-sm font-medium uppercase tracking-wide text-black/60">
+        <div>
+          <p className="mb-3 text-xs font-medium uppercase tracking-wider text-neutral-500 dark:text-neutral-400">
             {passionUmbrella}
           </p>
-          <div className="-mx-6 flex gap-2 overflow-x-auto px-6 pb-2 sm:mx-0 sm:px-0">
+          <div className="flex gap-2 overflow-x-auto pb-2">
             {passionTopics.map((topic) => (
               <button
                 key={topic.id}
@@ -39,7 +33,7 @@ export default function Passions() {
                 className={`shrink-0 rounded-full px-4 py-2 text-sm font-medium transition ${
                   activeId === topic.id
                     ? "bg-brand-pink text-white"
-                    : "bg-brand-pink-soft text-black/80 hover:bg-brand-pink/20"
+                    : "bg-brand-pink-soft text-black/80 hover:bg-brand-pink/20 dark:bg-brand-pink-soft dark:text-neutral-300 dark:hover:bg-brand-pink/30"
                 }`}
               >
                 {topic.label}
@@ -49,19 +43,19 @@ export default function Passions() {
         </div>
 
         {/* Active topic content */}
-        <div className="mt-8">
-          <h3 className="text-xl font-semibold text-black">
+        <div className="mt-6">
+          <h2 className="font-serif text-xl font-semibold text-neutral-900 dark:text-white">
             {activeTopic.label}
-          </h3>
-          <p className="mt-1 text-sm text-black/70">
+          </h2>
+          <p className="mt-1 text-sm text-neutral-600 dark:text-neutral-400">
             {activeTopic.description}
           </p>
           {images.length > 0 ? (
-            <ul className="mt-6 grid grid-cols-3 gap-1 sm:gap-2">
+            <ul className="mt-6 grid grid-cols-3 gap-2">
               {images.map((src, i) => (
                 <li
                   key={i}
-                  className="relative aspect-square overflow-hidden border border-brand-pink/20 bg-brand-pink-soft/30"
+                  className="relative aspect-square overflow-hidden rounded-lg border border-neutral-200 dark:border-neutral-700"
                 >
                   <Image
                     src={src}
@@ -74,12 +68,12 @@ export default function Passions() {
               ))}
             </ul>
           ) : (
-            <p className="mt-6 text-sm text-black/50">
+            <p className="mt-6 text-sm text-neutral-500 dark:text-neutral-400">
               Photos for this topic coming soon.
             </p>
           )}
         </div>
       </div>
-    </section>
+    </div>
   );
 }
