@@ -1,26 +1,181 @@
 @import "tailwindcss";
 
+/* ── Light tokens (from design mockup pf-shared.jsx) ── */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --pf-bg: #faf6f0;
+  --pf-bg-warm: #f5ede0;
+  --pf-surface: #ffffff;
+  --pf-surface-2: #f4f0ea;
+  --pf-text: #1a1610;
+  --pf-text-muted: #5a5248;
+  --pf-text-dim: #8a8278;
+  --pf-border: #ebe5da;
+  --pf-border-strong: #d8d0c3;
+
+  --pf-rose: #AA6373;
+  --pf-rose-hover: #994d5c;
+  --pf-rose-soft: #f5e8eb;
+  --pf-rose-ink: #6b3842;
+
+  --pf-forest: #22361B;
+  --pf-forest-soft: #dce5d7;
+  --pf-forest-ink: #2f4827;
+
+  --pf-amber: #c8824a;
+  --pf-amber-soft: #f5e6d3;
+  --pf-amber-ink: #7a4a22;
+
+  --pf-lavender: #8a7fa8;
+  --pf-lavender-soft: #eae5f0;
+  --pf-lavender-ink: #4f466a;
+
+  --pf-sky: #5c7a99;
+  --pf-sky-soft: #dce6ef;
+  --pf-sky-ink: #324d6b;
+
+  --pf-accent: var(--pf-rose);
+  --pf-accent-hover: var(--pf-rose-hover);
+  --pf-accent-soft: var(--pf-rose-soft);
+  --pf-accent-ink: var(--pf-rose-ink);
+
+  --pf-shadow-sm: 0 1px 2px rgba(20,18,15,0.05);
+  --pf-shadow: 0 1px 2px rgba(20,18,15,0.04), 0 8px 24px rgba(20,18,15,0.05);
+  --pf-shadow-lg: 0 12px 32px rgba(20,18,15,0.08), 0 24px 60px rgba(170,99,115,0.08);
+  --pf-glow: 0 0 0 1px rgba(170,99,115,0.22), 0 18px 50px rgba(170,99,115,0.22);
+
+  --pf-nav-bg: rgba(255, 255, 255, 0.55);
+  --pf-nav-border: rgba(20, 18, 15, 0.08);
+  --pf-grain-opacity: 0.03;
+}
+
+/* ── Dark tokens ── */
+[data-theme="dark"] {
+  --pf-bg: #0f0f0f;
+  --pf-bg-warm: #14100c;
+  --pf-surface: #17140f;
+  --pf-surface-2: #1e1a14;
+  --pf-text: #e8e2d6;
+  --pf-text-muted: #a8a092;
+  --pf-text-dim: #6a6254;
+  --pf-border: #272420;
+  --pf-border-strong: #3a3530;
+
+  --pf-rose: #d58d9b;
+  --pf-rose-hover: #e09ead;
+  --pf-rose-soft: #2d1f23;
+  --pf-rose-ink: #f5d4da;
+
+  --pf-forest: #a8c49f;
+  --pf-forest-soft: #1a2217;
+  --pf-forest-ink: #cfdec8;
+
+  --pf-amber: #d69b6e;
+  --pf-amber-soft: #2a1f14;
+  --pf-amber-ink: #f2d0a8;
+
+  --pf-lavender: #b0a3cc;
+  --pf-lavender-soft: #221d2b;
+  --pf-lavender-ink: #d8ccee;
+
+  --pf-sky: #8ba5c2;
+  --pf-sky-soft: #182028;
+  --pf-sky-ink: #c0d2e2;
+
+  --pf-accent: var(--pf-rose);
+  --pf-accent-hover: var(--pf-rose-hover);
+  --pf-accent-soft: var(--pf-rose-soft);
+  --pf-accent-ink: var(--pf-rose-ink);
+
+  --pf-shadow-sm: 0 1px 2px rgba(0,0,0,0.4);
+  --pf-shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  --pf-shadow-lg: 0 12px 32px rgba(0,0,0,0.45), 0 24px 60px rgba(213,141,155,0.14);
+  --pf-glow: 0 0 0 1px rgba(213,141,155,0.3), 0 18px 50px rgba(213,141,155,0.24);
+
+  --pf-nav-bg: rgba(23, 20, 15, 0.55);
+  --pf-nav-border: rgba(255, 255, 255, 0.06);
+  --pf-grain-opacity: 0.04;
+}
+
+/* Dark mode ambient background gradients */
+[data-theme="dark"] body {
+  background:
+    radial-gradient(ellipse 70% 55% at 15% 10%, rgba(213,141,155,0.08), transparent 62%),
+    radial-gradient(ellipse 55% 45% at 90% 90%, rgba(168,196,159,0.06), transparent 62%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(214,155,110,0.035), transparent 62%),
+    #0f0f0f;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-pf-bg: var(--pf-bg);
+  --color-pf-bg-warm: var(--pf-bg-warm);
+  --color-pf-surface: var(--pf-surface);
+  --color-pf-surface-2: var(--pf-surface-2);
+  --color-pf-text: var(--pf-text);
+  --color-pf-text-muted: var(--pf-text-muted);
+  --color-pf-text-dim: var(--pf-text-dim);
+  --color-pf-border: var(--pf-border);
+  --color-pf-border-strong: var(--pf-border-strong);
+  --color-pf-accent: var(--pf-accent);
+  --color-pf-accent-soft: var(--pf-accent-soft);
+  --color-pf-accent-ink: var(--pf-accent-ink);
+  --color-pf-rose: var(--pf-rose);
+  --color-pf-rose-soft: var(--pf-rose-soft);
+  --color-pf-rose-ink: var(--pf-rose-ink);
+  --color-pf-forest: var(--pf-forest);
+  --color-pf-forest-soft: var(--pf-forest-soft);
+  --color-pf-forest-ink: var(--pf-forest-ink);
+  --color-pf-amber: var(--pf-amber);
+  --color-pf-amber-soft: var(--pf-amber-soft);
+  --color-pf-amber-ink: var(--pf-amber-ink);
+  --color-pf-sky: var(--pf-sky);
+  --color-pf-sky-soft: var(--pf-sky-soft);
+  --color-pf-sky-ink: var(--pf-sky-ink);
+  --color-pf-lavender: var(--pf-lavender);
+  --color-pf-lavender-soft: var(--pf-lavender-soft);
+  --color-pf-lavender-ink: var(--pf-lavender-ink);
+  --color-pf-nav-bg: var(--pf-nav-bg);
+  --color-pf-nav-border: var(--pf-nav-border);
+  --font-serif: var(--font-source-serif), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* ── Base ── */
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--pf-bg);
+  color: var(--pf-text);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.55;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* ── Eyebrow text ── */
+.pf-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--pf-text-dim);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.pf-eyebrow::before {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--pf-border); border-radius: 3px; }
+
+/* ── Selection ── */
+::selection {
+  background: var(--pf-accent-soft);
+  color: var(--pf-accent-ink);
 }
