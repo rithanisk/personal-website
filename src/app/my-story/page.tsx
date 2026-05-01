@@ -8,7 +8,7 @@ const sections = [
   {
     heading: "Who I Am",
     accent: "rose",
-    body: "I\u2019m Rithani \u2014 a second-generation Indian, born in India and raised in the US. Growing up, I was surrounded by a culture that valued stability and convention, but I always felt pulled toward something different. I wanted to build things, solve hard problems, and chart my own path \u2014 even when it didn\u2019t look like the \u201Csafe\u201D choice.",
+    body: "I\u2019m Rithani, a second-generation Indian American, born in India and raised in the US. I was born in Karur, a small town in Tamil Nadu, India, and just nine months later, my parents moved us to Seattle, WA. That's kind of been the pattern of my life ever since: starting somewhere new and figuring it out. Growing up, I lived between two worlds. As hard as it was building my identity in a foreign country as a young girl, my parents worked equally hard to make sure we also didn't lose where we came from. They taught my younger brother and I to read and write our mother tongue, Tamil, not just speak it. Every other summer, we would all fly back to our parents' hometown to spend time with family — grandparents, cousins, relatives who felt both close and far away at the same time. I didn't fully appreciate those trips as a kid, but they're a big part of who I am. Even our daily routines were a reminder of where we came from. Weekly temple visits, eating home-cooked Tamil food, listening to Tamil music. By high school, I knew I wanted to do something different. ",
     images: ["/usa.JPG", "/usa2.jpg", "/usa3.png"],
   },
   {

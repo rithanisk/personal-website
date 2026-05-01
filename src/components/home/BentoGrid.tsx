@@ -316,7 +316,7 @@ const cards: CardProps[] = [
   {
     type: "experience",
     title: "Nia Health",
-    role: "Software / AI Engineer Intern",
+    role: "Software / AI Engineer",
     date: "Aug 2025 — Present",
     description:
       "Building async GPT parsing pipelines and a CGM data system in FastAPI + React. Cut report parsing latency by 70% and shipped end-to-end glucose review tooling deployed on Azure.",
