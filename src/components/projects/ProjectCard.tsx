@@ -1,6 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/shared/Badge";
+import { motion } from "framer-motion";
 import type { Project } from "@/types/content";
 
 type Palette = { a: string; b: string; c: string };
@@ -27,7 +28,7 @@ export function ProjectCard({
   const p = palette || defaultPalettes[index % defaultPalettes.length];
 
   return (
-    <div
+    <motion.div
       className="relative overflow-hidden transition-all duration-300"
       style={{
         background: "var(--pf-surface)",
@@ -37,6 +38,11 @@ export function ProjectCard({
         minHeight: 320,
         transform: hover ? "perspective(1200px) rotateX(2deg) rotateY(-3deg) translateY(-4px)" : "none",
       }}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-60px" }}
+      transition={{ duration: 0.6, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] }}
+      whileHover={{ y: -6, scale: 1.02 }}
     >
       {/* Visual header */}
       <div
@@ -86,6 +92,6 @@ export function ProjectCard({
           ))}
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

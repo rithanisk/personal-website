@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowRightIcon } from "@/components/shared/Icons";
 
 type CardImage = {
@@ -18,11 +19,8 @@ type CardImage = {
 
 type CardProps = {
   type: "experience" | "project" | "hobby";
-  /** Primary name: company name, project name, or hobby name */
   title: string;
-  /** Role (experience) or detail like food/location (hobby) */
   role?: string;
-  /** Date range (experience only) */
   date?: string;
   description?: string;
   href?: string;
@@ -125,13 +123,15 @@ function BentoCard({
   const hasCover = images?.some((img) => img.mode === "cover");
 
   const content = (
-    <div
-      className={`group relative overflow-hidden rounded-xl transition-shadow duration-200 hover:shadow-md ${wide ? "col-span-2" : ""}`}
+    <motion.div
+      className="group relative overflow-hidden rounded-xl"
       style={{
         aspectRatio: wide ? "2 / 1" : "1 / 1",
         background: "var(--pf-surface-2)",
         border: "1px solid var(--pf-border)",
       }}
+      whileHover={{ scale: 1.02, y: -4 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
       {/* Gradient overlay for readability on cover images */}
       {hasCover && (
@@ -296,20 +296,14 @@ function BentoCard({
           <ArrowRightIcon />
         </div>
       )}
-    </div>
+    </motion.div>
   );
 
   if (href) {
-    return (
-      <Link href={href} className={wide ? "col-span-1 md:col-span-2" : ""}>
-        {content}
-      </Link>
-    );
+    return <Link href={href}>{content}</Link>;
   }
 
-  return (
-    <div className={wide ? "col-span-1 md:col-span-2" : ""}>{content}</div>
-  );
+  return content;
 }
 
 const cards: CardProps[] = [
@@ -442,10 +436,34 @@ const cards: CardProps[] = [
   },
 ];
 
+const sectionVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08, delayChildren: 0.2 },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 30, scale: 0.96 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+  },
+};
+
 export function BentoGrid() {
   return (
     <section className="px-5 md:px-[72px] mt-6">
-      <div className="flex items-baseline justify-between mb-6 pb-[18px] border-b border-pf-border">
+      <motion.div
+        className="flex items-baseline justify-between mb-6 pb-[18px] border-b border-pf-border"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      >
         <div>
           <div className="pf-eyebrow mb-2.5">Highlights</div>
           <h2 className="font-serif font-light text-[clamp(26px,3.5vw,40px)] tracking-[-0.025em] leading-[1.05]">
@@ -463,13 +481,25 @@ export function BentoGrid() {
         >
           See full timeline <ArrowRightIcon />
         </Link>
-      </div>
+      </motion.div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <motion.div
+        className="grid grid-cols-2 md:grid-cols-4 gap-4"
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+      >
         {cards.map((card, i) => (
-          <BentoCard key={i} {...card} />
+          <motion.div
+            key={i}
+            variants={cardVariants}
+            className={card.wide ? "col-span-1 md:col-span-2" : ""}
+          >
+            <BentoCard {...card} />
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }
