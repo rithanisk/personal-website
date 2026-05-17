@@ -43,32 +43,45 @@ function HeroStatus() {
     <div className="flex flex-col gap-5">
       {/* Status line */}
       <div className="inline-flex items-center gap-2.5 self-start">
-        <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: "var(--pf-text-muted)" }} />
-        <span className="text-[16px] font-mono tracking-[0.01em] leading-relaxed tracking-tight" style={{ color: "var(--pf-text-muted)" }}>
-          Currently building AI agents at{" "}
-          <span className="font-medium" style={{ color: "var(--pf-text)" }}>Nia Health</span>
+        <span
+          className="w-2 h-2 rounded-full flex-shrink-0"
+          style={{ background: "var(--pf-text-muted)" }}
+        />
+        <span
+          className="text-[16px] font-mono tracking-[0.01em] leading-relaxed tracking-tight"
+          style={{ color: "var(--pf-text-muted)" }}
+        >
+          Currently building AI agents at Nia Health
         </span>
       </div>
       {/* Page links */}
       <div className="flex items-center gap-5">
         <Link
           href="/experience"
-          className="inline-flex items-center gap-2 text-[16px] font-medium border-b border-pf-border-strong pb-[3px]"
+          className="inline-flex items-center gap-2 text-[16px] font-normal"
           style={{ color: "var(--pf-text)" }}
         >
           Check out my{" "}
-          <span className="italic font-serif font-normal" style={{ color: "var(--pf-forest-ink)" }}>experience</span>
-          <ArrowRightIcon />
+          <span
+            className="font-normal"
+            style={{ color: "var(--pf-forest-ink)" }}
+          >
+            experience
+          </span>
         </Link>
-        <span className="w-1 h-1 rounded-full" style={{ background: "var(--pf-text-dim)" }} />
+        <span
+          className="w-1 h-1 rounded-full"
+          style={{ background: "var(--pf-text-dim)" }}
+        />
         <Link
           href="/my-story"
-          className="inline-flex items-center gap-2 text-[16px] font-medium border-b border-pf-border-strong pb-[3px]"
+          className="inline-flex items-center gap-2 text-[16px] font-normal pb-[3px]"
           style={{ color: "var(--pf-text)" }}
         >
           Read my{" "}
-          <span className="italic font-serif font-normal" style={{ color: "var(--pf-rose-ink)" }}>story</span>
-          <ArrowRightIcon />
+          <span className="font-normal" style={{ color: "var(--pf-rose-ink)" }}>
+            story
+          </span>
         </Link>
       </div>
     </div>
@@ -91,7 +104,10 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+    transition: {
+      duration: 0.6,
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+    },
   },
 };
 
@@ -115,9 +131,14 @@ export function HeroSection() {
             style={{ fontSize: "clamp(34px, 5vw, 64px)" }}
           >
             I&apos;m{" "}
-            <span className="italic font-light" style={{ color: "var(--pf-rose)" }}>Rithani</span>
+            <span className="font-light" style={{ color: "var(--pf-rose)" }}>
+              Rithani
+            </span>
             , and I build{" "}
-            <span className="italic font-light" style={{ color: "var(--pf-forest-ink)" }}>
+            <span
+              className="font-light"
+              style={{ color: "var(--pf-forest-ink)" }}
+            >
               intelligent software
             </span>{" "}
             with real, measurable impact.
@@ -132,10 +153,19 @@ export function HeroSection() {
           <motion.div variants={itemVariants} className="mt-8">
             <HeroStatus />
           </motion.div>
-          <motion.div variants={itemVariants} className="flex items-center gap-5 mt-7">
+          <motion.div
+            variants={itemVariants}
+            className="flex items-center gap-5 mt-7"
+          >
             <Socials />
-            <div className="w-px h-5" style={{ background: "var(--pf-border-strong)" }} />
-            <span className="inline-flex items-center gap-2 text-[14px] font-mono tracking-[0.05em]" style={{ color: "var(--pf-text-dim)" }}>
+            <div
+              className="w-px h-5"
+              style={{ background: "var(--pf-border-strong)" }}
+            />
+            <span
+              className="inline-flex items-center gap-2 text-[14px] font-mono tracking-[0.05em]"
+              style={{ color: "var(--pf-text-dim)" }}
+            >
               <MapPinIcon /> Toronto · Singapore
             </span>
           </motion.div>

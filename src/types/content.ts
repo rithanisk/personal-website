@@ -38,6 +38,11 @@ export interface Project {
   stack: string[];
   bullets: string[];
   featured?: boolean;
+  description?: string;
+  images?: string[];
+  videoSrc?: string;
+  github?: string;
+  live?: string;
 }
 
 export interface PassionItem {

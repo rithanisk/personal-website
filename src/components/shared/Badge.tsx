@@ -8,7 +8,7 @@ export function Badge({
   className,
 }: {
   children: React.ReactNode;
-  variant?: "accent" | "forest" | "amber" | "lavender";
+  variant?: "accent" | "forest" | "amber" | "lavender" | "sky" | "teal";
   className?: string;
 }) {
   return (

@@ -33,6 +33,10 @@
   --pf-sky-soft: #dce6ef;
   --pf-sky-ink: #324d6b;
 
+  --pf-teal: #5d8a80;
+  --pf-teal-soft: #e2ebe9;
+  --pf-teal-ink: #3a5750;
+
   --pf-accent: var(--pf-rose);
   --pf-accent-hover: var(--pf-rose-hover);
   --pf-accent-soft: var(--pf-rose-soft);
@@ -80,6 +84,10 @@
   --pf-sky: #8ba5c2;
   --pf-sky-soft: #182028;
   --pf-sky-ink: #c0d2e2;
+
+  --pf-teal: #7ba69d;
+  --pf-teal-soft: #1a2422;
+  --pf-teal-ink: #b3cfc8;
 
   --pf-accent: var(--pf-rose);
   --pf-accent-hover: var(--pf-rose-hover);

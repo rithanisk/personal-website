@@ -19,17 +19,20 @@ export function ProjectCard({
   index = 0,
   palette,
   hover,
+  onClick,
 }: {
   project: Project;
   index?: number;
   palette?: Palette;
   hover?: boolean;
+  onClick?: () => void;
 }) {
   const p = palette || defaultPalettes[index % defaultPalettes.length];
 
   return (
     <motion.div
-      className="relative overflow-hidden transition-all duration-300"
+      className="relative overflow-hidden transition-all duration-300 cursor-pointer"
+      onClick={onClick}
       style={{
         background: "var(--pf-surface)",
         border: `1px solid ${hover ? "color-mix(in oklab, var(--pf-rose) 28%, var(--pf-border))" : "var(--pf-border)"}`,
