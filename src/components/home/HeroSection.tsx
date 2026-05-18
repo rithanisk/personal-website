@@ -11,13 +11,13 @@ import { ArrowRightIcon, MapPinIcon } from "@/components/shared/Icons";
 
 function Socials() {
   const socials = [
-    { icon: SiGmail, href: profile.socials[0].href, label: "Email" },
-    { icon: FaLinkedin, href: profile.socials[1].href, label: "LinkedIn" },
-    { icon: SiGithub, href: profile.socials[2].href, label: "GitHub" },
+    { icon: SiGmail, href: profile.socials[0].href, label: "Email", color: "#EA4335" },
+    { icon: FaLinkedin, href: profile.socials[1].href, label: "LinkedIn", color: "#0A66C2" },
+    { icon: SiGithub, href: profile.socials[2].href, label: "GitHub", color: "var(--pf-text)" },
   ];
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-5">
       {socials.map((s, i) => (
         <motion.a
           key={i}
@@ -25,13 +25,11 @@ function Socials() {
           target="_blank"
           rel="noopener noreferrer"
           aria-label={s.label}
-          className="w-[34px] h-[34px] rounded-lg border border-pf-border flex items-center justify-center"
-          style={{ background: "var(--pf-surface)" }}
-          whileHover={{ scale: 1.12, y: -2 }}
+          whileHover={{ scale: 1.15, y: -2 }}
           whileTap={{ scale: 0.95 }}
           transition={{ type: "spring", stiffness: 400, damping: 17 }}
         >
-          <s.icon size={16} color="var(--pf-text-muted)" />
+          <s.icon size={26} color={s.color} />
         </motion.a>
       ))}
     </div>
@@ -162,12 +160,21 @@ export function HeroSection() {
               className="w-px h-5"
               style={{ background: "var(--pf-border-strong)" }}
             />
-            <span
-              className="inline-flex items-center gap-2 text-[14px] font-mono tracking-[0.05em]"
-              style={{ color: "var(--pf-text-dim)" }}
+            <a
+              href="/resume.pdf"
+              download
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-colors duration-150"
+              style={{
+                background: "transparent",
+                border: "1.5px solid var(--pf-rose)",
+                color: "var(--pf-rose)",
+              }}
             >
-              <MapPinIcon /> Toronto · Singapore
-            </span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
+              </svg>
+              Resume
+            </a>
           </motion.div>
         </motion.div>
 

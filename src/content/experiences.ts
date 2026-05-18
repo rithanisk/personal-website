@@ -31,4 +31,17 @@ export const experiences: Experience[] = [
       "Decreased customer information retrieval time from **minutes to seconds** by scraping and embedding the company website into a vector database and deploying a user-facing RAG chatbot with hallucination guardrails.",
     ],
   },
+  {
+    id: "nus-ta",
+    title: "Teaching Assistant — IS1108",
+    company: "National University of Singapore",
+    location: "Singapore",
+    dates: "January 2024 – May 2024",
+    stack: ["Data Ethics", "Digital Privacy", "Critical Thinking"],
+    bullets: [
+      "Facilitated weekly tutorial sessions for 30+ students on data ethics, digital privacy, and responsible technology use.",
+      "Graded essays and case study analyses, providing detailed feedback on argumentation and ethical reasoning.",
+      "Mentored students on navigating real-world ethical dilemmas in data collection, surveillance, and algorithmic bias.",
+    ],
+  },
 ];

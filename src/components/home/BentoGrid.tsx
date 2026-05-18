@@ -400,12 +400,12 @@ const cards: CardProps[] = [
   },
   {
     type: "hobby",
-    title: "Cooking",
-    role: "Pesto Pasta",
+    title: "Dancing",
+    role: "Bharatanatyam",
     href: "/passions",
     images: [
       {
-        src: "/passions/cooking/cooking-8.png",
+        src: "/passions/dancing/dancing-11.png",
         alt: "Avocado toast with kiwi",
         mode: "cover",
       },
@@ -424,7 +424,8 @@ const cards: CardProps[] = [
   {
     type: "project",
     title: "Personal Website",
-    description: "My personal website built with Next.js and Tailwind CSS",
+    description:
+      "My personal website built with Next.js, Tailwind CSS, and Framer Motion",
     href: "/projects",
     images: [
       {
@@ -450,7 +451,10 @@ const cardVariants = {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] },
+    transition: {
+      duration: 0.5,
+      ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
+    },
   },
 };
 
