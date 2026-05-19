@@ -29,6 +29,18 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    id: "mudra",
+    name: "Bharatnatyam Mudra Recognition",
+    blurb: "Real-time hand gesture recognition for 28 single-hand Bharatnatyam mudras using Google MediaPipe and a custom-trained model, achieving 88.7% accuracy.",
+    description: "Developed a real-time Bharatnatyam mudra recognition system using Google MediaPipe to track 21 hand landmark points and trained a custom classification model on all 28 single-hand mudras. Built a Flask web application with a live camera frontend that captures hand motions and displays the recognized mudra in real time.",
+    stack: ["Python", "Google MediaPipe", "Flask", "JavaScript", "HTML/CSS"],
+    bullets: [
+      "Trained a custom classification model on 28 single-hand Bharatnatyam mudras using Google MediaPipe's 21-point hand landmark tracking, achieving 88.7% accuracy.",
+      "Built a Flask application with a live camera frontend that performs real-time hand gesture recognition, displaying the identified mudra as the user performs it.",
+    ],
+    images: [],
+  },
+  {
     id: "rag",
     name: "Retrieval-Augmented Generation for Domain-Specific QA",
     blurb: "Modular RAG framework for question answering over unstructured multi-format academic documents (PDF, DOCX, Markdown).",
