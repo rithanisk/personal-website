@@ -1,16 +1,33 @@
 "use client";
 
 import Image from "next/image";
+import { motion } from "framer-motion";
 import type { PassionItem } from "@/types/content";
 
-export function PassionTile({ item }: { item: PassionItem; tab?: string; tall?: boolean }) {
+interface PassionTileProps {
+  item: PassionItem;
+  index: number;
+  onClick: () => void;
+}
+
+export function PassionTile({ item, index, onClick }: PassionTileProps) {
   return (
-    <div
-      className="relative overflow-hidden rounded-xl"
+    <motion.div
+      className="relative overflow-hidden rounded-xl cursor-pointer"
       style={{
         aspectRatio: "1 / 1",
         background: "var(--pf-surface-2)",
       }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.4,
+        delay: index * 0.04,
+        ease: [0.2, 0.7, 0, 1],
+      }}
+      whileHover={{ scale: 1.03 }}
+      whileTap={{ scale: 0.97 }}
+      onClick={onClick}
     >
       {item.image && (
         <Image
@@ -31,6 +48,6 @@ export function PassionTile({ item }: { item: PassionItem; tab?: string; tall?: 
           {item.title}
         </span>
       </div>
-    </div>
+    </motion.div>
   );
 }

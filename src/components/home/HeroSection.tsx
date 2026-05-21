@@ -11,9 +11,24 @@ import { ArrowRightIcon, MapPinIcon } from "@/components/shared/Icons";
 
 function Socials() {
   const socials = [
-    { icon: SiGmail, href: profile.socials[0].href, label: "Email", color: "#EA4335" },
-    { icon: FaLinkedin, href: profile.socials[1].href, label: "LinkedIn", color: "#0A66C2" },
-    { icon: SiGithub, href: profile.socials[2].href, label: "GitHub", color: "var(--pf-text)" },
+    {
+      icon: SiGmail,
+      href: profile.socials[0].href,
+      label: "Email",
+      color: "#EA4335",
+    },
+    {
+      icon: FaLinkedin,
+      href: profile.socials[1].href,
+      label: "LinkedIn",
+      color: "#0A66C2",
+    },
+    {
+      icon: SiGithub,
+      href: profile.socials[2].href,
+      label: "GitHub",
+      color: "var(--pf-text)",
+    },
   ];
 
   return (
@@ -170,7 +185,16 @@ export function HeroSection() {
                 color: "var(--pf-rose)",
               }}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" />
               </svg>
               Resume

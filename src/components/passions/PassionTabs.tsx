@@ -1,14 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { passions } from "@/content/passions";
 import { PassionTile } from "./PassionTile";
+import { PassionModal } from "./PassionModal";
+import type { PassionItem } from "@/types/content";
 
 const categories = Object.keys(passions);
 
 export function PassionTabs() {
   const [active, setActive] = useState(categories[0]);
+  const [selectedItem, setSelectedItem] = useState<PassionItem | null>(null);
   const activeIdx = categories.indexOf(active);
+
+  const handleClose = useCallback(() => setSelectedItem(null), []);
 
   return (
     <div>
@@ -52,14 +58,32 @@ export function PassionTabs() {
       </div>
 
       {/* Tiles grid */}
-      <div className="mt-9 grid grid-cols-3 md:grid-cols-4 gap-3">
-        {passions[active].map((item, i) => (
-          <PassionTile
-            key={`${active}-${i}`}
-            item={item}
-          />
-        ))}
-      </div>
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={active}
+          className="mt-9 grid grid-cols-3 md:grid-cols-4 gap-3"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+        >
+          {passions[active].map((item, i) => (
+            <PassionTile
+              key={`${active}-${i}`}
+              item={item}
+              index={i}
+              onClick={() => setSelectedItem(item)}
+            />
+          ))}
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Modal */}
+      <PassionModal
+        item={selectedItem}
+        category={active}
+        onClose={handleClose}
+      />
     </div>
   );
 }

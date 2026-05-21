@@ -46,6 +46,12 @@ export default function RootLayout({
           <FloatingNav />
           <MobileTopBar />
           <div>{children}</div>
+          <footer
+            className="px-5 md:px-[72px] py-8 text-center font-mono text-[12px] tracking-[0.04em]"
+            style={{ color: "var(--pf-text-muted)", borderTop: "1px solid var(--pf-border)" }}
+          >
+            &copy; {new Date().getFullYear()} Rithani Saravanakumar
+          </footer>
         </ThemeProvider>
       </body>
     </html>
