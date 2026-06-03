@@ -176,7 +176,7 @@ export function HeroSection() {
               style={{ background: "var(--pf-border-strong)" }}
             />
             <a
-              href="/resume.pdf"
+              href="/rithani_ai_engineer_resume.pdf"
               download
               className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium transition-colors duration-150"
               style={{

@@ -106,18 +106,6 @@ export function ProjectModal({
             <div className="flex flex-col md:flex-row">
               {/* Left — Media */}
               <div className="md:w-[45%] p-6 flex flex-col gap-4">
-                {project.videoSrc && (
-                  <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-black/5">
-                    <video
-                      src={project.videoSrc}
-                      muted
-                      loop
-                      playsInline
-                      autoPlay
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                )}
                 {project.images?.map((src, i) => (
                   <div
                     key={i}
@@ -132,7 +120,7 @@ export function ProjectModal({
                     />
                   </div>
                 ))}
-                {!project.videoSrc && !project.images?.length && (
+                {!project.images?.length && (
                   <div
                     className="w-full aspect-video rounded-xl flex items-center justify-center"
                     style={{ background: "var(--pf-surface-2)", color: "var(--pf-text-dim)" }}
