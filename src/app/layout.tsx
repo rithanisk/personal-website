@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import { Source_Serif_4, Inter, JetBrains_Mono } from "next/font/google";
 import { ThemeProvider } from "@/lib/theme";
-import { FloatingNav } from "@/components/chrome/FloatingNav";
-import { MobileTopBar } from "@/components/chrome/MobileTopBar";
+import { Navbar } from "@/components/chrome/Navbar";
 import { GrainOverlay } from "@/components/shared/GrainOverlay";
 import "./globals.css";
 
@@ -43,8 +42,7 @@ export default function RootLayout({
       <body className="min-h-screen antialiased">
         <ThemeProvider>
           <GrainOverlay />
-          <FloatingNav />
-          <MobileTopBar />
+          <Navbar />
           <div>{children}</div>
           <footer
             className="px-5 md:px-[72px] py-8 text-center font-mono text-[12px] tracking-[0.04em]"

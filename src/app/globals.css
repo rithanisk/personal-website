@@ -2,15 +2,15 @@
 
 /* ── Light tokens (from design mockup pf-shared.jsx) ── */
 :root {
-  --pf-bg: #faf6f0;
-  --pf-bg-warm: #f5ede0;
+  --pf-bg: #ffffff;
+  --pf-bg-warm: #f9f9f9;
   --pf-surface: #ffffff;
-  --pf-surface-2: #f4f0ea;
+  --pf-surface-2: #f5f5f5;
   --pf-text: #1a1610;
   --pf-text-muted: #5a5248;
   --pf-text-dim: #8a8278;
-  --pf-border: #ebe5da;
-  --pf-border-strong: #d8d0c3;
+  --pf-border: #e8e8e8;
+  --pf-border-strong: #d4d4d4;
 
   --pf-rose: #AA6373;
   --pf-rose-hover: #994d5c;
@@ -175,6 +175,24 @@ body {
   height: 1px;
   background: currentColor;
   opacity: 0.6;
+}
+
+/* ── Hero bento grid ── */
+.hero-bento {
+  display: grid;
+  gap: 16px;
+}
+@media (min-width: 640px) {
+  .hero-bento {
+    grid-template-columns: 1.2fr 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 22px;
+    min-height: calc(100vh - 200px);
+    grid-template-areas:
+      "video name    name"
+      "video story   built"
+      "current current built";
+  }
 }
 
 /* ── Scrollbar ── */
