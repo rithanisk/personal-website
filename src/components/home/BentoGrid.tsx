@@ -15,6 +15,9 @@ type CardImage = {
     | "bottom-side-left"
     | "bottom-side-right"
     | "cover";
+  size?: "default" | "large";
+  offsetY?: string;
+  scale?: number;
 };
 
 type CardProps = {
@@ -212,18 +215,38 @@ function BentoCard({
               );
             }
             if (img.mode === "bottom-center") {
+              const isLarge = img.size === "large";
+              const scale = img.scale ?? (isLarge ? 1.22 : 1);
+              const offsetY = img.offsetY ?? (isLarge ? "14%" : "0");
+
               return (
                 <div
                   key={i}
-                  className="absolute bottom-0 left-1/2 -translate-x-1/2"
-                  style={{ height: "65%", width: "auto" }}
+                  className={
+                    isLarge
+                      ? "absolute inset-x-0 bottom-0"
+                      : "absolute bottom-0 left-1/2 -translate-x-1/2"
+                  }
+                  style={
+                    isLarge
+                      ? {
+                          height: "100%",
+                          transform: `translateY(${offsetY}) scale(${scale})`,
+                          transformOrigin: "bottom center",
+                        }
+                      : { height: "65%", width: "auto" }
+                  }
                 >
                   <Image
                     src={img.src}
                     alt={img.alt}
-                    width={400}
-                    height={800}
-                    className="h-full w-auto object-contain object-bottom"
+                    width={isLarge ? 1400 : 400}
+                    height={isLarge ? 900 : 800}
+                    className={
+                      isLarge
+                        ? "h-full w-full object-contain object-bottom"
+                        : "h-full w-auto object-contain object-bottom"
+                    }
                     style={{
                       filter: "drop-shadow(0 4px 20px rgba(0,0,0,0.12))",
                     }}
@@ -331,10 +354,20 @@ const cards: CardProps[] = [
   },
   {
     type: "project",
-    title: "Sepsis Mortality Prediction",
+    title: "Mudra Recognition",
     description:
-      "LSTM mortality prediction and early detection from MIMIC III time-series patient data.",
+      "Real-time Bharatanatyam mudra classification trained on custom dataset",
     href: "/projects",
+    images: [
+      {
+        src: "/bharatnatyam.png",
+        alt: "Mudra Recognition live hand gesture classification UI",
+        mode: "bottom-center",
+        size: "large",
+        scale: 1.32,
+        offsetY: "70%",
+      },
+    ],
   },
   {
     type: "hobby",
