@@ -462,9 +462,12 @@ const cards: CardProps[] = [
     href: "/projects",
     images: [
       {
-        src: "/LockIn.png",
-        alt: "Lock-In app preview",
+        src: "/website.png",
+        alt: "Personal website homepage preview",
         mode: "bottom-center",
+        size: "large",
+        scale: 1.40,
+        offsetY: "75%",
       },
     ],
   },
