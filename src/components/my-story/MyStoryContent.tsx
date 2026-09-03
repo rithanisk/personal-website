@@ -381,7 +381,7 @@ export function MyStoryContent() {
   return (
     <main>
       {/* Hero header */}
-      <section className="px-5 md:px-[72px] pt-[130px] pb-6">
+      <section className="px-5 md:px-[72px] pt-20 md:pt-24 pb-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -395,11 +395,10 @@ export function MyStoryContent() {
             className="font-serif font-light tracking-[-0.035em] leading-[0.95]"
             style={{ fontSize: "clamp(36px, 5vw, 64px)" }}
           >
-            From India to the US, to Singapore, to{" "}
+            A life across{" "}
             <span className="italic" style={{ color: "var(--pf-accent)" }}>
-              wherever&apos;s next
+              timezones
             </span>
-            .
           </h1>
           <p
             className="text-[17px] font-light mt-6 leading-relaxed tracking-tight max-w-[580px]"

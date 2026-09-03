@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "@/lib/theme";
@@ -17,10 +18,11 @@ export function Navbar() {
   const pathname = usePathname();
   const { theme, toggle } = useTheme();
   const dark = theme === "dark";
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
     <nav
-      className="sticky top-0 z-50 flex items-center justify-between px-5 sm:px-[72px] py-5"
+      className="sticky top-0 z-50 flex flex-wrap items-center justify-between px-5 sm:px-[72px] py-5"
       style={{
         background: dark ? "rgba(15,15,15,0.85)" : "rgba(255,255,255,0.85)",
         backdropFilter: "blur(12px) saturate(140%)",
@@ -60,7 +62,7 @@ export function Navbar() {
       </div>
 
       {/* Theme toggle */}
-      <div className="flex items-center">
+      <div className="flex items-center gap-1">
         <button
           onClick={toggle}
           aria-label="Toggle theme"
@@ -69,7 +71,67 @@ export function Navbar() {
         >
           {dark ? <MoonIcon size={16} /> : <SunIcon size={16} />}
         </button>
+        <button
+          type="button"
+          onClick={() => setMobileOpen((open) => !open)}
+          aria-expanded={mobileOpen}
+          aria-controls="mobile-navigation"
+          aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
+          className="sm:hidden flex items-center justify-center w-8 h-8 rounded-lg cursor-pointer"
+          style={{ color: "var(--pf-text-muted)" }}
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            aria-hidden="true"
+          >
+            {mobileOpen ? (
+              <>
+                <path d="M6 6l12 12" />
+                <path d="M18 6 6 18" />
+              </>
+            ) : (
+              <>
+                <path d="M4 7h16" />
+                <path d="M4 12h16" />
+                <path d="M4 17h16" />
+              </>
+            )}
+          </svg>
+        </button>
       </div>
+
+      {mobileOpen && (
+        <div
+          id="mobile-navigation"
+          className="sm:hidden basis-full flex flex-col gap-1 mt-4 pt-3"
+          style={{ borderTop: "1px solid var(--pf-border)" }}
+        >
+          {navItems.map((item) => {
+            const isActive = item.href === pathname;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileOpen(false)}
+                className="rounded-lg px-3 py-2.5 text-[14px]"
+                style={{
+                  color: isActive ? "var(--pf-rose-ink)" : "var(--pf-text-muted)",
+                  background: isActive ? "var(--pf-rose-soft)" : "transparent",
+                  fontWeight: isActive ? 550 : 400,
+                }}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </div>
+      )}
     </nav>
   );
 }

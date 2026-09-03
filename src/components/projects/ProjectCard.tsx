@@ -83,6 +83,12 @@ export function ProjectCard({
 
       {/* Body */}
       <div className="p-6">
+        <div
+          className="font-mono text-[10px] uppercase tracking-[0.16em] mb-2.5"
+          style={{ color: "var(--pf-text-dim)" }}
+        >
+          {project.category}
+        </div>
         <h3 className="font-serif font-normal text-[22px] tracking-[-0.02em] leading-[1.15] mb-2" style={{ color: "var(--pf-text)" }}>
           {project.name}
         </h3>

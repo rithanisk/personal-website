@@ -5,9 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { passions } from "@/content/passions";
 import { PassionTile } from "./PassionTile";
 import { PassionModal } from "./PassionModal";
+import { WritingSection } from "./WritingSection";
 import type { PassionItem } from "@/types/content";
 
-const categories = Object.keys(passions);
+const passionCategories = Object.keys(passions);
+const categories = [...passionCategories, "Writing"];
 
 export function PassionTabs() {
   const [active, setActive] = useState(categories[0]);
@@ -15,12 +17,17 @@ export function PassionTabs() {
   const activeIdx = categories.indexOf(active);
 
   const handleClose = useCallback(() => setSelectedItem(null), []);
+  const handleCategoryChange = (category: string) => {
+    setSelectedItem(null);
+    setActive(category);
+  };
 
   return (
     <div>
       {/* Tab switcher */}
+      <div className="max-w-full overflow-x-auto pb-2">
       <div
-        className="inline-flex relative p-1 rounded-full"
+        className="inline-flex relative p-1 rounded-full min-w-max"
         style={{
           background: "var(--pf-surface-2)",
           border: "1px solid var(--pf-border)",
@@ -42,11 +49,11 @@ export function PassionTabs() {
         {categories.map((cat, i) => (
           <button
             key={cat}
-            onClick={() => setActive(cat)}
+            onClick={() => handleCategoryChange(cat)}
             className="relative z-[1] cursor-pointer bg-transparent border-none text-center"
             style={{
-              padding: "9px 28px",
-              minWidth: 140,
+              padding: "9px 22px",
+              minWidth: 118,
               fontSize: 13.5,
               fontWeight: i === activeIdx ? 500 : 450,
               color: i === activeIdx ? "var(--pf-accent-ink)" : "var(--pf-text-muted)",
@@ -56,25 +63,34 @@ export function PassionTabs() {
           </button>
         ))}
       </div>
+      </div>
 
       {/* Tiles grid */}
       <AnimatePresence mode="wait">
         <motion.div
           key={active}
-          className="mt-9 grid grid-cols-3 md:grid-cols-4 gap-3"
+          className={
+            active === "Writing"
+              ? "mt-9"
+              : "mt-9 grid grid-cols-3 md:grid-cols-4 gap-3"
+          }
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
         >
-          {passions[active].map((item, i) => (
-            <PassionTile
-              key={`${active}-${i}`}
-              item={item}
-              index={i}
-              onClick={() => setSelectedItem(item)}
-            />
-          ))}
+          {active === "Writing" ? (
+            <WritingSection />
+          ) : (
+            passions[active].map((item, i) => (
+              <PassionTile
+                key={`${active}-${i}`}
+                item={item}
+                index={i}
+                onClick={() => setSelectedItem(item)}
+              />
+            ))
+          )}
         </motion.div>
       </AnimatePresence>
 

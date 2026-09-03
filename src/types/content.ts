@@ -27,13 +27,39 @@ export interface Experience {
   location: string;
   dates: string;
   current?: boolean;
+  overview?: string;
   stack: string[];
   bullets: string[];
+  reflection?: string[];
+  photos?: ExperiencePhoto[];
+  cardPhotos?: ExperiencePhoto[];
+  artifacts?: ExperienceArtifact[];
+}
+
+export interface ExperiencePhoto {
+  src: string;
+  alt: string;
+  caption?: string;
+  objectPosition?: string;
+}
+
+export interface ExperienceArtifact {
+  title: string;
+  href: string;
+  type: "report" | "presentation" | "demo" | "other";
+  description?: string;
+  preview?: {
+    basePath: string;
+    pageCount: number;
+    filePrefix: "slide" | "page";
+    aspect: "landscape" | "portrait";
+  };
 }
 
 export interface Project {
   id: string;
   name: string;
+  category: "Product/SWE" | "Artificial Intelligence" | "Machine Learning";
   blurb: string;
   stack: string[];
   bullets: string[];
@@ -53,4 +79,12 @@ export interface PassionItem {
 
 export interface Passions {
   [category: string]: PassionItem[];
+}
+
+export interface WritingEntry {
+  slug: string;
+  title: string;
+  date: string;
+  excerpt?: string;
+  body: string[];
 }
