@@ -21,15 +21,15 @@ function renderBullet(text: string) {
 const companyInfo: Record<string, { description: string; images: string[] }> = {
   nia: {
     description: "NiaHealth is a digital health startup building AI-powered tools for chronic disease management and clinician workflows.",
-    images: ["/NiaHealth.png", "/NiaHealth2.png", "/toronto.png"],
+    images: ["/media-v1/NiaHealth.webp", "/media-v1/NiaHealth2.webp", "/media-v1/toronto.webp"],
   },
   buymed: {
     description: "Buymed is Vietnam's leading B2B pharmaceutical e-commerce platform, connecting pharmacies with drug manufacturers across Southeast Asia.",
-    images: ["/Buymed.png", "/Buymed2.png", "/vietnam.png"],
+    images: ["/media-v1/Buymed.webp", "/media-v1/Buymed2.webp", "/media-v1/vietnam.webp"],
   },
   "nus-ta": {
     description: "The National University of Singapore is Asia's top-ranked university. IS1108 explores ethical challenges in data collection, privacy, and algorithmic decision-making.",
-    images: ["/singapore1.png", "/passions/photography/photography-1.png", "/passions/photography/photography-2.png"],
+    images: ["/media-v1/singapore1.webp", "/media-v1/passions/photography/photography-1.webp", "/media-v1/passions/photography/photography-2.webp"],
   },
 };
 

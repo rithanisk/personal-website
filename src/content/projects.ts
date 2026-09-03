@@ -11,7 +11,7 @@ export const projects: Project[] = [
       "Analyzed over 40,000 rows of patient data from MIMIC III and identified a positive correlation between time to antibiotic after hospital admission and length of stay.",
       "Implemented a mortality prediction model by training an LSTM for early detection and prediction of sepsis based on time-series data of antibiotic administration.",
     ],
-    images: ["/images/projects/sepsis-1.png"],
+    images: ["/media-v1/images/projects/sepsis-1.webp"],
     videoSrc: "/NHouse Application Video.mp4",
     featured: true,
   },
@@ -24,7 +24,7 @@ export const projects: Project[] = [
     bullets: [
       "Used Random Forests, Logistic Regression, XGBoost, and SVM to classify data as high vs low quality 3D-printed tissues, achieving 85% AUC-ROC.",
     ],
-    images: ["/images/projects/bioinks-1.png"],
+    images: ["/media-v1/images/projects/bioinks-1.webp"],
     videoSrc: "/PGPR Cluster Leader Application Video.mp4",
     featured: true,
   },
@@ -50,7 +50,7 @@ export const projects: Project[] = [
       "Designed and implemented sentence-aware chunking and configurable overlap strategies; generated dense embeddings with LlamaIndex + HuggingFace and indexed in Dockerized Weaviate for Top-K semantic retrieval.",
       "Integrated a local LLM (Mistral via Ollama) for grounded response synthesis and analyzed retrieval relevance and source attribution.",
     ],
-    images: ["/images/projects/rag-1.png"],
+    images: ["/media-v1/images/projects/rag-1.webp"],
   },
   {
     id: "dropout",
@@ -62,7 +62,7 @@ export const projects: Project[] = [
       "Processed 382 student records across 67 engineered features; merged datasets, created interaction variables, and applied standardization for improved interpretability.",
       "Built and trained a LightGBM binary classifier achieving 80% AUC-ROC with early stopping and hyperparameter optimization; tracked experiments with MLflow.",
     ],
-    images: ["/images/projects/dropout-1.png"],
+    images: ["/media-v1/images/projects/dropout-1.webp"],
   },
   {
     id: "aws-rek",
@@ -74,6 +74,6 @@ export const projects: Project[] = [
       "Created an AWS IAM role and configured policy permissions for S3 and Rekognition.",
       "Leveraged Amazon Rekognition alongside S3 for efficient storage and labelling of image datasets.",
     ],
-    images: ["/images/projects/aws-rek-1.png"],
+    images: ["/media-v1/images/projects/aws-rek-1.webp"],
   },
 ];

@@ -341,12 +341,12 @@ const cards: CardProps[] = [
     wide: true,
     images: [
       {
-        src: "/NiaHealth.png",
+        src: "/media-v1/NiaHealth.webp",
         alt: "Nia Health app dashboard",
         mode: "bottom-half",
       },
       {
-        src: "/NiaHealth2.png",
+        src: "/media-v1/NiaHealth2.webp",
         alt: "Nia Health kidney function chart",
         mode: "bottom-full",
       },
@@ -360,7 +360,7 @@ const cards: CardProps[] = [
     href: "/projects",
     images: [
       {
-        src: "/bharatnatyam.png",
+        src: "/media-v1/bharatnatyam.webp",
         alt: "Mudra Recognition live hand gesture classification UI",
         mode: "bottom-center",
         size: "large",
@@ -376,7 +376,7 @@ const cards: CardProps[] = [
     href: "/passions",
     images: [
       {
-        src: "/passions/photography/photography-1.png",
+        src: "/media-v1/passions/photography/photography-1.webp",
         alt: "NUS sunset",
         mode: "cover",
       },
@@ -393,12 +393,12 @@ const cards: CardProps[] = [
     wide: true,
     images: [
       {
-        src: "/Buymed.png",
+        src: "/media-v1/Buymed.webp",
         alt: "Buymed delivery",
         mode: "bottom-side-left",
       },
       {
-        src: "/Buymed2.png",
+        src: "/media-v1/Buymed2.webp",
         alt: "Buymed platform",
         mode: "bottom-side-right",
       },
@@ -411,7 +411,7 @@ const cards: CardProps[] = [
     href: "/passions",
     images: [
       {
-        src: "/passions/cooking/cooking-1.png",
+        src: "/media-v1/passions/cooking/cooking-1.webp",
         alt: "Avocado toast with kiwi",
         mode: "cover",
       },
@@ -425,7 +425,7 @@ const cards: CardProps[] = [
     href: "/projects",
     images: [
       {
-        src: "/LockIn.png",
+        src: "/media-v1/LockIn.webp",
         alt: "Lock-In app preview",
         mode: "bottom-center",
       },
@@ -438,7 +438,7 @@ const cards: CardProps[] = [
     href: "/passions",
     images: [
       {
-        src: "/passions/dancing/dancing-11.png",
+        src: "/media-v1/passions/dancing/dancing-11.webp",
         alt: "Avocado toast with kiwi",
         mode: "cover",
       },
@@ -462,7 +462,7 @@ const cards: CardProps[] = [
     href: "/projects",
     images: [
       {
-        src: "/website.png",
+        src: "/media-v1/website.webp",
         alt: "Personal website homepage preview",
         mode: "bottom-center",
         size: "large",
