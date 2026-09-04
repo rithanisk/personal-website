@@ -491,7 +491,7 @@ export default function ExperiencePage() {
         </p>
       </motion.div>
 
-      <div className="relative max-w-[1180px] mt-14 md:mt-16">
+      <div className="relative w-full mt-14 md:mt-16">
         <div
           className="absolute left-[7px] md:left-[11px] top-7 bottom-8 w-px"
           style={{ background: "color-mix(in oklab, var(--pf-rose) 38%, var(--pf-border))" }}
