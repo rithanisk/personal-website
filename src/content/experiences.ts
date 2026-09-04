@@ -152,6 +152,18 @@ export const experiences: Experience[] = [
           aspect: "landscape",
         },
       },
+      {
+        title: "ETP3205 Internship Report",
+        href: "/reports/buymed/etp3205-report.pdf",
+        type: "report",
+        description: "Internship report reflecting on the Buymed experience and NOC Vietnam.",
+        preview: {
+          basePath: "/previews/buymed/etp3205-report",
+          pageCount: 11,
+          filePrefix: "page",
+          aspect: "portrait",
+        },
+      },
     ],
   },
 ];

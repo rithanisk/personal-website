@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 
 const photos = [
@@ -9,7 +10,7 @@ const photos = [
   { src: "/media-v1/collage/india.webp", alt: "India", width: 180, height: 235, rotate: 4, top: "-2%", left: "16%", mobileHidden: true },
   { src: "/media-v1/collage/toronto2.webp", alt: "Toronto skyline", width: 190, height: 245, rotate: -3, top: "-8%", left: "36%", mobileHidden: true },
   { src: "/media-v1/collage/toronto3.webp", alt: "Toronto winter", width: 175, height: 225, rotate: 5, top: "-4%", right: "28%", mobileHidden: true },
-  { src: "/media-v1/collage/singapore1.webp", alt: "Singapore", width: 185, height: 240, rotate: -5, top: "-6%", right: "12%", mobileHidden: false },
+  { src: "/media-v1/collage/singapore1.webp", alt: "Singapore", width: 185, height: 240, displayHeight: 190, rotate: -5, top: "-6%", right: "12%", mobileHidden: false },
   { src: "/media-v1/collage/vietnam3.webp", alt: "Vietnam coast", width: 170, height: 220, rotate: 7, top: "-2%", right: "0%", mobileHidden: true },
 
   // Left side — overlapping vertically along heading
@@ -85,6 +86,7 @@ export function PhotoCollageHero() {
                 width={photo.width}
                 height={photo.height}
                 className="object-cover w-full h-auto"
+                style={{ height: "displayHeight" in photo ? photo.displayHeight : undefined }}
                 sizes="200px"
                 fetchPriority={i < 2 ? "high" : "auto"}
               />
@@ -94,18 +96,28 @@ export function PhotoCollageHero() {
 
         {/* Heading — centered within photo wreath */}
         <motion.div
-          className="absolute inset-0 z-[2] flex flex-col items-center justify-center text-center -mt-16 sm:-mt-24"
+          className="absolute inset-0 z-[2] flex flex-col items-center justify-center text-center -mt-20 sm:-mt-28"
           variants={item}
         >
-          <h1
-            className="font-serif font-light tracking-[-0.03em] leading-[1.08]"
-            style={{ fontSize: "clamp(32px, 4.5vw, 60px)" }}
-          >
-            Hi! I&apos;m{" "}
-            <span style={{ color: "var(--pf-rose)" }}>Rithani</span>
+          <h1 className="relative w-full max-w-[680px]">
+            <Image
+              src="/media-v1/handwritten-intro-transparent.png"
+              alt="Hi! I'm Rithani"
+              width={2172}
+              height={724}
+              className="h-[clamp(70px,12vw,124px)] w-full object-cover"
+              sizes="(max-width: 768px) 90vw, 680px"
+              priority
+            />
+            <Link
+              href="/about"
+              aria-label="Learn more about Rithani"
+              className="absolute bottom-[8%] left-[45%] right-[3%] top-[8%] cursor-pointer rounded-lg outline-none ring-offset-4 focus-visible:ring-2"
+              style={{ '--tw-ring-color': "var(--pf-rose)", '--tw-ring-offset-color': "var(--pf-bg)" } as React.CSSProperties}
+            />
           </h1>
           <div
-            className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-5"
+            className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-2"
             style={{ fontSize: "clamp(14px, 1.6vw, 18px)" }}
           >
             <span className="text-[0.9em]" style={{ color: "var(--pf-text-muted)" }}>I am a</span>
