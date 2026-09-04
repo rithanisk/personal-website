@@ -24,7 +24,7 @@ export function PassionsHero() {
         transition={{ duration: 0.5, delay: 0.08, ease: [0.2, 0.7, 0, 1] }}
       >
         Things I love{" "}
-        <span className="italic" style={{ color: "var(--pf-accent)" }}>outside</span>{" "}
+        <span style={{ color: "var(--pf-accent)" }}>outside</span>{" "}
         the IDE.
       </motion.h1>
       <motion.p

@@ -141,7 +141,7 @@ export function ExperienceSnapshots() {
           <div className="pf-eyebrow mb-2.5">Snapshots</div>
           <h2 className="font-serif font-light text-[clamp(26px,3.5vw,40px)] tracking-[-0.025em] leading-[1.05]">
             Where I&apos;ve{" "}
-            <span className="italic" style={{ color: "var(--pf-forest-ink)" }}>built</span> things.
+            <span style={{ color: "var(--pf-forest-ink)" }}>built</span> things.
           </h2>
         </div>
         <Link href="/experience" className="text-[13px] inline-flex items-center gap-1.5" style={{ color: "var(--pf-text-muted)" }}>

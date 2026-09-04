@@ -484,7 +484,7 @@ export default function ExperiencePage() {
         <div className="pf-eyebrow mb-5">Experience</div>
         <h1 className="font-serif font-light text-[clamp(36px,5vw,64px)] tracking-[-0.035em] leading-[0.95]">
           Where I&apos;ve{" "}
-          <span className="italic" style={{ color: "var(--pf-accent)" }}>clocked in</span>
+          <span style={{ color: "var(--pf-accent)" }}>clocked in</span>
         </h1>
         <p className="font-serif text-xl leading-[1.45] font-light mt-6 max-w-[620px]" style={{ color: "var(--pf-text-muted)" }}>
           Research, product work, and engineering across healthcare, education, and fast-moving teams.

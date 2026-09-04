@@ -15,7 +15,7 @@ export function ProjectsGrid() {
           <div className="pf-eyebrow mb-2.5">Featured work</div>
           <h2 className="font-serif font-light text-[clamp(26px,3.5vw,40px)] tracking-[-0.025em] leading-[1.05]">
             Selected{" "}
-            <span className="italic" style={{ color: "var(--pf-amber-ink)" }}>projects</span>.
+            <span style={{ color: "var(--pf-amber-ink)" }}>projects</span>.
           </h2>
         </div>
         <Link href="/projects" className="text-[13px] inline-flex items-center gap-1.5" style={{ color: "var(--pf-text-muted)" }}>

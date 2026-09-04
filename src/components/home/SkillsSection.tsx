@@ -192,7 +192,7 @@ export function SkillsSection() {
         <div className="pf-eyebrow mb-2.5">Skills</div>
         <h2 className="font-serif font-light text-[clamp(26px,3.5vw,40px)] tracking-[-0.025em] leading-[1.05]">
           What I{" "}
-          <span className="italic" style={{ color: "var(--pf-lavender-ink)" }}>
+          <span style={{ color: "var(--pf-lavender-ink)" }}>
             work with
           </span>
           .

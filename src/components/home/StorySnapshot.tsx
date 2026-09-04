@@ -35,7 +35,7 @@ export function StorySnapshot() {
           <div className="pf-eyebrow mb-2.5">About</div>
           <h2 className="font-serif font-light text-[clamp(26px,3.5vw,40px)] tracking-[-0.025em] leading-[1.05]">
             My{" "}
-            <span className="italic" style={{ color: "var(--pf-rose-ink)" }}>
+            <span style={{ color: "var(--pf-rose-ink)" }}>
               story
             </span>
             .

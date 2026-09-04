@@ -26,7 +26,7 @@ export default function ProjectsPage() {
         style={{ fontSize: "clamp(36px, 5vw, 64px)" }}
       >
         Side quests when I&apos;m{" "}
-        <span className="italic" style={{ color: "var(--pf-amber-ink)" }}>
+        <span style={{ color: "var(--pf-amber-ink)" }}>
           bored
         </span>
       </h1>

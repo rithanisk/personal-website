@@ -112,9 +112,14 @@ export function PhotoCollageHero() {
             <Link
               href="/about"
               aria-label="Learn more about Rithani"
-              className="absolute bottom-[8%] left-[45%] right-[3%] top-[8%] cursor-pointer rounded-lg outline-none ring-offset-4 focus-visible:ring-2"
+              className="group/name absolute bottom-[8%] left-[45%] right-[3%] top-[8%] cursor-pointer rounded-xl outline-none ring-offset-4 transition-transform duration-300 ease-out hover:-translate-y-1 focus-visible:ring-2"
               style={{ '--tw-ring-color': "var(--pf-rose)", '--tw-ring-offset-color': "var(--pf-bg)" } as React.CSSProperties}
-            />
+            >
+              <span
+                aria-hidden="true"
+                className="absolute bottom-[8%] left-[7%] right-[10%] h-[2px] origin-left scale-x-0 rounded-full bg-[color:var(--pf-rose)] opacity-70 transition-transform duration-300 group-hover/name:scale-x-100"
+              />
+            </Link>
           </h1>
           <div
             className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-2"

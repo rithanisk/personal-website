@@ -334,7 +334,7 @@ const cards: CardProps[] = [
     type: "experience",
     title: "Nia Health",
     role: "Software / AI Engineer",
-    date: "Aug 2025 — Present",
+    date: "Aug 2025 — Jul 2026",
     description:
       "Building async GPT parsing pipelines and a CGM data system in FastAPI + React. Cut report parsing latency by 70% and shipped end-to-end glucose review tooling deployed on Azure.",
     href: "/experience",
@@ -508,7 +508,7 @@ export function BentoGrid() {
           <div className="pf-eyebrow mb-2.5">Highlights</div>
           <h2 className="font-serif font-light text-[clamp(26px,3.5vw,40px)] tracking-[-0.025em] leading-[1.05]">
             What I&apos;ve been{" "}
-            <span className="italic" style={{ color: "var(--pf-forest-ink)" }}>
+            <span style={{ color: "var(--pf-forest-ink)" }}>
               doing
             </span>
             .
