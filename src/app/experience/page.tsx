@@ -270,13 +270,51 @@ function ArtifactCard({ artifact, onPreview }: { artifact: ExperienceArtifact; o
   );
 }
 
+function ExperienceGallery({ experience }: { experience: Experience }) {
+  const photos = experience.photos ?? [];
+
+  if (!photos.length) return null;
+
+  return (
+    <section className="lg:col-span-2">
+      <div className="pf-eyebrow mb-4">Moments</div>
+      <div className="columns-1 gap-4 sm:columns-2 xl:columns-3">
+        {photos.map((photo) => (
+          <figure
+            key={photo.src}
+            className="group mb-4 break-inside-avoid overflow-hidden rounded-xl"
+            style={{ background: "var(--pf-surface)", border: "1px solid var(--pf-border)" }}
+          >
+            <Image
+              src={photo.src}
+              alt={photo.alt}
+              width={photo.width ?? 1200}
+              height={photo.height ?? 900}
+              className="h-auto w-full transition-transform duration-700 group-hover:scale-[1.015]"
+              sizes="(max-width: 640px) 100vw, (max-width: 1280px) 50vw, 33vw"
+            />
+            {photo.caption && (
+              <figcaption
+                className="px-3.5 py-3 font-mono text-[10px] tracking-[0.04em]"
+                style={{ color: "var(--pf-text-muted)" }}
+              >
+                {photo.caption}
+              </figcaption>
+            )}
+          </figure>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function ExperienceEntry({ experience, index }: { experience: Experience; index: number }) {
   const [expanded, setExpanded] = useState(false);
   const [selectedArtifact, setSelectedArtifact] = useState<ExperienceArtifact | null>(null);
   const photos = experience.photos ?? [];
   const cardPhotos = experience.cardPhotos ?? photos.slice(0, 1);
   const hasDetails = Boolean(
-    experience.reflection?.length || experience.artifacts?.length,
+    photos.length || experience.reflection?.length || experience.artifacts?.length,
   );
   const detailId = `${experience.id}-details`;
 
@@ -457,6 +495,7 @@ function ExperienceEntry({ experience, index }: { experience: Experience; index:
                       </section>
                     ) : null}
 
+                    <ExperienceGallery experience={experience} />
                   </div>
                 </motion.div>
               )}

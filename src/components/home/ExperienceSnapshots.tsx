@@ -166,7 +166,7 @@ export function ExperienceSnapshots() {
         <ExperienceSnapshot
           tone="forest"
           reverse
-          dates="AUG 2024 — APR 2025 · SINGAPORE"
+          dates="AUG 2024 — PRESENT · SINGAPORE"
           company="National University of Singapore"
           role="Teaching Assistant — Digital Ethics & Data Privacy"
           summary="Led tutorials on responsible AI, data privacy law, and digital ethics for IS1108. Marked projects, ran discussions, and helped students think critically about AI policy."

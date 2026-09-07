@@ -448,7 +448,7 @@ const cards: CardProps[] = [
     type: "experience",
     title: "NUS",
     role: "Teaching Assistant",
-    date: "Aug 2024 — Apr 2025",
+    date: "Aug 2024 — Present",
     description:
       "Led tutorials on responsible AI, data privacy law, and digital ethics for IS1108.",
     href: "/experience",

@@ -41,6 +41,8 @@ export interface ExperiencePhoto {
   alt: string;
   caption?: string;
   objectPosition?: string;
+  width?: number;
+  height?: number;
 }
 
 export interface ExperienceArtifact {
