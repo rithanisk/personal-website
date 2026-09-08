@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Source_Serif_4, Inter, JetBrains_Mono } from "next/font/google";
+import { Source_Serif_4, Inter } from "next/font/google";
 import { ThemeProvider } from "@/lib/theme";
 import { Navbar } from "@/components/chrome/Navbar";
 import { GrainOverlay } from "@/components/shared/GrainOverlay";
@@ -17,12 +17,6 @@ const inter = Inter({
   display: "swap",
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin"],
-  display: "swap",
-});
-
 export const metadata: Metadata = {
   title: "Rithani Saravanakumar",
   description: "CS student building backends, AI tools, and things in between.",
@@ -36,7 +30,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sourceSerif.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${sourceSerif.variable} ${inter.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-screen antialiased">

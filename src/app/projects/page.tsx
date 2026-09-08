@@ -6,13 +6,13 @@ import { ProjectModal } from "@/components/projects/ProjectModal";
 import { projects } from "@/content/projects";
 import type { Project } from "@/types/content";
 
-const categories: Array<{
-  name: Project["category"];
-  color: string;
-}> = [
-  { name: "Product/SWE", color: "var(--pf-rose)" },
-  { name: "Artificial Intelligence", color: "var(--pf-forest-ink)" },
-  { name: "Machine Learning", color: "var(--pf-amber-ink)" },
+const projectLayouts = [
+  "md:col-span-7",
+  "md:col-span-5",
+  "md:col-span-5",
+  "md:col-span-7",
+  "md:col-span-7",
+  "md:col-span-5",
 ];
 
 export default function ProjectsPage() {
@@ -36,47 +36,25 @@ export default function ProjectsPage() {
       >
         Side projects and research across ML, NLP, and cloud engineering.
       </p>
-      <div className="flex flex-col gap-14 mt-12">
-        {categories.map((category) => {
-          const categoryProjects = projects.filter(
-            (project) => project.category === category.name,
-          );
+      <div className="mt-10 flex items-center justify-between border-y border-pf-border py-4">
+        <span className="text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--pf-text-dim)" }}>
+          Selected builds
+        </span>
+        <span className="text-[12px]" style={{ color: "var(--pf-text-muted)" }}>
+          {projects.length} projects · 3 disciplines
+        </span>
+      </div>
 
-          return (
-            <section key={category.name}>
-              <div className="flex items-center gap-3 mb-5">
-                <span
-                  className="w-2.5 h-2.5 rounded-full"
-                  style={{ background: category.color }}
-                />
-                <h2 className="font-serif text-[26px] font-light tracking-[-0.02em]">
-                  {category.name}
-                </h2>
-                <span
-                  className="font-mono text-[11px]"
-                  style={{ color: "var(--pf-text-dim)" }}
-                >
-                  {categoryProjects.length.toString().padStart(2, "0")}
-                </span>
-                <div
-                  className="h-px flex-1 ml-2"
-                  style={{ background: "var(--pf-border)" }}
-                />
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-5">
-                {categoryProjects.map((project) => (
-                  <ProjectCard
-                    key={project.id}
-                    project={project}
-                    index={projects.indexOf(project)}
-                    onClick={() => setSelectedProject(project)}
-                  />
-                ))}
-              </div>
-            </section>
-          );
-        })}
+      <div className="mt-6 grid gap-5 md:grid-cols-12">
+        {projects.map((project, index) => (
+          <div key={project.id} className={projectLayouts[index]}>
+            <ProjectCard
+              project={project}
+              index={index}
+              onClick={() => setSelectedProject(project)}
+            />
+          </div>
+        ))}
       </div>
 
       <ProjectModal

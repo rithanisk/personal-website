@@ -14,6 +14,7 @@ type CardImage = {
     | "bottom-center"
     | "bottom-side-left"
     | "bottom-side-right"
+    | "group-strip"
     | "cover";
   size?: "default" | "large";
   offsetY?: string;
@@ -83,19 +84,19 @@ function CardTitle({
 
   if (type === "hobby" && role) {
     return (
-      <div className="flex flex-wrap items-baseline gap-x-1.5">
+      <div className="flex flex-wrap items-baseline gap-x-2">
         <span
-          className="font-sans font-medium text-[11px] leading-tight"
+          className="font-serif text-lg md:text-xl tracking-[-0.02em] leading-tight"
           style={{ color: "#fff" }}
         >
           {title}
         </span>
-        <span className="text-[11px]" style={{ color: dimColor }}>
-          |
+        <span className="text-sm" style={{ color: dimColor }}>
+          ·
         </span>
         <span
-          className="font-sans font-medium text-[11px] leading-tight"
-          style={{ color: "#fff" }}
+          className="font-sans font-medium text-xs md:text-sm leading-tight"
+          style={{ color: mutedColor }}
         >
           {role}
         </span>
@@ -122,19 +123,23 @@ function BentoCard({
   href,
   wide,
   images,
-}: CardProps) {
+  index,
+}: CardProps & { index: number }) {
   const hasCover = images?.some((img) => img.mode === "cover");
+  const typeColor = type === "experience" ? "var(--pf-rose)" : "var(--pf-forest-ink)";
 
   const content = (
     <motion.div
-      className="group relative overflow-hidden rounded-xl"
+      className={`group relative h-full overflow-hidden rounded-[18px] ${
+        wide ? "aspect-[16/10] sm:aspect-[2/1] md:aspect-auto" : "aspect-square md:aspect-auto"
+      }`}
       style={{
-        aspectRatio: wide ? "2 / 1" : "1 / 1",
-        background: "var(--pf-surface-2)",
+        background: "var(--pf-bg)",
         border: "1px solid var(--pf-border)",
+        boxShadow: "var(--pf-shadow)",
       }}
-      whileHover={{ scale: 1.02, y: -4 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      whileHover={{ y: -5, boxShadow: "var(--pf-shadow-lg)" }}
+      transition={{ type: "spring", stiffness: 280, damping: 24 }}
     >
       {/* Gradient overlay for readability on cover images */}
       {hasCover && (
@@ -142,13 +147,31 @@ function BentoCard({
           className="absolute inset-0 z-[1]"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, transparent 50%)",
+              "linear-gradient(to bottom, rgba(0,0,0,0.58) 0%, rgba(0,0,0,0.08) 58%, rgba(0,0,0,0.2) 100%)",
           }}
         />
       )}
 
       {/* Top-left title */}
-      <div className="absolute top-3.5 left-3.5 right-3.5 z-[2]">
+      <div className="absolute top-4 left-4 right-4 z-[2] md:top-5 md:left-5 md:right-5">
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <span
+            className="inline-flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.18em]"
+            style={{ color: hasCover ? "rgba(255,255,255,0.72)" : typeColor }}
+          >
+            <span
+              className="h-1.5 w-1.5 rounded-full"
+              style={{ background: hasCover ? "rgba(255,255,255,0.8)" : typeColor }}
+            />
+            {type}
+          </span>
+          <span
+            className="font-mono text-[9px] tracking-[0.14em]"
+            style={{ color: hasCover ? "rgba(255,255,255,0.58)" : "var(--pf-text-dim)" }}
+          >
+            {String(index + 1).padStart(2, "0")}
+          </span>
+        </div>
         <CardTitle
           type={type}
           title={title}
@@ -158,7 +181,9 @@ function BentoCard({
         />
         {description && (
           <p
-            className="text-[13px] mt-2 leading-relaxed tracking-tight line-clamp-2"
+            className={`mt-2 text-[13px] leading-relaxed tracking-tight line-clamp-2 ${
+              wide ? "hidden sm:block" : ""
+            }`}
             style={{
               color: hasCover
                 ? "rgba(255,255,255,0.75)"
@@ -294,6 +319,25 @@ function BentoCard({
                 </div>
               );
             }
+            if (img.mode === "group-strip") {
+              return (
+                <div
+                  key={i}
+                  className="absolute inset-x-0 bottom-0 h-[56%] sm:h-[58%] md:h-[60%]"
+                >
+                  <Image
+                    src={img.src}
+                    alt={img.alt}
+                    fill
+                    sizes="(min-width: 1280px) 58vw, (min-width: 768px) 50vw, 100vw"
+                    className="object-contain object-bottom"
+                    style={{
+                      filter: "drop-shadow(0 5px 14px rgba(0,0,0,0.14))",
+                    }}
+                  />
+                </div>
+              );
+            }
             if (img.mode === "cover") {
               return (
                 <Image
@@ -313,8 +357,13 @@ function BentoCard({
       {/* Arrow on hover */}
       {href && (
         <div
-          className="absolute bottom-3 right-3 z-[2] opacity-0 group-hover:opacity-70 transition-opacity duration-200"
-          style={{ color: "var(--pf-text-dim)" }}
+          className="absolute bottom-3.5 right-3.5 z-[2] grid h-8 w-8 translate-y-1 place-items-center rounded-full opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100"
+          style={{
+            color: hasCover ? "#fff" : "var(--pf-text)",
+            background: hasCover ? "rgba(0,0,0,0.45)" : "var(--pf-surface)",
+            border: hasCover ? "1px solid rgba(255,255,255,0.22)" : "1px solid var(--pf-border)",
+            backdropFilter: "blur(10px)",
+          }}
         >
           <ArrowRightIcon />
         </div>
@@ -323,7 +372,7 @@ function BentoCard({
   );
 
   if (href) {
-    return <Link href={href}>{content}</Link>;
+    return <Link href={href} className="block h-full">{content}</Link>;
   }
 
   return content;
@@ -370,19 +419,6 @@ const cards: CardProps[] = [
     ],
   },
   {
-    type: "hobby",
-    title: "Photography",
-    role: "NUS Campus",
-    href: "/passions",
-    images: [
-      {
-        src: "/media-v1/passions/photography/photography-1.webp",
-        alt: "NUS sunset",
-        mode: "cover",
-      },
-    ],
-  },
-  {
     type: "experience",
     title: "Buymed",
     role: "Software Engineer Intern",
@@ -405,19 +441,6 @@ const cards: CardProps[] = [
     ],
   },
   {
-    type: "hobby",
-    title: "Cooking",
-    role: "Avocado Toast",
-    href: "/passions",
-    images: [
-      {
-        src: "/media-v1/passions/cooking/cooking-1.webp",
-        alt: "Avocado toast with kiwi",
-        mode: "cover",
-      },
-    ],
-  },
-  {
     type: "project",
     title: "Lock-In",
     description:
@@ -432,19 +455,6 @@ const cards: CardProps[] = [
     ],
   },
   {
-    type: "hobby",
-    title: "Dancing",
-    role: "Bharatanatyam",
-    href: "/passions",
-    images: [
-      {
-        src: "/media-v1/passions/dancing/dancing-11.webp",
-        alt: "Avocado toast with kiwi",
-        mode: "cover",
-      },
-    ],
-  },
-  {
     type: "experience",
     title: "NUS",
     role: "Teaching Assistant",
@@ -453,6 +463,13 @@ const cards: CardProps[] = [
       "Led tutorials on responsible AI, data privacy law, and digital ethics for IS1108.",
     href: "/experience",
     wide: true,
+    images: [
+      {
+        src: "/media-v1/experience/ta/ta-group-cutouts-v1.png",
+        alt: "Five IS1108 tutorial groups taught by Rithani",
+        mode: "group-strip",
+      },
+    ],
   },
   {
     type: "project",
@@ -482,7 +499,7 @@ const sectionVariants = {
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.96 },
+  hidden: { opacity: 0, y: 24, scale: 0.985 },
   visible: {
     opacity: 1,
     y: 0,
@@ -494,11 +511,20 @@ const cardVariants = {
   },
 };
 
+const cardLayouts = [
+  "sm:col-span-2 md:col-span-6 md:row-span-3 xl:col-span-7",
+  "md:col-span-3 md:row-span-3 xl:col-span-5",
+  "sm:col-span-2 md:col-span-6 md:row-span-3 xl:col-span-8",
+  "md:col-span-3 md:row-span-3 xl:col-span-4",
+  "sm:col-span-2 md:col-span-3 md:row-span-3 xl:col-span-7 xl:row-span-2",
+  "md:col-span-6 md:row-span-2 xl:col-span-5",
+];
+
 export function BentoGrid() {
   return (
     <section className="px-5 md:px-[72px] mt-6">
       <motion.div
-        className="flex items-baseline justify-between mb-6 pb-[18px] border-b border-pf-border"
+        className="mb-6 flex flex-col items-start justify-between gap-4 border-b border-pf-border pb-[18px] sm:flex-row sm:items-baseline"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
@@ -519,27 +545,29 @@ export function BentoGrid() {
           className="text-[13px] inline-flex items-center gap-1.5"
           style={{ color: "var(--pf-text-muted)" }}
         >
-          See full timeline <ArrowRightIcon />
+          Explore experience <ArrowRightIcon />
         </Link>
       </motion.div>
 
-      <motion.div
-        className="grid grid-cols-2 md:grid-cols-4 gap-4"
-        variants={sectionVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-80px" }}
-      >
-        {cards.map((card, i) => (
-          <motion.div
-            key={i}
-            variants={cardVariants}
-            className={card.wide ? "col-span-1 md:col-span-2" : ""}
-          >
-            <BentoCard {...card} />
-          </motion.div>
-        ))}
-      </motion.div>
+      <div className="relative">
+        <motion.div
+          className="relative grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4 md:auto-rows-[118px] md:grid-cols-6 xl:grid-cols-12"
+          variants={sectionVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+        >
+          {cards.map((card, i) => (
+            <motion.div
+              key={`${card.type}-${card.title}`}
+              variants={cardVariants}
+              className={cardLayouts[i]}
+            >
+              <BentoCard {...card} index={i} />
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
     </section>
   );
 }
