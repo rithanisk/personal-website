@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Source_Serif_4, Inter } from "next/font/google";
 import { ThemeProvider } from "@/lib/theme";
 import { Navbar } from "@/components/chrome/Navbar";
+import { PortfolioAssistant } from "@/components/chrome/PortfolioAssistant";
 import { GrainOverlay } from "@/components/shared/GrainOverlay";
 import "./globals.css";
 
@@ -44,6 +45,7 @@ export default function RootLayout({
           >
             &copy; {new Date().getFullYear()} Rithani Saravanakumar
           </footer>
+          <PortfolioAssistant />
         </ThemeProvider>
       </body>
     </html>
