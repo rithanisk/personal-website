@@ -2,16 +2,12 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { FormEvent, useEffect, useRef, useState } from "react";
-import {
-  answerPortfolioQuestion,
-  type AssistantAnswer,
-} from "@/lib/portfolioAssistant";
 
 type Message = {
   id: number;
-  role: "assistant" | "user";
+  role: "assistant" | "error" | "user";
   text: string;
-  links?: AssistantAnswer["links"];
+  retryQuestion?: string;
 };
 
 const starterPrompts = [
@@ -73,7 +69,6 @@ export function PortfolioAssistant() {
   const [thinking, setThinking] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const replyTimerRef = useRef<number | null>(null);
   const messageIdRef = useRef(1);
 
   useEffect(() => {
@@ -94,44 +89,76 @@ export function PortfolioAssistant() {
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-      if (replyTimerRef.current) window.clearTimeout(replyTimerRef.current);
     };
   }, []);
 
-  const sendQuestion = (question: string) => {
+  const sendQuestion = async (question: string, appendUserMessage = true) => {
     const trimmedQuestion = question.trim();
     if (!trimmedQuestion || thinking) return;
 
+    const conversation = messages.filter((message) => message.role !== "error");
     const userMessageId = messageIdRef.current++;
+    const nextMessages: Message[] = appendUserMessage
+      ? [
+          ...conversation,
+          { id: userMessageId, role: "user", text: trimmedQuestion },
+        ]
+      : conversation;
     const assistantMessageId = messageIdRef.current++;
-    setMessages((current) => [
-      ...current,
-      { id: userMessageId, role: "user", text: trimmedQuestion },
-    ]);
+
+    setMessages(nextMessages);
     setInput("");
     setThinking(true);
 
-    replyTimerRef.current = window.setTimeout(
-      () => {
-        const answer = answerPortfolioQuestion(trimmedQuestion);
-        setMessages((current) => [
-          ...current,
-          {
-            id: assistantMessageId,
-            role: "assistant",
-            text: answer.text,
-            links: answer.links,
-          },
-        ]);
-        setThinking(false);
-      },
-      reduceMotion ? 0 : 420,
-    );
+    let errorMessage = "I couldn’t reach the portfolio assistant just now. Please try again.";
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: nextMessages
+            .filter((message) => message.role === "assistant" || message.role === "user")
+            .slice(-10)
+            .map((message) => ({ role: message.role, content: message.text })),
+        }),
+      });
+
+      const result = (await response.json()) as { answer?: unknown; error?: unknown };
+      const answer = typeof result.answer === "string" ? result.answer.trim() : "";
+      if (!response.ok || !answer) {
+        if (response.status === 429) {
+          errorMessage = "The portfolio assistant is busy right now. Please wait a moment and try again.";
+        }
+        throw new Error("Assistant request failed");
+      }
+
+      setMessages((current) => [
+        ...current,
+        {
+          id: assistantMessageId,
+          role: "assistant",
+          text: answer,
+        },
+      ]);
+    } catch {
+      setMessages((current) => [
+        ...current,
+        {
+          id: assistantMessageId,
+          role: "error",
+          text: errorMessage,
+          retryQuestion: trimmedQuestion,
+        },
+      ]);
+    } finally {
+      setThinking(false);
+    }
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    sendQuestion(input);
+    void sendQuestion(input);
   };
 
   return (
@@ -203,6 +230,12 @@ export function PortfolioAssistant() {
                       style={
                         message.role === "user"
                           ? { background: "var(--pf-rose)", color: "#fff" }
+                          : message.role === "error"
+                            ? {
+                                background: "color-mix(in oklab, var(--pf-rose-soft) 70%, var(--pf-surface))",
+                                color: "var(--pf-text-muted)",
+                                border: "1px solid color-mix(in oklab, var(--pf-rose) 30%, var(--pf-border))",
+                              }
                           : {
                               background: "var(--pf-bg-warm)",
                               color: "var(--pf-text-muted)",
@@ -212,28 +245,20 @@ export function PortfolioAssistant() {
                     >
                       {message.text}
                     </div>
-                    {message.links?.length ? (
-                      <div className="mt-2 flex flex-wrap gap-1.5">
-                        {message.links.map((link) => {
-                          const external = link.href.startsWith("http");
-                          return (
-                            <a
-                              key={`${message.id}-${link.href}`}
-                              href={link.href}
-                              target={external ? "_blank" : undefined}
-                              rel={external ? "noreferrer" : undefined}
-                              className="rounded-full px-2.5 py-1.5 text-[10px] font-semibold transition-transform hover:-translate-y-0.5"
-                              style={{
-                                background: "var(--pf-rose-soft)",
-                                color: "var(--pf-rose-ink)",
-                                border: "1px solid color-mix(in oklab, var(--pf-rose) 24%, transparent)",
-                              }}
-                            >
-                              {link.label} <span aria-hidden="true">↗</span>
-                            </a>
-                          );
-                        })}
-                      </div>
+                    {message.role === "error" && message.retryQuestion ? (
+                      <button
+                        type="button"
+                        onClick={() => void sendQuestion(message.retryQuestion!, false)}
+                        disabled={thinking}
+                        className="mt-2 cursor-pointer rounded-full px-3 py-1.5 text-[10px] font-semibold transition-transform hover:-translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-50"
+                        style={{
+                          background: "var(--pf-rose-soft)",
+                          color: "var(--pf-rose-ink)",
+                          border: "1px solid color-mix(in oklab, var(--pf-rose) 24%, transparent)",
+                        }}
+                      >
+                        Try again
+                      </button>
                     ) : null}
                   </div>
                 </div>
@@ -245,7 +270,7 @@ export function PortfolioAssistant() {
                     <button
                       key={prompt}
                       type="button"
-                      onClick={() => sendQuestion(prompt)}
+                      onClick={() => void sendQuestion(prompt)}
                       className="cursor-pointer rounded-xl px-3 py-2.5 text-left text-[11px] font-medium transition-all hover:-translate-y-0.5"
                       style={{
                         background: "var(--pf-surface)",
