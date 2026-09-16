@@ -61,15 +61,59 @@ function SendIcon() {
   );
 }
 
+function SpeakerIcon({ muted = false }: { muted?: boolean }) {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M11 5 6 9H2v6h4l5 4Z" />
+      {muted ? (
+        <>
+          <path d="m22 9-6 6" />
+          <path d="m16 9 6 6" />
+        </>
+      ) : (
+        <>
+          <path d="M15.5 8.5a5 5 0 0 1 0 7" />
+          <path d="M18.5 5.5a9 9 0 0 1 0 13" />
+        </>
+      )}
+    </svg>
+  );
+}
+
+function StopIcon() {
+  return (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <rect x="5" y="5" width="14" height="14" rx="2" />
+    </svg>
+  );
+}
+
 export function PortfolioAssistant() {
   const reduceMotion = useReducedMotion();
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<Message[]>([initialMessage]);
   const [thinking, setThinking] = useState(false);
+  const [voiceRepliesEnabled, setVoiceRepliesEnabled] = useState(true);
+  const [speechLoadingMessageId, setSpeechLoadingMessageId] = useState<number | null>(null);
+  const [speakingMessageId, setSpeakingMessageId] = useState<number | null>(null);
+  const [speechErrorMessageId, setSpeechErrorMessageId] = useState<number | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const messageIdRef = useRef(1);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const speechAbortRef = useRef<AbortController | null>(null);
+  const audioUrlsRef = useRef(new Map<number, string>());
 
   useEffect(() => {
     if (!open) return;
@@ -83,7 +127,13 @@ export function PortfolioAssistant() {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+      if (event.key === "Escape") {
+        setOpen(false);
+        speechAbortRef.current?.abort();
+        audioRef.current?.pause();
+        setSpeechLoadingMessageId(null);
+        setSpeakingMessageId(null);
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -91,6 +141,116 @@ export function PortfolioAssistant() {
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
+
+  useEffect(() => {
+    const audioUrls = audioUrlsRef.current;
+
+    return () => {
+      speechAbortRef.current?.abort();
+      audioRef.current?.pause();
+      for (const url of audioUrls.values()) URL.revokeObjectURL(url);
+      audioUrls.clear();
+    };
+  }, []);
+
+  const stopSpeech = () => {
+    speechAbortRef.current?.abort();
+    speechAbortRef.current = null;
+    audioRef.current?.pause();
+    audioRef.current = null;
+    setSpeechLoadingMessageId(null);
+    setSpeakingMessageId(null);
+  };
+
+  const playAudio = async (messageId: number, url: string) => {
+    const audio = new Audio(url);
+    audioRef.current = audio;
+
+    audio.addEventListener("play", () => {
+      if (audioRef.current !== audio) return;
+      setSpeechLoadingMessageId(null);
+      setSpeechErrorMessageId(null);
+      setSpeakingMessageId(messageId);
+    });
+    audio.addEventListener("ended", () => {
+      if (audioRef.current !== audio) return;
+      audioRef.current = null;
+      setSpeakingMessageId(null);
+    });
+    audio.addEventListener("error", () => {
+      if (audioRef.current !== audio) return;
+      audioRef.current = null;
+      setSpeechLoadingMessageId(null);
+      setSpeakingMessageId(null);
+      setSpeechErrorMessageId(messageId);
+    });
+
+    try {
+      await audio.play();
+    } catch {
+      if (audioRef.current !== audio) return;
+      audioRef.current = null;
+      setSpeechLoadingMessageId(null);
+      setSpeakingMessageId(null);
+      setSpeechErrorMessageId(messageId);
+    }
+  };
+
+  const speakMessage = async (messageId: number, text: string) => {
+    if (speakingMessageId === messageId) {
+      stopSpeech();
+      return;
+    }
+
+    stopSpeech();
+    setSpeechErrorMessageId(null);
+
+    const cachedUrl = audioUrlsRef.current.get(messageId);
+    if (cachedUrl) {
+      await playAudio(messageId, cachedUrl);
+      return;
+    }
+
+    const controller = new AbortController();
+    speechAbortRef.current = controller;
+    setSpeechLoadingMessageId(messageId);
+
+    try {
+      const response = await fetch("/api/speech", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+        signal: controller.signal,
+      });
+
+      if (!response.ok) throw new Error("Speech request failed");
+
+      const audioBlob = await response.blob();
+      if (!audioBlob.size) throw new Error("Speech response was empty");
+      if (speechAbortRef.current !== controller) return;
+
+      const audioUrl = URL.createObjectURL(audioBlob);
+      audioUrlsRef.current.set(messageId, audioUrl);
+      speechAbortRef.current = null;
+      await playAudio(messageId, audioUrl);
+    } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") return;
+      if (speechAbortRef.current === controller) speechAbortRef.current = null;
+      setSpeechLoadingMessageId(null);
+      setSpeakingMessageId(null);
+      setSpeechErrorMessageId(messageId);
+    }
+  };
+
+  const closeAssistant = () => {
+    stopSpeech();
+    setOpen(false);
+  };
+
+  const toggleVoiceReplies = () => {
+    if (voiceRepliesEnabled) stopSpeech();
+    setVoiceRepliesEnabled((enabled) => !enabled);
+  };
 
   const sendQuestion = async (question: string, appendUserMessage = true) => {
     const trimmedQuestion = question.trim();
@@ -141,6 +301,7 @@ export function PortfolioAssistant() {
           text: answer,
         },
       ]);
+      if (voiceRepliesEnabled) void speakMessage(assistantMessageId, answer);
     } catch {
       setMessages((current) => [
         ...current,
@@ -204,7 +365,18 @@ export function PortfolioAssistant() {
               </div>
               <button
                 type="button"
-                onClick={() => setOpen(false)}
+                onClick={toggleVoiceReplies}
+                aria-label={voiceRepliesEnabled ? "Turn off voice replies" : "Turn on voice replies"}
+                aria-pressed={voiceRepliesEnabled}
+                title={voiceRepliesEnabled ? "Voice replies on" : "Voice replies off"}
+                className="ml-auto grid h-8 w-8 shrink-0 cursor-pointer place-items-center rounded-full transition-colors hover:bg-pf-surface-2"
+                style={{ color: voiceRepliesEnabled ? "var(--pf-rose-ink)" : "var(--pf-text-dim)" }}
+              >
+                <SpeakerIcon muted={!voiceRepliesEnabled} />
+              </button>
+              <button
+                type="button"
+                onClick={closeAssistant}
                 aria-label="Close portfolio assistant"
                 className="grid h-8 w-8 shrink-0 cursor-pointer place-items-center rounded-full text-[20px] transition-colors hover:bg-pf-surface-2"
                 style={{ color: "var(--pf-text-muted)" }}
@@ -245,6 +417,52 @@ export function PortfolioAssistant() {
                     >
                       {message.text}
                     </div>
+                    {message.role === "assistant" ? (
+                      <button
+                        type="button"
+                        onClick={() => void speakMessage(message.id, message.text)}
+                        disabled={speechLoadingMessageId === message.id}
+                        aria-label={
+                          speakingMessageId === message.id
+                            ? "Stop reading this reply"
+                            : "Read this reply aloud"
+                        }
+                        title={
+                          speechErrorMessageId === message.id
+                            ? "Voice reply failed. Try again"
+                            : speakingMessageId === message.id
+                              ? "Stop"
+                              : "Read aloud"
+                        }
+                        className="mt-1.5 inline-flex cursor-pointer items-center gap-1 rounded-full px-2 py-1 text-[10px] font-medium transition-colors hover:bg-pf-surface-2 disabled:cursor-wait disabled:opacity-60"
+                        style={{
+                          color:
+                            speechErrorMessageId === message.id
+                              ? "var(--pf-rose-ink)"
+                              : "var(--pf-text-dim)",
+                        }}
+                      >
+                        {speakingMessageId === message.id ? (
+                          <>
+                            <StopIcon /> Stop
+                          </>
+                        ) : speechLoadingMessageId === message.id ? (
+                          <>
+                            <motion.span
+                              className="h-2.5 w-2.5 rounded-full border border-current border-t-transparent"
+                              animate={reduceMotion ? undefined : { rotate: 360 }}
+                              transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }}
+                            />
+                            Loading voice
+                          </>
+                        ) : (
+                          <>
+                            <SpeakerIcon />
+                            {speechErrorMessageId === message.id ? "Try voice again" : "Read aloud"}
+                          </>
+                        )}
+                      </button>
+                    ) : null}
                     {message.role === "error" && message.retryQuestion ? (
                       <button
                         type="button"
@@ -345,7 +563,10 @@ export function PortfolioAssistant() {
 
       <motion.button
         type="button"
-        onClick={() => setOpen((value) => !value)}
+        onClick={() => {
+          if (open) closeAssistant();
+          else setOpen(true);
+        }}
         aria-expanded={open}
         aria-controls="portfolio-assistant-panel"
         aria-label={open ? "Close portfolio assistant" : "Ask about Rithani"}
