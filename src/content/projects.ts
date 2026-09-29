@@ -2,17 +2,17 @@ import { Project } from "@/types/content";
 
 export const projects: Project[] = [
   {
-    id: "alankara",
-    name: "Alankara — AI Wardrobe Stylist",
+    id: "closet-ai",
+    name: "closetAI — AI Wardrobe Stylist",
     category: "Product/SWE",
-    blurb: "AI styling MVP shaped by 12 student interviews that cut average outfit-selection time from 14 to 3 minutes.",
-    description: "Built an AI wardrobe styling MVP around a simple product insight: cataloguing a closet manually creates too much friction. After 12 student interviews and a competitor review, prioritized photo-based closet import and rapid outfit recommendations.",
-    stack: ["AI Product", "Product Discovery", "User Research", "Rapid Prototyping"],
+    blurb: "A private digital closet that turns clothing photos into organized garments, weather-aware outfits, and virtual try-ons.",
+    description: "Built a desktop-first AI wardrobe and personal styling app that turns clothing photos into a private digital closet. Users can review extracted garment cutouts, organize what they own, teach the stylist their taste, generate weather-aware outfits, and preview looks with virtual try-on.",
+    stack: ["Next.js", "React", "Supabase", "OpenAI", "PostgreSQL"],
     bullets: [
-      "Reduced average outfit-selection time from 14 to 3 minutes with an AI styling workflow.",
-      "Used 12 student interviews and competitive research to prioritize photo-based closet import over manual cataloguing.",
+      "Built multi-garment image extraction that turns a single closet photo into clean, reviewable wardrobe items.",
+      "Designed a taste-aware stylist that recommends three weather-appropriate outfits using pieces the user already owns.",
     ],
-    images: [],
+    images: ["/media-v1/projects/closet-ai-stylist-screen.webp"],
     featured: true,
   },
   {
@@ -96,7 +96,8 @@ export const projects: Project[] = [
       "Improved independent practice by 22% for 20+ students during an eight-week test.",
       "Reached 88.7% accuracy across 28 mudras using 1,400+ custom training samples and MediaPipe hand landmarks.",
     ],
-    images: ["/media-v1/bharatnatyam.webp"],
+    images: ["/media-v1/projects/mudra-screen.webp"],
+    live: "https://mudra-mediapipe.vercel.app",
   },
   {
     id: "rag",

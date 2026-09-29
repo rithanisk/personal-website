@@ -3,6 +3,7 @@
 import { useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Badge } from "@/components/shared/Badge";
+import { LaptopMockup } from "@/components/shared/LaptopMockup";
 import type { Project } from "@/types/content";
 
 const backdropVariants = {
@@ -50,6 +51,8 @@ export function ProjectModal({
       document.body.style.overflow = "";
     };
   }, [project, handleKeyDown]);
+
+  const usesLaptopMockup = project?.id === "closet-ai" || project?.id === "mudra";
 
   return (
     <AnimatePresence>
@@ -106,20 +109,34 @@ export function ProjectModal({
             <div className="flex flex-col md:flex-row">
               {/* Left — Media */}
               <div className="md:w-[45%] p-6 flex flex-col gap-4">
-                {project.images?.map((src, i) => (
-                  <div
-                    key={i}
-                    className="relative w-full aspect-video rounded-xl overflow-hidden"
-                    style={{ background: "var(--pf-surface-2)" }}
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={src}
-                      alt={`${project.name} screenshot ${i + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                ))}
+                {project.images?.map((src, i) =>
+                  usesLaptopMockup ? (
+                    <div
+                      key={i}
+                      className="flex w-full items-center justify-center rounded-xl px-3 py-5"
+                      style={{ background: "var(--pf-surface-2)" }}
+                    >
+                      <LaptopMockup
+                        src={src}
+                        alt={`${project.name} screenshot ${i + 1} on a laptop`}
+                        objectPosition={project.id === "mudra" ? "top" : "center"}
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      key={i}
+                      className="relative w-full aspect-video rounded-xl overflow-hidden"
+                      style={{ background: "var(--pf-surface-2)" }}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={src}
+                        alt={`${project.name} screenshot ${i + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                  )
+                )}
                 {!project.images?.length && (
                   <div
                     className="w-full aspect-video rounded-xl flex items-center justify-center"

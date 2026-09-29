@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { Badge } from "@/components/shared/Badge";
+import { LaptopMockup } from "@/components/shared/LaptopMockup";
 import type { Project } from "@/types/content";
 
 type Palette = { a: string; b: string; c: string };
@@ -26,6 +27,7 @@ export function ProjectCard({
 }) {
   const image = project.images?.[0];
   const categoryColor = categoryColors[project.category];
+  const usesLaptopMockup = project.id === "closet-ai" || project.id === "mudra";
 
   return (
     <motion.button
@@ -51,7 +53,24 @@ export function ProjectCard({
         className="relative aspect-[16/9] w-full overflow-hidden"
         style={{ background: "var(--pf-surface-2)" }}
       >
-        {image ? (
+        {image && usesLaptopMockup ? (
+          <div
+            className="absolute inset-0 flex items-center justify-center px-4 pb-1 pt-7 sm:px-7"
+            style={{
+              background:
+                "radial-gradient(circle at 50% 12%, rgba(255,255,255,0.9), transparent 58%), var(--pf-surface-2)",
+            }}
+          >
+            <LaptopMockup
+              src={image}
+              alt={`${project.name} preview on a laptop`}
+              objectPosition={project.id === "mudra" ? "top" : "center"}
+              className={`${
+                project.id === "mudra" ? "max-w-[480px]" : "max-w-[560px]"
+              } transition-transform duration-700 group-hover:scale-[1.025]`}
+            />
+          </div>
+        ) : image ? (
           <Image
             src={image}
             alt={`${project.name} preview`}

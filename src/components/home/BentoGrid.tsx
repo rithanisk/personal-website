@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRightIcon } from "@/components/shared/Icons";
+import { LaptopMockup } from "@/components/shared/LaptopMockup";
 
 type CardImage = {
   src: string;
@@ -15,10 +16,13 @@ type CardImage = {
     | "bottom-side-left"
     | "bottom-side-right"
     | "group-strip"
+    | "laptop"
     | "cover";
   size?: "default" | "large";
   offsetY?: string;
   scale?: number;
+  objectPosition?: string;
+  align?: "center" | "right";
 };
 
 type CardProps = {
@@ -30,6 +34,7 @@ type CardProps = {
   href?: string;
   wide?: boolean;
   images?: CardImage[];
+  descriptionMaxWidth?: string;
 };
 
 function CardTitle({
@@ -123,6 +128,7 @@ function BentoCard({
   href,
   wide,
   images,
+  descriptionMaxWidth,
   index,
 }: CardProps & { index: number }) {
   const hasCover = images?.some((img) => img.mode === "cover");
@@ -188,6 +194,7 @@ function BentoCard({
               color: hasCover
                 ? "rgba(255,255,255,0.75)"
                 : "var(--pf-text-muted)",
+              maxWidth: descriptionMaxWidth,
             }}
           >
             {description}
@@ -338,6 +345,31 @@ function BentoCard({
                 </div>
               );
             }
+            if (img.mode === "laptop") {
+              return (
+                <div
+                  key={i}
+                  className={`absolute inset-x-3 bottom-2 z-[1] flex h-[58%] items-end sm:inset-x-5 ${
+                    img.align === "right" ? "justify-end" : "justify-center"
+                  }`}
+                  style={{
+                    transform: `translateY(${img.offsetY ?? "0"}) scale(${img.scale ?? 1})`,
+                    transformOrigin: img.align === "right" ? "bottom right" : "bottom center",
+                  }}
+                >
+                  <LaptopMockup
+                    src={img.src}
+                    alt={img.alt}
+                    objectPosition={img.objectPosition}
+                    className={
+                      img.align === "right"
+                        ? "w-[62%] max-w-[400px]"
+                        : "w-[78%] max-w-[500px]"
+                    }
+                  />
+                </div>
+              );
+            }
             if (img.mode === "cover") {
               return (
                 <Image
@@ -409,12 +441,12 @@ const cards: CardProps[] = [
     href: "/projects",
     images: [
       {
-        src: "/media-v1/bharatnatyam.webp",
+        src: "/media-v1/projects/mudra-screen.webp",
         alt: "Mudra Recognition live hand gesture classification UI",
-        mode: "bottom-center",
-        size: "large",
-        scale: 1.32,
-        offsetY: "70%",
+        mode: "laptop",
+        scale: 0.74,
+        offsetY: "2%",
+        objectPosition: "top",
       },
     ],
   },
@@ -473,10 +505,21 @@ const cards: CardProps[] = [
   },
   {
     type: "project",
-    title: "Alankara",
+    title: "closetAI",
     description:
-      "AI wardrobe stylist that cut outfit-selection time from 14 to 3 minutes after 12 user interviews",
+      "AI wardrobe stylist that ranks looks from clothes you already own",
+    descriptionMaxWidth: "36%",
     href: "/projects",
+    images: [
+      {
+        src: "/media-v1/projects/closet-ai-stylist-screen.webp",
+        alt: "closetAI Stylist ranking three outfit recommendations",
+        mode: "laptop",
+        scale: 0.82,
+        offsetY: "1%",
+        align: "right",
+      },
+    ],
   },
 ];
 
