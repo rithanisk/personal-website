@@ -18,6 +18,24 @@ export const portfolioContext = {
     contact: profile.socials,
     resume: "/rithani_ai_engineer_resume.pdf",
   },
+  education: [
+    {
+      institution: "National University of Singapore",
+      degree: "Bachelor of Computing (Honours) in Computer Science",
+      expectedGraduation: "May 2027",
+    },
+    {
+      institution: "University of Toronto",
+      program: "One-year exchange program",
+      dates: "August 2025 – July 2026",
+    },
+  ],
+  skills: {
+    engineering: ["Python", "Go", "Java", "TypeScript", "JavaScript", "SQL", "React", "Next.js", "FastAPI", "Node.js"],
+    aiAndMl: ["RAG", "Agentic AI", "Multimodal ML", "Computer Vision", "PyTorch", "TensorFlow", "LLM Evals", "Human-in-the-Loop AI"],
+    cloudAndData: ["AWS", "Azure", "GCP", "Docker", "PostgreSQL", "MongoDB", "BigQuery", "Pinecone", "Weaviate"],
+    product: ["Product Discovery", "User Interviews", "MVP Scoping", "Requirements and PRDs", "Product Metrics", "A/B Testing", "Figma"],
+  },
   story,
   places: countries.map(({ name, code, note }) => ({ name, code, note })),
   experiences: experiences.map((experience) => ({

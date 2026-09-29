@@ -34,7 +34,7 @@ export default function ProjectsPage() {
         className="font-serif text-xl font-light mt-6 max-w-[580px]"
         style={{ color: "var(--pf-text-muted)" }}
       >
-        Side projects and research across ML, NLP, and cloud engineering.
+        Products, AI systems, and research built from user interviews through evaluation and launch.
       </p>
       <div className="mt-10 flex items-center justify-between border-y border-pf-border py-4">
         <span className="text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--pf-text-dim)" }}>
@@ -47,7 +47,7 @@ export default function ProjectsPage() {
 
       <div className="mt-6 grid gap-5 md:grid-cols-12">
         {projects.map((project, index) => (
-          <div key={project.id} className={projectLayouts[index]}>
+          <div key={project.id} className={projectLayouts[index % projectLayouts.length]}>
             <ProjectCard
               project={project}
               index={index}

@@ -95,7 +95,7 @@ export function HeroSection() {
                 className="w-2 h-2 rounded-full animate-pulse"
                 style={{ background: "var(--pf-forest-ink)" }}
               />
-              Building AI agents @ Nia Health
+              Multimodal ML research @ NUS
             </div>
             <div
               className="w-px h-6"

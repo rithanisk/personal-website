@@ -152,10 +152,10 @@ export function ExperienceSnapshots() {
       <div className="flex flex-col">
         <ExperienceSnapshot
           tone="rose"
-          dates="AUG 2025 — NOW · TORONTO"
+          dates="AUG 2025 — JUL 2026 · TORONTO"
           company="Nia Health"
           role="Software / AI Engineer Intern"
-          summary="Building async GPT parsing pipelines and a CGM data system in FastAPI + React. Cut report parsing latency by 70% and shipped end-to-end glucose review tooling deployed on Azure."
+          summary="Built AI and full-stack health products used by thousands, cutting report processing by 70%, scaling operations 9×, and launching a cycle-tracking MVP to 8,000+ users."
           bubbles={[
             { size: 170, x: -80, y: -30, kind: "code", caption: "Pipeline · v2", palette: { a: "#aa6373", b: "#e3b8a3", c: "#6b3842" } },
             { size: 130, x: 80, y: 40, kind: "team", caption: "Toronto stand-up", palette: { a: "#c98391", b: "#e8c5cb", c: "#5a2a36" } },

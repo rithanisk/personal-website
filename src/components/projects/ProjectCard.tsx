@@ -24,7 +24,7 @@ export function ProjectCard({
   hover?: boolean;
   onClick?: () => void;
 }) {
-  const image = project.id === "mudra" ? "/media-v1/bharatnatyam.webp" : undefined;
+  const image = project.images?.[0];
   const categoryColor = categoryColors[project.category];
 
   return (

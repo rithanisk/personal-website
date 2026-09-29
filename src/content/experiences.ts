@@ -3,17 +3,18 @@ import { Experience } from "@/types/content";
 export const experiences: Experience[] = [
   {
     id: "icu-mortality-research",
-    title: "ICU Mortality Risk Prediction Machine Learning Researcher",
+    title: "Machine Learning Researcher — ICU Mortality Prediction",
     company: "National University of Singapore",
     program: "Supervisor: Dr. Kabir",
     location: "Singapore",
     dates: "August 2026 – Present",
     current: true,
     overview:
-      "Researching multimodal methods for predicting mortality risk in ICU patients with cardiac dysrhythmias.",
-    stack: ["PyTorch", "ResNet-50", "Neural ODEs", "ECG", "Medical Imaging"],
+      "Researching multimodal methods for predicting mortality risk from chest X-rays, ECG signals, and longitudinal ICU data.",
+    stack: ["PyTorch", "Multimodal ML", "ResNet-50", "Neural ODEs", "MIMIC-IV"],
     bullets: [
-      "Designing a **multimodal ICU mortality prediction model** that fuses a ResNet-50 chest X-ray encoder, a 1D ResNet ECG encoder, and a Neural ODE-based encoder for irregular longitudinal lab data.",
+      "Designing a **PyTorch multimodal model** that fuses chest X-ray, ECG, and Neural ODE lab encoders across **3 ICU modalities**.",
+      "Patched a **data-leakage bug** that mixed features across ICU stays while reproducing a MIMIC-IV acute kidney injury baseline.",
     ],
   },
   {
@@ -28,9 +29,11 @@ export const experiences: Experience[] = [
     stack: ["Agno", "FastAPI", "React", "TypeScript", "Python", "Postgres", "Azure", "Docker"],
     bullets: [
       "Improved food-photo macro extraction accuracy by **27%** over the baseline GPT vision model by integrating FNDDS nutrition retrieval into an Agno multi-agent pipeline and evaluating it on Google Nutrition5k.",
-      "Built and deployed an asynchronous GPT integration and external-document pipeline on Azure, reducing medical-report parsing latency by **70%** (**10 to 3 minutes**) and saving the COO **9 hours/week** of manual review.",
-      "Developed an AI-agent safety layer in Agno to validate patient reports against clinical recommendations, catching **8 report errors** before delivery and reducing legal-risk exposure.",
-      "Owned end-to-end delivery of a React and Python cycle-tracking application for **8,000+ users**, partnering with clinical stakeholders from requirements through iterative UI and technical design.",
+      "Built an asynchronous GPT pipeline on Azure queue workers that cut medical-report processing by **70%** (**10 to 3 minutes**) across **200+ reports/week**, saving **9 hours/week** of review.",
+      "Launched a React and Python cycle-tracking MVP to **8,000+ users in 12 weeks** as sole engineer, turning clinical interviews into requirements and shipping through CI/CD.",
+      "Scaled operations capacity **9×** (**8 to 70+ orders/hour**) by designing the PostgreSQL data model and building a full-stack CGM dashboard for order tracking and communications.",
+      "Raised retention from **31% to 37%** by building biological-age graphs and an insight panel, then A/B testing them by plan tier with the growth team.",
+      "Built an Agno validation agent that caught **8 report errors** before patient delivery while keeping PII out of its inputs and requiring clinician sign-off.",
     ],
     photos: [
       {

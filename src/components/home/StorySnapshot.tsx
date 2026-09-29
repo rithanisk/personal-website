@@ -59,7 +59,7 @@ export function StorySnapshot() {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
         >
-          Born in India, raised in the US, and currently building software across Singapore, Vietnam, and Toronto. I&apos;ve always been drawn to the unconventional path.
+          Born in India, raised in the US, and shaped by building across Singapore, Vietnam, and Toronto. I&apos;ve always been drawn to the unconventional path.
         </motion.p>
         <motion.div
           className="flex flex-col gap-4 mt-6"
@@ -101,7 +101,7 @@ export function StorySnapshot() {
               className="text-[15px] leading-relaxed tracking-tight"
               style={{ color: "var(--pf-text-muted)" }}
             >
-              Now in Toronto, building AI-driven health tools that make a real difference.
+              Back at NUS, researching multimodal machine learning and building new AI products.
             </p>
           </motion.div>
         </motion.div>

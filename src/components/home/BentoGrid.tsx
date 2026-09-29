@@ -385,7 +385,7 @@ const cards: CardProps[] = [
     role: "Software / AI Engineer",
     date: "Aug 2025 — Jul 2026",
     description:
-      "Building async GPT parsing pipelines and a CGM data system in FastAPI + React. Cut report parsing latency by 70% and shipped end-to-end glucose review tooling deployed on Azure.",
+      "Built AI and full-stack health products used by thousands, cutting report processing by 70%, scaling operations 9×, and shipping a cycle-tracking MVP to 8,000+ users.",
     href: "/experience",
     wide: true,
     images: [
@@ -405,7 +405,7 @@ const cards: CardProps[] = [
     type: "project",
     title: "Mudra Recognition",
     description:
-      "Real-time Bharatanatyam mudra classification trained on custom dataset",
+      "Live-camera practice tool with 88.7% accuracy across 28 Bharatanatyam mudras, tested with 20+ students",
     href: "/projects",
     images: [
       {
@@ -444,7 +444,7 @@ const cards: CardProps[] = [
     type: "project",
     title: "Lock-In",
     description:
-      "App for university students to beat procrastination through financial accountability",
+      "Financial-accountability app co-built through two MVPs and tested with 45+ university students",
     href: "/projects",
     images: [
       {
@@ -473,20 +473,10 @@ const cards: CardProps[] = [
   },
   {
     type: "project",
-    title: "Personal Website",
+    title: "Alankara",
     description:
-      "My personal website built with Next.js, Tailwind CSS, and Framer Motion",
+      "AI wardrobe stylist that cut outfit-selection time from 14 to 3 minutes after 12 user interviews",
     href: "/projects",
-    images: [
-      {
-        src: "/media-v1/website.webp",
-        alt: "Personal website homepage preview",
-        mode: "bottom-center",
-        size: "large",
-        scale: 1.40,
-        offsetY: "75%",
-      },
-    ],
   },
 ];
 
