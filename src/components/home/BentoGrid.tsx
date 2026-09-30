@@ -143,6 +143,13 @@ function NiaHealthFeature({ videoSrc }: { videoSrc: string }) {
   return (
     <>
       <div
+        className="absolute bottom-0 left-0 z-0 h-[170px] w-[250px]"
+        style={{
+          background:
+            "radial-gradient(ellipse at 0% 100%, rgba(231, 211, 179, 0.46), transparent 70%)",
+        }}
+      />
+      <div
         className="absolute -bottom-[100px] right-12 z-[1] h-[350px] w-[175px] rotate-[7deg] rounded-[42px]"
         style={{ background: "color-mix(in oklab, #ead8bd 72%, var(--pf-surface))" }}
       />
@@ -270,7 +277,52 @@ function NiaHealthFeature({ videoSrc }: { videoSrc: string }) {
   );
 }
 
-function MudraFeature({ screenSrc }: { screenSrc: string }) {
+function LaptopVideoMockup({ src }: { src: string }) {
+  return (
+    <div className="relative w-full pb-[3.5%]">
+      <div
+        className="relative z-[1] mx-auto w-[90%] rounded-t-[12px] bg-[#17191d] p-[1.7%] pb-[1.45%] sm:rounded-t-[16px]"
+        style={{
+          boxShadow:
+            "0 12px 30px rgba(23, 25, 29, 0.2), inset 0 0 0 1px rgba(255,255,255,0.14)",
+        }}
+      >
+        <span className="absolute left-1/2 top-[0.65%] h-[2px] w-[2px] -translate-x-1/2 rounded-full bg-white/25 sm:h-[3px] sm:w-[3px]" />
+        <div className="relative aspect-[16/10] overflow-hidden rounded-[5px] bg-[#f4f1eb] sm:rounded-[7px]">
+          <video
+            src={src}
+            aria-label="Mudra Recognition live hand gesture classification demo"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            className="h-full w-full object-cover object-top"
+          />
+        </div>
+      </div>
+
+      <div
+        className="relative z-[2] mx-auto h-[clamp(7px,1.45vw,13px)] w-full rounded-b-[14px]"
+        style={{
+          background:
+            "linear-gradient(180deg, #d9dce0 0%, #aeb3b9 46%, #d7d9dc 100%)",
+          boxShadow:
+            "0 5px 10px rgba(22, 24, 28, 0.16), inset 0 1px 0 rgba(255,255,255,0.8)",
+        }}
+      >
+        <span
+          className="absolute left-1/2 top-0 h-[42%] w-[13%] -translate-x-1/2 rounded-b-full"
+          style={{ background: "rgba(120, 125, 132, 0.28)" }}
+        />
+      </div>
+
+      <div className="absolute bottom-0 left-[8%] right-[8%] h-[6%] rounded-full bg-black/20 blur-[7px]" />
+    </div>
+  );
+}
+
+function MudraFeature({ videoSrc }: { videoSrc: string }) {
   const metrics = [
     { value: "88.7%", label: "accuracy" },
     { value: "28", label: "mudras" },
@@ -284,41 +336,42 @@ function MudraFeature({ screenSrc }: { screenSrc: string }) {
         className="absolute inset-x-0 bottom-0 h-[150px]"
         style={{
           background:
-            "radial-gradient(ellipse at 75% 100%, rgba(198, 215, 169, 0.42), transparent 68%)",
+            "radial-gradient(ellipse at 75% 100%, rgba(186, 79, 61, 0.24), transparent 68%)",
         }}
       />
       <div
         className="absolute -bottom-[94px] left-1/2 z-[1] w-[252px] -translate-x-1/2 -rotate-[2deg] rounded-[34px] pt-5"
-        style={{ background: "rgba(207, 220, 181, 0.5)" }}
+        style={{ background: "rgba(199, 105, 87, 0.22)" }}
       >
-        <LaptopMockup
-          src={screenSrc}
-          alt="Mudra Recognition live hand gesture classification interface"
-          objectPosition="top"
-          className="w-full"
-        />
+        <LaptopVideoMockup src={videoSrc} />
       </div>
 
       <div className="absolute left-4 right-4 top-4 z-[3] md:left-5 md:right-5 md:top-5">
         <div className="flex items-start justify-between gap-3">
           <span
             className="inline-flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.18em]"
-            style={{ color: "var(--pf-forest-ink)" }}
+            style={{ color: "#a94738" }}
           >
-            <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--pf-forest-ink)" }} />
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#a94738" }} />
             project
           </span>
           <span
             className="-mt-1 font-serif text-[36px] font-light leading-none"
-            style={{ color: "color-mix(in oklab, var(--pf-forest-ink) 24%, transparent)" }}
+            style={{ color: "color-mix(in oklab, #a94738 24%, transparent)" }}
           >
             02
           </span>
         </div>
 
-        <h3 className="mt-1 font-serif text-[29px] leading-[0.98] tracking-[-0.035em]">
-          <span className="block">Mudra</span>
-          <span className="block italic" style={{ color: "#ad4d36" }}>
+        <h3 className="mt-1 flex items-baseline gap-2 whitespace-nowrap font-serif text-[29px] leading-none tracking-[-0.035em]">
+          <span>Mudra</span>
+          <span
+            className="text-[31px] font-normal tracking-[-0.02em]"
+            style={{
+              color: "#a94738",
+              fontFamily: '\"Snell Roundhand\", \"Apple Chancery\", \"Segoe Script\", cursive',
+            }}
+          >
             Recognition
           </span>
         </h3>
@@ -329,9 +382,9 @@ function MudraFeature({ screenSrc }: { screenSrc: string }) {
               key={item}
               className="rounded-full border px-2 py-1 text-[9px] leading-none"
               style={{
-                color: "var(--pf-forest-ink)",
-                borderColor: "color-mix(in oklab, var(--pf-forest-ink) 28%, transparent)",
-                background: "color-mix(in oklab, #dbe6ca 34%, var(--pf-surface))",
+                color: "#963d31",
+                borderColor: "color-mix(in oklab, #a94738 28%, transparent)",
+                background: "color-mix(in oklab, #edd0c9 34%, var(--pf-surface))",
               }}
             >
               {item}
@@ -346,7 +399,7 @@ function MudraFeature({ screenSrc }: { screenSrc: string }) {
         <div className="mt-3.5 grid grid-cols-3 gap-2">
           {metrics.map((metric) => (
             <div key={metric.value}>
-              <div className="font-serif text-[22px] leading-none" style={{ color: "var(--pf-forest-ink)" }}>
+              <div className="font-serif text-[22px] leading-none" style={{ color: "#a94738" }}>
                 {metric.value}
               </div>
               <div className="mt-1 text-[9px] leading-[1.15]" style={{ color: "var(--pf-text-muted)" }}>
@@ -356,7 +409,7 @@ function MudraFeature({ screenSrc }: { screenSrc: string }) {
           ))}
         </div>
 
-        <div className="mt-3 border-t border-dotted pt-2.5" style={{ borderColor: "color-mix(in oklab, var(--pf-forest-ink) 32%, transparent)" }}>
+        <div className="mt-3 border-t border-dotted pt-2.5" style={{ borderColor: "color-mix(in oklab, #a94738 32%, transparent)" }}>
           <div className="flex flex-nowrap gap-1">
             {stack.map((item) => (
               <span
@@ -364,7 +417,7 @@ function MudraFeature({ screenSrc }: { screenSrc: string }) {
                 className="whitespace-nowrap rounded-full px-1.5 py-1 text-[8px] leading-none"
                 style={{
                   color: "var(--pf-text-muted)",
-                  background: "color-mix(in oklab, var(--pf-surface) 72%, #dfe7d3)",
+                  background: "color-mix(in oklab, var(--pf-surface) 72%, #efd8d2)",
                 }}
               >
                 {item}
@@ -527,7 +580,7 @@ function BentoCard({
       transition={{ type: "spring", stiffness: 280, damping: 24 }}
     >
       {isNiaHealthFeature && images?.[0] && <NiaHealthFeature videoSrc={images[0].src} />}
-      {isMudraFeature && images?.[0] && <MudraFeature screenSrc={images[0].src} />}
+      {isMudraFeature && images?.[0] && <MudraFeature videoSrc={images[0].src} />}
       {isBuymedFeature && images?.[0] && <BuymedFeature imageSrc={images[0].src} />}
 
       {/* Gradient overlay for readability on cover images */}
@@ -867,8 +920,8 @@ const cards: CardProps[] = [
     href: "/projects",
     images: [
       {
-        src: "/media-v1/projects/mudra-screen.webp",
-        alt: "Mudra Recognition live hand gesture classification UI",
+        src: "/media-v1/projects/mudra-screen-recording.m4v",
+        alt: "Mudra Recognition live hand gesture classification demo",
         mode: "laptop",
         scale: 0.85,
         offsetY: "2%",
