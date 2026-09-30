@@ -361,20 +361,19 @@ function ExperienceEntry({ experience, index }: { experience: Experience; index:
             </div>
 
             <h2 className="font-serif text-[clamp(24px,3vw,34px)] font-light tracking-[-0.025em] leading-[1.05]">
-              {experience.title}
+              {experience.company}
             </h2>
             <div className="flex flex-wrap items-center gap-x-2 gap-y-1 mt-2 text-[13px]">
-              <span className="font-medium" style={{ color: "var(--pf-rose)" }}>
-                {experience.company}
-              </span>
               {experience.program && (
                 <>
-                  <span style={{ color: "var(--pf-text-dim)" }}>·</span>
                   <span style={{ color: "var(--pf-text-muted)" }}>{experience.program}</span>
+                  <span style={{ color: "var(--pf-text-dim)" }}>·</span>
                 </>
               )}
-              <span style={{ color: "var(--pf-text-dim)" }}>·</span>
               <span style={{ color: "var(--pf-text-muted)" }}>{experience.location}</span>
+            </div>
+            <div className="mt-3 text-[15px] font-medium" style={{ color: "var(--pf-rose)" }}>
+              {experience.title}
             </div>
 
             {experience.overview && (

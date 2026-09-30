@@ -3,7 +3,7 @@ import { Experience } from "@/types/content";
 export const experiences: Experience[] = [
   {
     id: "icu-mortality-research",
-    title: "Machine Learning Researcher — ICU Mortality Prediction",
+    title: "Machine Learning Researcher, ICU Mortality Prediction",
     company: "National University of Singapore",
     program: "Supervisor: Dr. Kabir",
     location: "Singapore",
@@ -21,7 +21,7 @@ export const experiences: Experience[] = [
     id: "nia",
     title: "AI/Software Engineer Intern",
     company: "NiaHealth",
-    program: "Health Tech · Series A",
+    program: "Health Tech Startup, Series A",
     location: "Toronto, ON",
     dates: "August 2025 – July 2026",
     overview:
@@ -172,7 +172,7 @@ export const experiences: Experience[] = [
   },
   {
     id: "nus-ta",
-    title: "Teaching Assistant — IS1108",
+    title: "Teaching Assistant, Digital Ethics and Data Privacy",
     company: "National University of Singapore",
     location: "Singapore",
     dates: "August 2024 – Present",
@@ -322,7 +322,7 @@ export const experiences: Experience[] = [
     id: "buymed",
     title: "Software Engineer Intern",
     company: "Buymed",
-    program: "B2B Pharma E-Commerce · Series B",
+    program: "B2B Pharma Marketplace Startup, Series B",
     location: "Ho Chi Minh City, Vietnam",
     dates: "May 2024 – August 2024",
     overview:

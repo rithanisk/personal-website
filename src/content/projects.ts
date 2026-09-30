@@ -3,7 +3,7 @@ import { Project } from "@/types/content";
 export const projects: Project[] = [
   {
     id: "closet-ai",
-    name: "closetAI — AI Wardrobe Stylist",
+    name: "Closet AI — AI Wardrobe Stylist",
     category: "Product/SWE",
     blurb: "A private digital closet that turns clothing photos into organized garments, weather-aware outfits, and virtual try-ons.",
     description: "Built a desktop-first AI wardrobe and personal styling app that turns clothing photos into a private digital closet. Users can review extracted garment cutouts, organize what they own, teach the stylist their taste, generate weather-aware outfits, and preview looks with virtual try-on.",

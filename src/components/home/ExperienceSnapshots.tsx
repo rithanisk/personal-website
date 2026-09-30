@@ -153,8 +153,8 @@ export function ExperienceSnapshots() {
         <ExperienceSnapshot
           tone="rose"
           dates="AUG 2025 — JUL 2026 · TORONTO"
-          company="Nia Health"
-          role="Software / AI Engineer Intern"
+          company="NiaHealth (Health Tech Startup, Series A)"
+          role="AI/Software Engineer Intern"
           summary="Built AI and full-stack health products used by thousands, cutting report processing by 70%, scaling operations 9×, and launching a cycle-tracking MVP to 8,000+ users."
           bubbles={[
             { size: 170, x: -80, y: -30, kind: "code", caption: "Pipeline · v2", palette: { a: "#aa6373", b: "#e3b8a3", c: "#6b3842" } },
@@ -168,7 +168,7 @@ export function ExperienceSnapshots() {
           reverse
           dates="AUG 2024 — PRESENT · SINGAPORE"
           company="National University of Singapore"
-          role="Teaching Assistant — Digital Ethics & Data Privacy"
+          role="Teaching Assistant, Digital Ethics and Data Privacy"
           summary="Led tutorials on responsible AI, data privacy law, and digital ethics for IS1108. Marked projects, ran discussions, and helped students think critically about AI policy."
           bubbles={[
             { size: 160, x: 90, y: -20, kind: "team", caption: "Tutorial · Wk 6", palette: { a: "#5d7a52", b: "#a8c49f", c: "#1a2a14" } },
@@ -180,7 +180,7 @@ export function ExperienceSnapshots() {
         <ExperienceSnapshot
           tone="amber"
           dates="MAY 2024 — AUG 2024 · HCMC"
-          company="Buymed"
+          company="Buymed (B2B Pharma Marketplace Startup, Series B)"
           role="Software Engineer Intern"
           summary="Shipped 10+ features in a high-traffic Next.js + MongoDB app, built a Go-based scraping pipeline cutting manual data work by 80%, and prototyped an internal RAG search system."
           bubbles={[

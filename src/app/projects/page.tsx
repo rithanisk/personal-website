@@ -36,16 +36,7 @@ export default function ProjectsPage() {
       >
         Products, AI systems, and research built from user interviews through evaluation and launch.
       </p>
-      <div className="mt-10 flex items-center justify-between border-y border-pf-border py-4">
-        <span className="text-[11px] font-semibold uppercase tracking-[0.14em]" style={{ color: "var(--pf-text-dim)" }}>
-          Selected builds
-        </span>
-        <span className="text-[12px]" style={{ color: "var(--pf-text-muted)" }}>
-          {projects.length} projects · 3 disciplines
-        </span>
-      </div>
-
-      <div className="mt-6 grid gap-5 md:grid-cols-12">
+      <div className="mt-10 grid gap-5 md:grid-cols-12">
         {projects.map((project, index) => (
           <div key={project.id} className={projectLayouts[index % projectLayouts.length]}>
             <ProjectCard
