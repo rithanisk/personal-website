@@ -38,7 +38,7 @@ type CardImage = {
 type CardProps = {
   type: "experience" | "project" | "hobby";
   title: string;
-  variant?: "niahealth-feature" | "mudra-feature" | "buymed-feature";
+  variant?: "niahealth-feature" | "mudra-feature" | "buymed-feature" | "closet-feature";
   companyNote?: string;
   role?: string;
   date?: string;
@@ -284,7 +284,15 @@ function NiaHealthFeature({ videoSrc }: { videoSrc: string }) {
   );
 }
 
-function LaptopVideoMockup({ src }: { src: string }) {
+function LaptopVideoMockup({
+  src,
+  label = "Mudra Recognition live hand gesture classification demo",
+  videoClassName = "origin-top scale-[1.15] object-cover object-top",
+}: {
+  src: string;
+  label?: string;
+  videoClassName?: string;
+}) {
   return (
     <div className="relative w-full pb-[3.5%]">
       <div
@@ -298,13 +306,13 @@ function LaptopVideoMockup({ src }: { src: string }) {
         <div className="relative aspect-[16/10] overflow-hidden rounded-[5px] bg-[#f4f1eb] sm:rounded-[7px]">
           <video
             src={src}
-            aria-label="Mudra Recognition live hand gesture classification demo"
+            aria-label={label}
             autoPlay
             muted
             loop
             playsInline
             preload="metadata"
-            className="h-full w-full origin-top scale-[1.15] object-cover object-top"
+            className={`h-full w-full ${videoClassName}`}
           />
         </div>
       </div>
@@ -390,6 +398,81 @@ function MudraFeature({ videoSrc }: { videoSrc: string }) {
                 color: "#963d31",
                 borderColor: "color-mix(in oklab, #a94738 28%, transparent)",
                 background: "color-mix(in oklab, #edd0c9 34%, var(--pf-surface))",
+              }}
+            >
+              {item}
+            </span>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+}
+
+function ClosetAiFeature({ videoSrc }: { videoSrc: string }) {
+  const accent = "#5a60a8";
+  const stack = ["Next.js", "FastAPI", "Supabase", "LLM styling", "Image segmentation"];
+
+  return (
+    <>
+      <div
+        className="absolute inset-x-0 bottom-0 h-[180px]"
+        style={{
+          background:
+            "radial-gradient(ellipse at 25% 100%, rgba(112, 120, 196, 0.2), transparent 70%)",
+        }}
+      />
+      <div className="absolute -bottom-[30px] left-[47%] z-[1] w-[300px] -translate-x-1/2 rotate-[3deg] pt-6">
+        {/* Backdrop blob: wraps the laptop, peeks out above and to the right, tilted a little further */}
+        <div
+          className="absolute -bottom-10 -left-[3%] -right-[8%] top-0 origin-bottom-left rotate-[2.5deg] rounded-[30px]"
+          style={{ background: "rgba(120, 128, 200, 0.18)" }}
+        />
+        <LaptopVideoMockup
+          src={videoSrc}
+          label="Closet AI walkthrough showing the home page, closet rails, and wardrobe"
+          videoClassName="object-cover object-left-top"
+        />
+      </div>
+
+      <div className="absolute left-4 right-4 top-4 z-[3] md:left-5 md:right-5 md:top-5">
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <span
+            className="inline-flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.18em]"
+            style={{ color: "var(--pf-forest-ink)" }}
+          >
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--pf-forest-ink)" }} />
+            project
+          </span>
+          <span
+            className="font-mono text-[9px] tracking-[0.14em]"
+            style={{ color: "var(--pf-text-dim)" }}
+          >
+            06
+          </span>
+        </div>
+
+        <h3 className="-mt-0.5 flex items-baseline gap-1.5 whitespace-nowrap font-serif text-[26px] leading-none tracking-[-0.035em]">
+          <span>Closet</span>
+          <span className="italic" style={{ color: accent }}>
+            AI
+          </span>
+        </h3>
+
+        <p className="mt-3 text-[13px] leading-relaxed tracking-tight" style={{ color: "var(--pf-text-muted)" }}>
+          Upload photos of your clothes and get outfits styled and ranked from your own wardrobe, then try them on a
+          photoreal avatar.
+        </p>
+
+        <div className="mt-3.5 flex flex-wrap gap-1.5">
+          {stack.map((item) => (
+            <span
+              key={item}
+              className="whitespace-nowrap rounded-full border px-2 py-1 text-[9px] leading-none"
+              style={{
+                color: "#4a5096",
+                borderColor: "color-mix(in oklab, #5a60a8 28%, transparent)",
+                background: "color-mix(in oklab, #d9dcf2 34%, var(--pf-surface))",
               }}
             >
               {item}
@@ -535,7 +618,8 @@ function BentoCard({
   const isNiaHealthFeature = variant === "niahealth-feature";
   const isMudraFeature = variant === "mudra-feature";
   const isBuymedFeature = variant === "buymed-feature";
-  const isCustomFeature = isNiaHealthFeature || isMudraFeature || isBuymedFeature;
+  const isClosetFeature = variant === "closet-feature";
+  const isCustomFeature = isNiaHealthFeature || isMudraFeature || isBuymedFeature || isClosetFeature;
   const hasCover = images?.some((img) => img.mode === "cover");
   const typeColor = type === "experience" ? "var(--pf-rose)" : "var(--pf-forest-ink)";
 
@@ -553,6 +637,7 @@ function BentoCard({
       {isNiaHealthFeature && images?.[0] && <NiaHealthFeature videoSrc={images[0].src} />}
       {isMudraFeature && images?.[0] && <MudraFeature videoSrc={images[0].src} />}
       {isBuymedFeature && images?.[0] && <BuymedFeature imageSrc={images[0].src} />}
+      {isClosetFeature && images?.[0] && <ClosetAiFeature videoSrc={images[0].src} />}
 
       {/* Gradient overlay for readability on cover images */}
       {!isCustomFeature && hasCover && (
@@ -957,12 +1042,13 @@ const cards: CardProps[] = [
   {
     type: "project",
     title: "Closet AI",
+    variant: "closet-feature",
     description: "AI-ranked outfits from your own wardrobe",
     href: "/projects",
     images: [
       {
-        src: "/media-v1/projects/closet-ai-stylist-screen.webp",
-        alt: "Closet AI Stylist ranking three outfit recommendations",
+        src: "/media-v1/projects/closet-ai-screen-recording.mp4",
+        alt: "Closet AI walkthrough showing the home page, closet rails, and wardrobe",
         mode: "laptop",
         scale: 0.82,
         offsetY: "1%",
