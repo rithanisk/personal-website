@@ -3,8 +3,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { Allura } from "next/font/google";
 import { ArrowRightIcon } from "@/components/shared/Icons";
 import { LaptopMockup } from "@/components/shared/LaptopMockup";
+
+const recognitionFont = Allura({
+  weight: "400",
+  subsets: ["latin"],
+  display: "swap",
+});
 
 type CardImage = {
   src: string;
@@ -226,8 +233,8 @@ function NiaHealthFeature({ videoSrc }: { videoSrc: string }) {
 
         <div className="mt-4 grid max-w-[54%] grid-cols-3 gap-2">
           {metrics.map((metric) => (
-            <div key={metric.value}>
-              <div className="font-serif text-xl leading-none md:text-2xl" style={{ color: "#bc8432" }}>
+            <div key={metric.value} className="text-center">
+              <div className="font-serif text-[23px] font-semibold leading-none md:text-[27px]" style={{ color: "#bc8432" }}>
                 {metric.value}
               </div>
               <div className="mt-1 text-[9px] leading-[1.2]" style={{ color: "var(--pf-text-muted)" }}>
@@ -297,7 +304,7 @@ function LaptopVideoMockup({ src }: { src: string }) {
             loop
             playsInline
             preload="metadata"
-            className="h-full w-full object-cover object-top"
+            className="h-full w-full origin-top scale-[1.15] object-cover object-top"
           />
         </div>
       </div>
@@ -323,11 +330,6 @@ function LaptopVideoMockup({ src }: { src: string }) {
 }
 
 function MudraFeature({ videoSrc }: { videoSrc: string }) {
-  const metrics = [
-    { value: "88.7%", label: "accuracy" },
-    { value: "28", label: "mudras" },
-    { value: "20+", label: "students" },
-  ];
   const stack = ["MediaPipe", "Python", "Flask", "ElevenLabs TTS"];
 
   return (
@@ -339,15 +341,17 @@ function MudraFeature({ videoSrc }: { videoSrc: string }) {
             "radial-gradient(ellipse at 75% 100%, rgba(186, 79, 61, 0.24), transparent 68%)",
         }}
       />
-      <div
-        className="absolute -bottom-[94px] left-1/2 z-[1] w-[252px] -translate-x-1/2 -rotate-[2deg] rounded-[34px] pt-5"
-        style={{ background: "rgba(199, 105, 87, 0.22)" }}
-      >
+      <div className="absolute -bottom-[30px] left-1/2 z-[1] w-[285px] -translate-x-1/2 -rotate-[4deg] pt-5">
+        {/* Backdrop blob: offset up and to the right of the laptop, tilted a little further */}
+        <div
+          className="absolute -bottom-10 left-[10%] -right-[1%] top-0 origin-bottom-left -rotate-[2.5deg] rounded-[26px]"
+          style={{ background: "rgba(199, 105, 87, 0.22)" }}
+        />
         <LaptopVideoMockup src={videoSrc} />
       </div>
 
       <div className="absolute left-4 right-4 top-4 z-[3] md:left-5 md:right-5 md:top-5">
-        <div className="flex items-start justify-between gap-3">
+        <div className="mb-3 flex items-center justify-between gap-3">
           <span
             className="inline-flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.18em]"
             style={{ color: "#a94738" }}
@@ -356,31 +360,32 @@ function MudraFeature({ videoSrc }: { videoSrc: string }) {
             project
           </span>
           <span
-            className="-mt-1 font-serif text-[36px] font-light leading-none"
-            style={{ color: "color-mix(in oklab, #a94738 24%, transparent)" }}
+            className="font-mono text-[9px] tracking-[0.14em]"
+            style={{ color: "var(--pf-text-dim)" }}
           >
             02
           </span>
         </div>
 
-        <h3 className="mt-1 flex items-baseline gap-2 whitespace-nowrap font-serif text-[29px] leading-none tracking-[-0.035em]">
+        <h3 className="-mt-0.5 flex items-baseline gap-2 whitespace-nowrap font-serif text-[26px] leading-none tracking-[-0.035em]">
           <span>Mudra</span>
           <span
-            className="text-[31px] font-normal tracking-[-0.02em]"
-            style={{
-              color: "#a94738",
-              fontFamily: '\"Snell Roundhand\", \"Apple Chancery\", \"Segoe Script\", cursive',
-            }}
+            className={`${recognitionFont.className} text-[34px] font-normal tracking-normal`}
+            style={{ color: "#a94738" }}
           >
             Recognition
           </span>
         </h3>
 
-        <div className="mt-2.5 flex flex-wrap gap-1.5">
-          {["Computer vision", "Deployed"].map((item) => (
+        <p className="mt-3 text-[13px] leading-relaxed tracking-tight" style={{ color: "var(--pf-text-muted)" }}>
+          Live-camera practice with real-time Bharatanatyam hand-gesture checks and spoken feedback.
+        </p>
+
+        <div className="mt-3.5 flex flex-wrap gap-1.5">
+          {stack.map((item) => (
             <span
               key={item}
-              className="rounded-full border px-2 py-1 text-[9px] leading-none"
+              className="whitespace-nowrap rounded-full border px-2 py-1 text-[9px] leading-none"
               style={{
                 color: "#963d31",
                 borderColor: "color-mix(in oklab, #a94738 28%, transparent)",
@@ -390,40 +395,6 @@ function MudraFeature({ videoSrc }: { videoSrc: string }) {
               {item}
             </span>
           ))}
-        </div>
-
-        <p className="mt-3 text-[12px] leading-[1.5] tracking-tight" style={{ color: "var(--pf-text-muted)" }}>
-          Live-camera practice with real-time Bharatanatyam hand-gesture checks and spoken feedback.
-        </p>
-
-        <div className="mt-3.5 grid grid-cols-3 gap-2">
-          {metrics.map((metric) => (
-            <div key={metric.value}>
-              <div className="font-serif text-[22px] leading-none" style={{ color: "#a94738" }}>
-                {metric.value}
-              </div>
-              <div className="mt-1 text-[9px] leading-[1.15]" style={{ color: "var(--pf-text-muted)" }}>
-                {metric.label}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-3 border-t border-dotted pt-2.5" style={{ borderColor: "color-mix(in oklab, #a94738 32%, transparent)" }}>
-          <div className="flex flex-nowrap gap-1">
-            {stack.map((item) => (
-              <span
-                key={item}
-                className="whitespace-nowrap rounded-full px-1.5 py-1 text-[8px] leading-none"
-                style={{
-                  color: "var(--pf-text-muted)",
-                  background: "color-mix(in oklab, var(--pf-surface) 72%, #efd8d2)",
-                }}
-              >
-                {item}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
     </>
@@ -456,7 +427,7 @@ function BuymedFeature({ imageSrc }: { imageSrc: string }) {
       </div>
 
       <div className="absolute left-4 right-4 top-4 z-[3] md:left-5 md:right-5 md:top-5">
-        <div className="mb-3 flex items-start justify-between gap-3">
+        <div className="mb-3 flex items-center justify-between gap-3">
           <span
             className="inline-flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.18em]"
             style={{ color: "var(--pf-rose)" }}
@@ -465,8 +436,8 @@ function BuymedFeature({ imageSrc }: { imageSrc: string }) {
             experience
           </span>
           <span
-            className="-mt-1 font-serif text-[36px] font-light leading-none"
-            style={{ color: "color-mix(in oklab, #087331 20%, transparent)" }}
+            className="font-mono text-[9px] tracking-[0.14em]"
+            style={{ color: "var(--pf-text-dim)" }}
           >
             03
           </span>
@@ -474,11 +445,11 @@ function BuymedFeature({ imageSrc }: { imageSrc: string }) {
 
         <div className="flex h-8 flex-nowrap items-center gap-2.5">
           <Image
-            src="/media-v1/buymed-official-icon.jpg"
+            src="/media-v1/buymed-icon-green.png"
             alt="Buymed logo mark"
-            width={30}
-            height={30}
-            className="h-7 w-7 shrink-0 rounded-[8px] object-cover"
+            width={32}
+            height={32}
+            className="block h-6 w-6 shrink-0 rounded-[7px] object-cover"
           />
           <span
             className="font-sans text-[22px] font-semibold leading-none tracking-[-0.04em]"
