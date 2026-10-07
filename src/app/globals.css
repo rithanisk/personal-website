@@ -206,3 +206,11 @@ body {
   background: var(--pf-accent-soft);
   color: var(--pf-accent-ink);
 }
+
+/* ── Project tile accents (ProjectTileFeatures) ── */
+.pf-tile-observability { --tile-ink: #2f6f66; --tile-soft: #cfe5df; }
+.pf-tile-sepsis { --tile-ink: #3b6790; --tile-soft: #d3e1ee; --tile-alert: #c8543f; --tile-alert-soft: #f6dcd5; }
+.pf-tile-rag { --tile-ink: #a5652a; --tile-soft: #f0dcc4; }
+[data-theme="dark"] .pf-tile-observability { --tile-ink: #7fc4b6; --tile-soft: #1b2b28; }
+[data-theme="dark"] .pf-tile-sepsis { --tile-ink: #8fb3d9; --tile-soft: #1a2533; --tile-alert: #ec8b77; --tile-alert-soft: #3a211c; }
+[data-theme="dark"] .pf-tile-rag { --tile-ink: #dba06a; --tile-soft: #2e2318; }

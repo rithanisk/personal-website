@@ -6,6 +6,11 @@ import { motion } from "framer-motion";
 import { Allura } from "next/font/google";
 import { ArrowRightIcon } from "@/components/shared/Icons";
 import { LaptopMockup } from "@/components/shared/LaptopMockup";
+import {
+  AgentObservabilityFeature,
+  RagFeature,
+  SepsisFeature,
+} from "@/components/home/ProjectTileFeatures";
 
 const recognitionFont = Allura({
   weight: "400",
@@ -38,7 +43,14 @@ type CardImage = {
 type CardProps = {
   type: "experience" | "project" | "hobby";
   title: string;
-  variant?: "niahealth-feature" | "mudra-feature" | "buymed-feature" | "closet-feature";
+  variant?:
+    | "niahealth-feature"
+    | "mudra-feature"
+    | "buymed-feature"
+    | "closet-feature"
+    | "observability-feature"
+    | "sepsis-feature"
+    | "rag-feature";
   companyNote?: string;
   role?: string;
   date?: string;
@@ -619,7 +631,17 @@ function BentoCard({
   const isMudraFeature = variant === "mudra-feature";
   const isBuymedFeature = variant === "buymed-feature";
   const isClosetFeature = variant === "closet-feature";
-  const isCustomFeature = isNiaHealthFeature || isMudraFeature || isBuymedFeature || isClosetFeature;
+  const isObservabilityFeature = variant === "observability-feature";
+  const isSepsisFeature = variant === "sepsis-feature";
+  const isRagFeature = variant === "rag-feature";
+  const isCustomFeature =
+    isNiaHealthFeature ||
+    isMudraFeature ||
+    isBuymedFeature ||
+    isClosetFeature ||
+    isObservabilityFeature ||
+    isSepsisFeature ||
+    isRagFeature;
   const hasCover = images?.some((img) => img.mode === "cover");
   const typeColor = type === "experience" ? "var(--pf-rose)" : "var(--pf-forest-ink)";
 
@@ -638,6 +660,9 @@ function BentoCard({
       {isMudraFeature && images?.[0] && <MudraFeature videoSrc={images[0].src} />}
       {isBuymedFeature && images?.[0] && <BuymedFeature imageSrc={images[0].src} />}
       {isClosetFeature && images?.[0] && <ClosetAiFeature videoSrc={images[0].src} />}
+      {isObservabilityFeature && <AgentObservabilityFeature />}
+      {isSepsisFeature && <SepsisFeature />}
+      {isRagFeature && <RagFeature />}
 
       {/* Gradient overlay for readability on cover images */}
       {!isCustomFeature && hasCover && (
@@ -1058,6 +1083,7 @@ const cards: CardProps[] = [
   {
     type: "project",
     title: "Agent Observability Dashboard",
+    variant: "observability-feature",
     description:
       "Real-time tracing and evaluation for multi-agent tool calls, latency, token usage, failures, and regressions",
     href: "/projects",
@@ -1065,6 +1091,7 @@ const cards: CardProps[] = [
   {
     type: "project",
     title: "Sepsis Mortality Prediction",
+    variant: "sepsis-feature",
     description:
       "Early sepsis detection and mortality prediction from longitudinal patient records using an LSTM pipeline",
     href: "/projects",
@@ -1072,6 +1099,7 @@ const cards: CardProps[] = [
   {
     type: "project",
     title: "RAG for Domain-Specific QA",
+    variant: "rag-feature",
     description:
       "Question answering over academic PDFs, DOCX, and Markdown using semantic retrieval and grounded local generation",
     href: "/projects",
