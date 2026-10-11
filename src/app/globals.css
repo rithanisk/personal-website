@@ -214,3 +214,15 @@ body {
 [data-theme="dark"] .pf-tile-observability { --tile-ink: #7fc4b6; --tile-soft: #1b2b28; }
 [data-theme="dark"] .pf-tile-sepsis { --tile-ink: #8fb3d9; --tile-soft: #1a2533; --tile-alert: #ec8b77; --tile-alert-soft: #3a211c; }
 [data-theme="dark"] .pf-tile-rag { --tile-ink: #dba06a; --tile-soft: #2e2318; }
+.pf-tile-buymed { --tile-ink: #0b7a37; --tile-soft: #d3e8cc; }
+[data-theme="dark"] .pf-tile-buymed { --tile-ink: #6cc28a; --tile-soft: #1a2a1e; }
+.pf-tile-nia { --tile-ink: #b9873d; --tile-soft: #f1e3cc; }
+.pf-tile-lockin { --tile-ink: #6d4bc4; --tile-soft: #e7e0f8; }
+.pf-tile-nus { --tile-ink: #d16a12; --tile-blue: #1f4f8f; --tile-soft: #f6e6d6; }
+.pf-tile-closet { --tile-ink: #5a60a8; --tile-soft: #e1e3f5; }
+[data-theme="dark"] .pf-tile-nia { --tile-ink: #d9a85c; --tile-soft: #2c2316; }
+[data-theme="dark"] .pf-tile-lockin { --tile-ink: #b3a1ee; --tile-soft: #241e36; }
+[data-theme="dark"] .pf-tile-nus { --tile-ink: #f0a05a; --tile-blue: #8fb0e0; --tile-soft: #2b2118; }
+[data-theme="dark"] .pf-tile-closet { --tile-ink: #8d93dc; --tile-soft: #1f2133; }
+.pf-tile-mudra { --tile-ink: #a94738; --tile-soft: #edd0c9; }
+[data-theme="dark"] .pf-tile-mudra { --tile-ink: #e48a78; --tile-soft: #2e1c18; }

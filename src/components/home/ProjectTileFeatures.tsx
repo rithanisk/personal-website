@@ -3,14 +3,14 @@
 import { useRef, type ReactNode } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 
-const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
-const MONO = 'ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace';
+export const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
+export const MONO = 'ui-monospace, "SF Mono", SFMono-Regular, Menlo, monospace';
 
-type Accent = { ink: string; soft: string };
+export type Accent = { ink: string; soft: string };
 
 /* Entry animations play once when the tile scrolls in. Loops only run while the
    tile is on screen, and nothing moves when the visitor prefers reduced motion. */
-function useTileMotion() {
+export function useTileMotion() {
   const ref = useRef<HTMLDivElement>(null);
   const entered = useInView(ref, { once: true, margin: "-40px" });
   const visible = useInView(ref, { margin: "0px" });
@@ -18,14 +18,16 @@ function useTileMotion() {
   return { ref, entered: entered || reduce, loop: visible && !reduce, reduce };
 }
 
-function FeatureHeader({
+export function FeatureHeader({
   index,
+  kind = "project",
   accent,
   title,
   description,
   stack,
 }: {
   index: string;
+  kind?: string;
   accent: Accent;
   title: ReactNode;
   description: string;
@@ -39,7 +41,7 @@ function FeatureHeader({
           style={{ color: accent.ink }}
         >
           <span className="h-1.5 w-1.5 rounded-full" style={{ background: accent.ink }} />
-          project
+          {kind}
         </span>
         <span className="font-mono text-[9px] tracking-[0.14em]" style={{ color: "var(--pf-text-dim)" }}>
           {index}
@@ -719,6 +721,188 @@ export function RagFeature() {
         description="Grounded answers over academic PDFs, DOCX, and Markdown, with sentence-aware chunking and a local LLM."
         stack={["LlamaIndex", "Weaviate", "Ollama · Mistral", "Streamlit"]}
       />
+    </div>
+  );
+}
+
+/* ─────────────────────────── 03 · Buymed (experience) ─────────────────────────── */
+
+const priceSources = 6;
+const priceRows = [
+  { name: "Paracetamol 500mg", unit: "box · 10 strips", price: "32.500₫", delta: "−4%" },
+  { name: "Amoxicillin 250mg", unit: "box · 10 strips", price: "58.000₫", delta: "−2%" },
+];
+
+function CapsuleIcon({ color }: { color: string }) {
+  return (
+    <svg viewBox="0 0 16 8" className="block h-[6px] w-[12px]" aria-hidden>
+      <rect x="0.6" y="0.6" width="14.8" height="6.8" rx="3.4" fill="none" style={{ stroke: color }} strokeWidth="1.2" />
+      <path d="M0.6 4 A3.4 3.4 0 0 1 4 0.6 H8 V7.4 H4 A3.4 3.4 0 0 1 0.6 4 Z" style={{ fill: color }} />
+    </svg>
+  );
+}
+
+/* Right-hand visual for the Buymed experience tile. The tile's text column stays in BentoGrid. */
+export function BuymedPipelineVisual() {
+  const accent = { ink: "var(--tile-ink)", soft: "var(--tile-soft)" };
+  const { ref, entered, loop, reduce } = useTileMotion();
+
+  return (
+    <div className="pf-tile-buymed absolute inset-0">
+      {/* RAG assistant bubble */}
+      <motion.div
+        className="absolute right-[18px] top-[100px] z-[2] hidden w-[158px] xl:block -rotate-[2deg] rounded-[12px] border p-2"
+        style={{
+          background: "var(--pf-surface)",
+          borderColor: "var(--pf-border)",
+          boxShadow: "0 10px 24px rgba(20, 70, 39, 0.12)",
+        }}
+        initial={reduce ? false : { opacity: 0, y: 10 }}
+        animate={entered ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+        transition={{ delay: 0.9, duration: 0.5, ease }}
+      >
+        <div
+          className="ml-auto w-fit rounded-[9px] rounded-br-[3px] px-2 py-1 text-[8.5px] leading-snug"
+          style={{ color: "var(--pf-text)", background: `color-mix(in oklab, ${accent.soft} 70%, var(--pf-surface))` }}
+        >
+          Is paracetamol 500mg in stock?
+        </div>
+        <div className="mt-1.5 flex items-center gap-1.5">
+          <span
+            className="grid h-[16px] w-[16px] shrink-0 place-items-center rounded-full font-mono text-[6.5px] font-semibold"
+            style={{ background: accent.ink, color: "var(--pf-bg)" }}
+          >
+            AI
+          </span>
+          <div className="flex-1 space-y-[3px]">
+            {[100, 72].map((w, i) => (
+              <motion.span
+                key={w}
+                className="block h-[4px] rounded-full"
+                style={{ width: `${w}%`, background: "var(--pf-text)", opacity: 0.12, originX: 0 }}
+                initial={reduce ? false : { scaleX: 0 }}
+                animate={entered ? { scaleX: 1 } : { scaleX: 0 }}
+                transition={{ delay: 1.3 + i * 0.2, duration: 0.5, ease }}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="mt-1.5 flex items-center justify-between font-mono text-[6.5px] uppercase tracking-[0.1em]">
+          <span style={{ color: accent.ink }}>rag answer</span>
+          <span style={{ color: "var(--pf-text-dim)" }}>10s · was 5 min</span>
+        </div>
+      </motion.div>
+
+      {/* Nightly pricing pipeline */}
+      <div
+        ref={ref}
+        className="absolute bottom-[10px] right-[14px] z-[2] w-[180px] origin-bottom-right rotate-[3deg] scale-[0.86] rounded-[14px] border p-2.5 xl:scale-100"
+        style={{
+          background: "var(--pf-surface)",
+          borderColor: "var(--pf-border)",
+          boxShadow: "0 16px 34px rgba(20, 70, 39, 0.16)",
+        }}
+      >
+        <div className="mb-2 flex items-center justify-between">
+          <span
+            className="whitespace-nowrap font-mono text-[7px] uppercase tracking-[0.14em]"
+            style={{ color: "var(--pf-text-dim)" }}
+          >
+            nightly pricing
+          </span>
+          <span
+            className="inline-flex items-center gap-1 whitespace-nowrap rounded-full px-1.5 py-[2px] font-mono text-[7px] uppercase tracking-[0.08em]"
+            style={{ color: accent.ink, background: `color-mix(in oklab, ${accent.soft} 60%, var(--pf-surface))` }}
+          >
+            <motion.span
+              className="h-1 w-1 rounded-full"
+              style={{ background: accent.ink }}
+              animate={loop ? { opacity: [1, 0.25, 1] } : { opacity: 1 }}
+              transition={loop ? { duration: 1.4, repeat: Infinity } : undefined}
+            />
+            go · {priceSources} src
+          </span>
+        </div>
+
+        {/* Sources */}
+        <div className="grid grid-cols-6 gap-1">
+          {Array.from({ length: priceSources }).map((_, i) => (
+            <span
+              key={i}
+              className="grid h-[18px] place-items-center rounded-[5px] border"
+              style={{
+                borderColor: `color-mix(in oklab, ${accent.ink} 22%, transparent)`,
+                background: `color-mix(in oklab, ${accent.soft} 30%, var(--pf-surface))`,
+              }}
+            >
+              <CapsuleIcon color={accent.ink} />
+            </span>
+          ))}
+        </div>
+
+        {/* Concurrent lanes fanning into one merge step */}
+        <div className="grid h-[28px] grid-cols-6 gap-1">
+          {Array.from({ length: priceSources }).map((_, i) => (
+            <div key={i} className="relative flex justify-center">
+              <span
+                className="h-full w-px"
+                style={{ background: `color-mix(in oklab, ${accent.ink} 25%, transparent)` }}
+              />
+              <motion.span
+                className="absolute left-1/2 top-0 -ml-[2.5px] h-[5px] w-[5px] rounded-full"
+                style={{ background: accent.ink }}
+                initial={false}
+                animate={loop ? { y: [0, 22], opacity: [0, 1, 1, 0] } : { y: 11, opacity: 1 }}
+                transition={
+                  loop
+                    ? { duration: 1.1, repeat: Infinity, repeatDelay: 0.5 + (i % 3) * 0.25, delay: i * 0.22, ease: "easeIn" }
+                    : undefined
+                }
+              />
+            </div>
+          ))}
+        </div>
+
+        <div
+          className="flex h-[17px] items-center justify-center rounded-[5px] font-mono text-[7px] uppercase tracking-[0.12em]"
+          style={{ background: accent.ink, color: "var(--pf-bg)" }}
+        >
+          fan-in · merge · validate
+        </div>
+
+        {/* Updated catalogue prices */}
+        <div className="mt-2 space-y-1">
+          {priceRows.map((row, i) => (
+            <div key={row.name} className="flex items-center justify-between gap-2">
+              <div className="min-w-0">
+                <div className="truncate text-[8.5px] font-medium leading-tight" style={{ color: "var(--pf-text)" }}>
+                  {row.name}
+                </div>
+                <div className="text-[7px] leading-tight" style={{ color: "var(--pf-text-dim)" }}>
+                  {row.unit}
+                </div>
+              </div>
+              <div className="relative shrink-0 rounded-[5px] px-1.5 py-[3px]">
+                <motion.span
+                  className="absolute inset-0 rounded-[5px]"
+                  style={{ background: accent.soft }}
+                  initial={false}
+                  animate={loop ? { opacity: [0, 0.9, 0] } : { opacity: 0.5 }}
+                  transition={
+                    loop ? { duration: 1.6, repeat: Infinity, repeatDelay: 2.2, delay: 1.2 + i * 0.5 } : undefined
+                  }
+                />
+                <span className="relative font-mono text-[8.5px] font-semibold" style={{ color: "var(--pf-text)" }}>
+                  {row.price}
+                </span>
+                <span className="relative ml-1 font-mono text-[7px]" style={{ color: accent.ink }}>
+                  {row.delta}
+                </span>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

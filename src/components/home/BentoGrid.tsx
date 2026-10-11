@@ -8,9 +8,17 @@ import { ArrowRightIcon } from "@/components/shared/Icons";
 import { LaptopMockup } from "@/components/shared/LaptopMockup";
 import {
   AgentObservabilityFeature,
+  BuymedPipelineVisual,
   RagFeature,
   SepsisFeature,
 } from "@/components/home/ProjectTileFeatures";
+import {
+  ClosetStylistVisual,
+  LockInFeature,
+  MudraLaptopVisual,
+  NiaHealthPhoneVisual,
+  NusTaFeature,
+} from "@/components/home/BentoTileVisuals";
 
 const recognitionFont = Allura({
   weight: "400",
@@ -50,7 +58,9 @@ type CardProps = {
     | "closet-feature"
     | "observability-feature"
     | "sepsis-feature"
-    | "rag-feature";
+    | "rag-feature"
+    | "lockin-feature"
+    | "nus-feature";
   companyNote?: string;
   role?: string;
   date?: string;
@@ -151,7 +161,7 @@ function CardTitle({
   );
 }
 
-function NiaHealthFeature({ videoSrc }: { videoSrc: string }) {
+function NiaHealthFeature() {
   const metrics = [
     { value: "70%", label: "faster report processing" },
     { value: "9×", label: "operations capacity" },
@@ -160,7 +170,7 @@ function NiaHealthFeature({ videoSrc }: { videoSrc: string }) {
   const stack = ["Python", "FastAPI", "React", "AI agents", "Postgres"];
 
   return (
-    <>
+    <div className="pf-tile-nia contents">
       <div
         className="absolute bottom-0 left-0 z-0 h-[170px] w-[250px]"
         style={{
@@ -170,7 +180,7 @@ function NiaHealthFeature({ videoSrc }: { videoSrc: string }) {
       />
       <div
         className="absolute -bottom-[100px] right-12 z-[1] h-[350px] w-[175px] rotate-[7deg] rounded-[42px]"
-        style={{ background: "color-mix(in oklab, #ead8bd 72%, var(--pf-surface))" }}
+        style={{ background: "rgba(214, 170, 103, 0.26)" }}
       />
 
       <div className="absolute left-4 right-4 top-4 z-[3] md:left-5 md:right-5 md:top-5">
@@ -274,109 +284,25 @@ function NiaHealthFeature({ videoSrc }: { videoSrc: string }) {
         </div>
       </div>
 
-      <div
-        className="absolute -bottom-[132px] right-16 z-[2] h-[365px] rotate-[3deg] overflow-hidden rounded-[32px] border-[6px] border-[#171717] bg-[#171717]"
-        style={{
-          aspectRatio: "1180 / 2556",
-          boxShadow: "0 14px 34px rgba(0,0,0,0.22)",
-        }}
-      >
-        <video
-          src={videoSrc}
-          aria-label="NiaHealth mobile app screen recording"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-          className="h-full w-full object-cover object-top"
-        />
-      </div>
-    </>
-  );
-}
-
-function LaptopVideoMockup({
-  src,
-  label = "Mudra Recognition live hand gesture classification demo",
-  videoClassName = "origin-top scale-[1.15] object-cover object-top",
-}: {
-  src: string;
-  label?: string;
-  videoClassName?: string;
-}) {
-  return (
-    <div className="relative w-full pb-[3.5%]">
-      <div
-        className="relative z-[1] mx-auto w-[90%] rounded-t-[12px] bg-[#17191d] p-[1.7%] pb-[1.45%] sm:rounded-t-[16px]"
-        style={{
-          boxShadow:
-            "0 12px 30px rgba(23, 25, 29, 0.2), inset 0 0 0 1px rgba(255,255,255,0.14)",
-        }}
-      >
-        <span className="absolute left-1/2 top-[0.65%] h-[2px] w-[2px] -translate-x-1/2 rounded-full bg-white/25 sm:h-[3px] sm:w-[3px]" />
-        <div className="relative aspect-[16/10] overflow-hidden rounded-[5px] bg-[#f4f1eb] sm:rounded-[7px]">
-          <video
-            src={src}
-            aria-label={label}
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="metadata"
-            className={`h-full w-full ${videoClassName}`}
-          />
-        </div>
-      </div>
-
-      <div
-        className="relative z-[2] mx-auto h-[clamp(7px,1.45vw,13px)] w-full rounded-b-[14px]"
-        style={{
-          background:
-            "linear-gradient(180deg, #d9dce0 0%, #aeb3b9 46%, #d7d9dc 100%)",
-          boxShadow:
-            "0 5px 10px rgba(22, 24, 28, 0.16), inset 0 1px 0 rgba(255,255,255,0.8)",
-        }}
-      >
-        <span
-          className="absolute left-1/2 top-0 h-[42%] w-[13%] -translate-x-1/2 rounded-b-full"
-          style={{ background: "rgba(120, 125, 132, 0.28)" }}
-        />
-      </div>
-
-      <div className="absolute bottom-0 left-[8%] right-[8%] h-[6%] rounded-full bg-black/20 blur-[7px]" />
+      <NiaHealthPhoneVisual />
     </div>
   );
 }
 
-function MudraFeature({ videoSrc }: { videoSrc: string }) {
+function MudraFeature() {
   const stack = ["MediaPipe", "Python", "Flask", "ElevenLabs TTS"];
 
   return (
-    <>
-      <div
-        className="absolute inset-x-0 bottom-0 h-[150px]"
-        style={{
-          background:
-            "radial-gradient(ellipse at 75% 100%, rgba(186, 79, 61, 0.24), transparent 68%)",
-        }}
-      />
-      <div className="absolute -bottom-[30px] left-1/2 z-[1] w-[285px] -translate-x-1/2 -rotate-[4deg] pt-5">
-        {/* Backdrop blob: offset up and to the right of the laptop, tilted a little further */}
-        <div
-          className="absolute -bottom-10 left-[10%] -right-[1%] top-0 origin-bottom-left -rotate-[2.5deg] rounded-[26px]"
-          style={{ background: "rgba(199, 105, 87, 0.22)" }}
-        />
-        <LaptopVideoMockup src={videoSrc} />
-      </div>
+    <div className="pf-tile-mudra contents">
+      <MudraLaptopVisual scriptClassName={recognitionFont.className} />
 
       <div className="absolute left-4 right-4 top-4 z-[3] md:left-5 md:right-5 md:top-5">
         <div className="mb-3 flex items-center justify-between gap-3">
           <span
             className="inline-flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.18em]"
-            style={{ color: "#a94738" }}
+            style={{ color: "var(--tile-ink)" }}
           >
-            <span className="h-1.5 w-1.5 rounded-full" style={{ background: "#a94738" }} />
+            <span className="h-1.5 w-1.5 rounded-full" style={{ background: "var(--tile-ink)" }} />
             project
           </span>
           <span
@@ -391,7 +317,7 @@ function MudraFeature({ videoSrc }: { videoSrc: string }) {
           <span>Mudra</span>
           <span
             className={`${recognitionFont.className} text-[34px] font-normal tracking-normal`}
-            style={{ color: "#a94738" }}
+            style={{ color: "var(--tile-ink)" }}
           >
             Recognition
           </span>
@@ -407,9 +333,9 @@ function MudraFeature({ videoSrc }: { videoSrc: string }) {
               key={item}
               className="whitespace-nowrap rounded-full border px-2 py-1 text-[9px] leading-none"
               style={{
-                color: "#963d31",
-                borderColor: "color-mix(in oklab, #a94738 28%, transparent)",
-                background: "color-mix(in oklab, #edd0c9 34%, var(--pf-surface))",
+                color: "var(--tile-ink)",
+                borderColor: "color-mix(in oklab, var(--tile-ink) 28%, transparent)",
+                background: "color-mix(in oklab, var(--tile-soft) 34%, var(--pf-surface))",
               }}
             >
               {item}
@@ -417,35 +343,17 @@ function MudraFeature({ videoSrc }: { videoSrc: string }) {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
-function ClosetAiFeature({ videoSrc }: { videoSrc: string }) {
-  const accent = "#5a60a8";
+function ClosetAiFeature() {
+  const accent = "var(--tile-ink)";
   const stack = ["Next.js", "FastAPI", "Supabase", "LLM styling", "Image segmentation"];
 
   return (
-    <>
-      <div
-        className="absolute inset-x-0 bottom-0 h-[180px]"
-        style={{
-          background:
-            "radial-gradient(ellipse at 25% 100%, rgba(112, 120, 196, 0.2), transparent 70%)",
-        }}
-      />
-      <div className="absolute -bottom-[30px] left-[47%] z-[1] w-[300px] -translate-x-1/2 rotate-[3deg] pt-6">
-        {/* Backdrop blob: wraps the laptop, peeks out above and to the right, tilted a little further */}
-        <div
-          className="absolute -bottom-10 -left-[3%] -right-[8%] top-0 origin-bottom-left rotate-[2.5deg] rounded-[30px]"
-          style={{ background: "rgba(120, 128, 200, 0.18)" }}
-        />
-        <LaptopVideoMockup
-          src={videoSrc}
-          label="Closet AI walkthrough showing the home page, closet rails, and wardrobe"
-          videoClassName="object-cover object-left-top"
-        />
-      </div>
+    <div className="pf-tile-closet contents">
+      <ClosetStylistVisual />
 
       <div className="absolute left-4 right-4 top-4 z-[3] md:left-5 md:right-5 md:top-5">
         <div className="mb-3 flex items-center justify-between gap-3">
@@ -482,9 +390,9 @@ function ClosetAiFeature({ videoSrc }: { videoSrc: string }) {
               key={item}
               className="whitespace-nowrap rounded-full border px-2 py-1 text-[9px] leading-none"
               style={{
-                color: "#4a5096",
-                borderColor: "color-mix(in oklab, #5a60a8 28%, transparent)",
-                background: "color-mix(in oklab, #d9dcf2 34%, var(--pf-surface))",
+                color: "var(--tile-ink)",
+                borderColor: "color-mix(in oklab, var(--tile-ink) 28%, transparent)",
+                background: "color-mix(in oklab, var(--tile-soft) 34%, var(--pf-surface))",
               }}
             >
               {item}
@@ -492,11 +400,11 @@ function ClosetAiFeature({ videoSrc }: { videoSrc: string }) {
           ))}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
-function BuymedFeature({ imageSrc }: { imageSrc: string }) {
+function BuymedFeature() {
   const metrics = [
     { value: "10+", label: "features shipped" },
     { value: "Go", label: "pricing pipeline" },
@@ -505,21 +413,12 @@ function BuymedFeature({ imageSrc }: { imageSrc: string }) {
   const stack = ["Go", "Concurrency", "RAG", "LLMs", "REST APIs"];
 
   return (
-    <>
+    <div className="pf-tile-buymed contents">
       <div
         className="absolute -bottom-[92px] right-5 z-[1] h-[300px] w-[230px] rotate-[6deg] rounded-[42px]"
-        style={{ background: "color-mix(in oklab, #cfe0c8 68%, var(--pf-surface))" }}
+        style={{ background: "rgba(60, 140, 80, 0.17)" }}
       />
-      <div className="absolute -bottom-2 right-0 z-[2] h-[205px] w-[245px]">
-        <Image
-          src={imageSrc}
-          alt="Buymed pharmaceutical delivery"
-          fill
-          sizes="245px"
-          className="object-contain object-bottom"
-          style={{ filter: "drop-shadow(0 10px 24px rgba(20, 70, 39, 0.16))" }}
-        />
-      </div>
+      <BuymedPipelineVisual />
 
       <div className="absolute left-4 right-4 top-4 z-[3] md:left-5 md:right-5 md:top-5">
         <div className="mb-3 flex items-center justify-between gap-3">
@@ -548,7 +447,7 @@ function BuymedFeature({ imageSrc }: { imageSrc: string }) {
           />
           <span
             className="font-sans text-[22px] font-semibold leading-none tracking-[-0.04em]"
-            style={{ color: "#087331" }}
+            style={{ color: "var(--tile-ink)" }}
             aria-label="Buymed"
           >
             buymed
@@ -556,11 +455,11 @@ function BuymedFeature({ imageSrc }: { imageSrc: string }) {
           <span
             className="hidden items-center gap-1.5 rounded-full px-2.5 py-1.5 font-mono text-[8px] uppercase leading-none tracking-[0.08em] sm:inline-flex"
             style={{
-              color: "#176d38",
-              background: "color-mix(in oklab, #b9d4b1 30%, var(--pf-surface))",
+              color: "var(--tile-ink)",
+              background: "color-mix(in oklab, var(--tile-soft) 50%, var(--pf-surface))",
             }}
           >
-            <span className="h-1 w-1 rounded-full" style={{ background: "#27804a" }} />
+            <span className="h-1 w-1 rounded-full" style={{ background: "var(--tile-ink)" }} />
             B2B E-commerce · Series B
           </span>
         </div>
@@ -582,7 +481,7 @@ function BuymedFeature({ imageSrc }: { imageSrc: string }) {
         <div className="mt-4 grid max-w-[56%] grid-cols-3 gap-2">
           {metrics.map((metric) => (
             <div key={metric.value}>
-              <div className="font-serif text-xl leading-none md:text-2xl" style={{ color: "#087331" }}>
+              <div className="font-serif text-xl leading-none md:text-2xl" style={{ color: "var(--tile-ink)" }}>
                 {metric.value}
               </div>
               <div className="mt-1 text-[9px] leading-[1.2]" style={{ color: "var(--pf-text-muted)" }}>
@@ -600,7 +499,7 @@ function BuymedFeature({ imageSrc }: { imageSrc: string }) {
                 className="rounded-full px-2 py-1 text-[9px] leading-none"
                 style={{
                   color: "var(--pf-text-muted)",
-                  background: "color-mix(in oklab, var(--pf-surface) 72%, #dce8d6)",
+                  background: "color-mix(in oklab, var(--pf-surface) 72%, var(--tile-soft))",
                 }}
               >
                 {item}
@@ -609,7 +508,7 @@ function BuymedFeature({ imageSrc }: { imageSrc: string }) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
@@ -634,6 +533,8 @@ function BentoCard({
   const isObservabilityFeature = variant === "observability-feature";
   const isSepsisFeature = variant === "sepsis-feature";
   const isRagFeature = variant === "rag-feature";
+  const isLockInFeature = variant === "lockin-feature";
+  const isNusFeature = variant === "nus-feature";
   const isCustomFeature =
     isNiaHealthFeature ||
     isMudraFeature ||
@@ -641,13 +542,15 @@ function BentoCard({
     isClosetFeature ||
     isObservabilityFeature ||
     isSepsisFeature ||
-    isRagFeature;
+    isRagFeature ||
+    isLockInFeature ||
+    isNusFeature;
   const hasCover = images?.some((img) => img.mode === "cover");
   const typeColor = type === "experience" ? "var(--pf-rose)" : "var(--pf-forest-ink)";
 
   const content = (
     <motion.div
-      className="group relative h-full min-h-[360px] overflow-hidden rounded-[18px] md:min-h-0"
+      className="group relative h-full min-h-[392px] overflow-hidden rounded-[18px] md:min-h-0"
       style={{
         background: "var(--pf-bg)",
         border: "1px solid var(--pf-border)",
@@ -656,13 +559,15 @@ function BentoCard({
       whileHover={{ y: -5, boxShadow: "var(--pf-shadow-lg)" }}
       transition={{ type: "spring", stiffness: 280, damping: 24 }}
     >
-      {isNiaHealthFeature && images?.[0] && <NiaHealthFeature videoSrc={images[0].src} />}
-      {isMudraFeature && images?.[0] && <MudraFeature videoSrc={images[0].src} />}
-      {isBuymedFeature && images?.[0] && <BuymedFeature imageSrc={images[0].src} />}
-      {isClosetFeature && images?.[0] && <ClosetAiFeature videoSrc={images[0].src} />}
+      {isNiaHealthFeature && <NiaHealthFeature />}
+      {isMudraFeature && <MudraFeature />}
+      {isBuymedFeature && <BuymedFeature />}
+      {isClosetFeature && <ClosetAiFeature />}
       {isObservabilityFeature && <AgentObservabilityFeature />}
       {isSepsisFeature && <SepsisFeature />}
       {isRagFeature && <RagFeature />}
+      {isLockInFeature && <LockInFeature />}
+      {isNusFeature && <NusTaFeature />}
 
       {/* Gradient overlay for readability on cover images */}
       {!isCustomFeature && hasCover && (
@@ -981,16 +886,6 @@ const cards: CardProps[] = [
       "Built AI and full-stack health products used by thousands, cutting report processing by 70% and scaling operations 9×.",
     href: "/experience",
     wide: true,
-    images: [
-      {
-        src: "/media-v1/niahealth-screen-recording.m4v",
-        alt: "NiaHealth mobile app screen recording",
-        mode: "phone-video",
-        height: "60%",
-        scale: 1,
-        offsetX: "100px",
-      },
-    ],
   },
   {
     type: "project",
@@ -999,16 +894,6 @@ const cards: CardProps[] = [
     description:
       "Live-camera practice tool with 88.7% accuracy across 28 Bharatanatyam mudras, tested with 20+ students",
     href: "/projects",
-    images: [
-      {
-        src: "/media-v1/projects/mudra-screen-recording.m4v",
-        alt: "Mudra Recognition live hand gesture classification demo",
-        mode: "laptop",
-        scale: 0.85,
-        offsetY: "2%",
-        objectPosition: "top",
-      },
-    ],
   },
   {
     type: "experience",
@@ -1021,48 +906,25 @@ const cards: CardProps[] = [
       "Shipped 10+ production features, a concurrent Go pricing pipeline, and a RAG-powered company chatbot.",
     href: "/experience",
     wide: true,
-    images: [
-      {
-        src: "/media-v1/Buymed.webp",
-        alt: "Buymed delivery",
-        mode: "bottom-center",
-        height: "62%",
-        scale: 1.45,
-      },
-    ],
   },
   {
     type: "project",
     title: "Lock-In",
+    variant: "lockin-feature",
     description:
       "Financial-accountability app co-built through two MVPs and tested with 45+ university students",
     href: "/projects",
-    images: [
-      {
-        src: "/media-v1/LockIn.webp",
-        alt: "Lock-In app preview",
-        mode: "bottom-center",
-        scale: 1.1,
-      },
-    ],
   },
   {
     type: "experience",
     title: "National University of Singapore",
+    variant: "nus-feature",
     role: "Teaching Assistant, Digital Ethics and Data Privacy",
     date: "Aug 2024 — Present",
     description:
       "Led tutorials on responsible AI, data privacy law, and digital ethics for IS1108.",
     href: "/experience",
     wide: true,
-    images: [
-      {
-        src: "/media-v1/experience/ta/ta-group-cutouts-v1.png",
-        alt: "Five IS1108 tutorial groups taught by Rithani",
-        mode: "group-strip",
-        height: "50%",
-      },
-    ],
   },
   {
     type: "project",
@@ -1070,15 +932,6 @@ const cards: CardProps[] = [
     variant: "closet-feature",
     description: "AI-ranked outfits from your own wardrobe",
     href: "/projects",
-    images: [
-      {
-        src: "/media-v1/projects/closet-ai-screen-recording.mp4",
-        alt: "Closet AI walkthrough showing the home page, closet rails, and wardrobe",
-        mode: "laptop",
-        scale: 0.82,
-        offsetY: "1%",
-      },
-    ],
   },
   {
     type: "project",
