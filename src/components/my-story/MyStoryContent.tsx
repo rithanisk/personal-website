@@ -1,358 +1,245 @@
 "use client";
 
 import Image from "next/image";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import Link from "next/link";
+import type { ReactNode } from "react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
+const PHOTO_WIDTH = 154;
+const PHOTO_HEIGHT = 154;
+const PHOTO_GAP = 48;
 
-type Accent = "rose" | "forest" | "amber";
+const highlightTones = {
+  rose: { background: "var(--pf-rose-soft)", color: "var(--pf-rose-ink)" },
+  forest: { background: "var(--pf-forest-soft)", color: "var(--pf-forest-ink)" },
+  amber: { background: "var(--pf-amber-soft)", color: "var(--pf-amber-ink)" },
+} as const;
 
-type ChapterPhoto = {
+type Tone = keyof typeof highlightTones;
+
+type AboutMediaItem = {
+  key: string;
   src: string;
   alt: string;
   caption: string;
+  side: "left" | "right";
+  rotation: number;
+  tone: Tone;
+  xOffset: number;
+  yOffset: number;
+  gapBefore?: number;
   objectPosition?: string;
 };
 
-type Chapter = {
-  id: string;
-  heading: string;
-  date: string;
-  place: string;
-  stamp: string;
-  accent: Accent;
-  body: string;
-  photos: ChapterPhoto[];
+type Placement = AboutMediaItem & {
+  top: number;
+  cardX: number;
+  anchorX: number;
+  anchorY: number;
 };
 
-const chapters: Chapter[] = [
-  {
-    id: "roots",
-    heading: "Who Am I?",
-    date: "2005 — 2023",
-    place: "India → United States",
-    stamp: "ROOTS",
-    accent: "rose",
-    body: "I’m Rithani, a second-generation Indian American, born in India and raised in the US. I was born in Karur, a small town in Tamil Nadu, India, and just nine months later, my parents moved us to Seattle, WA. Growing up, I lived between two worlds. As hard as it was building my identity in a foreign country as a young girl, my parents worked equally hard to make sure we also didn't lose where we came from. They taught my younger brother and I to read and write our mother tongue, Tamil, not just speak it. Every other summer, we would all fly back to our parents' hometown to spend time with our grandparents, cousins, and relatives who felt both close and far away at the same time. Even our daily routines were a reminder of where we came from, with weekly temple visits, home-cooked South Indian food, and Tamil entertainment. Despite having multiple hobbies and doing well in anything I tried, I never knew what I wanted to pursue in college. Throughout high school, I switched career paths around four times before deciding to pursue computer science. Eventually, I realized I wanted to pursue a path where I could build products that mattered, while also gaining a new perspective about the world and staying connected to my roots.",
-    photos: [
-      { src: "/media-v1/usa.webp", alt: "Rithani growing up in the United States", caption: "Growing up between two worlds" },
-      { src: "/media-v1/usa2.webp", alt: "A childhood photo of Rithani", caption: "Little me, always curious" },
-      { src: "/media-v1/usa3.webp", alt: "Rithani with family in the United States", caption: "The people who made home feel like home" },
-    ],
-  },
-  {
-    id: "singapore",
-    heading: "Moving to Singapore",
-    date: "2023 — 2025",
-    place: "Singapore",
-    stamp: "NEW HOME",
-    accent: "forest",
-    body: "When my dad introduced me to the National University of Singapore (NUS), I immediately fell in love with the campus and the city. It was so different from what I grew up around, and it had the education, independence, thrill, and adventure that I was desperately seeking. As soon as I graduated high school and received my acceptance letter, I moved to Singapore to study computer science, knowing absolutely no one. It was hard to adjust to a new city, a new environment, and a new way of life. The first few months were unimaginably hard because I missed my family, friends, and the comfort of my home. But over time, I navigated all sorts of problems on my own and became more independent, resilient, and confident in myself. Soon enough, I found friends that became family and realized that Singapore was starting to feel more like home.",
-    photos: [
-      { src: "/media-v1/singapore1.webp", alt: "Rithani in front of Marina Bay Sands", caption: "The city that asked me to grow", objectPosition: "center 66%" },
-      { src: "/media-v1/singapore2.webp", alt: "Rithani with friends in Singapore", caption: "Friends who became family" },
-      { src: "/media-v1/singapore3.webp", alt: "A memory from university in Singapore", caption: "A new life at NUS" },
-    ],
-  },
-  {
-    id: "vietnam",
-    heading: "Leaving for Vietnam",
-    date: "Summer 2024",
-    place: "Ho Chi Minh City, Vietnam",
-    stamp: "FIRST STARTUP",
-    accent: "amber",
-    body: "In the summer of 2024, I was one of 25 people selected for an overseas internship program called NOC (NUS Overseas Colleges) in Vietnam. Less than a year after moving to Singapore, I packed up again and moved to Ho Chi Minh City for three months to work as a Software Engineer at a healthtech startup called Buymed. Being my first real internship and taste of startup culture, I had intense impostor syndrome. I felt like I knew nothing and didn't belong, but over time, I picked up the skills and knowledge I needed to succeed and built projects that had direct impact on customers. I shipped a Go-based scraping pipeline that cut manual work for the global team by 80%, delivered over fifteen production features, and prototyped a RAG-powered internal chatbot for the AI team. It was fast, sometimes chaotic, and exactly the kind of environment I had been looking for. By the end of my internship, I felt so sad to be leaving such a vibrant country and people I had come to love. I left Vietnam knowing I wanted to keep doing work that moved quickly and meant something.",
-    photos: [
-      { src: "/media-v1/vietnam.webp", alt: "Rithani during her summer in Vietnam", caption: "Three months in Ho Chi Minh City" },
-      { src: "/media-v1/vietnam2.webp", alt: "A street scene from Vietnam", caption: "Learning a new city by living in it" },
-      { src: "/media-v1/vietnam3.webp", alt: "Rithani with friends in Vietnam", caption: "The people behind the adventure" },
-    ],
-  },
-  {
-    id: "toronto",
-    heading: "Building in Toronto",
-    date: "2025 — 2026",
-    place: "Toronto, Canada",
-    stamp: "BUILDING",
-    accent: "rose",
-    body: "So, when the opportunity to participate in another NOC program came, I did not hesitate. In August of 2025, I became one of 10 people selected for the year-long NOC Toronto program. I moved into the heart of Toronto and joined another health tech startup, NiaHealth, as an AI Engineer. Building on my experience in Vietnam, I continued to create projects with direct customer impact, this time at a much larger scale. I collaborated with the company's CTO, joined the founding team's weekly sync, and gained much more visibility into how the company operated. Beyond the engineering work, I learned what it takes to build and sustain a startup from the ground up. Over the year, I built GPT-powered data pipelines, cycle-tracking experiences for women, and AI agents that help clinicians make faster, better decisions for their customers. It's not every day that you get to look at a product being used by customers and say, “Hey, I built that myself!” NiaHealth became some of the most meaningful work I've done so far and unlocked skills I could never have learned in a traditional role.",
-    photos: [
-      { src: "/media-v1/toronto.webp", alt: "Rithani in Toronto", caption: "A year in the heart of Toronto", objectPosition: "center 35%" },
-      { src: "/media-v1/toronto2.webp", alt: "Rithani presenting her work at NiaHealth", caption: "Building and presenting at NiaHealth" },
-      { src: "/media-v1/toronto3.webp", alt: "Rithani with the NiaHealth team", caption: "A team that taught me so much" },
-    ],
-  },
+const aboutMedia: AboutMediaItem[] = [
+  { key: "curiosity", rotation: -3.5, src: "/media-v1/fam.webp", alt: "Rithani with her family on a university campus", caption: "The people who taught me to stay curious", side: "right", tone: "rose", xOffset: 34, yOffset: -190 },
+  { key: "singapore", rotation: 2.6, src: "/media-v1/singapore1.webp", alt: "Rithani in front of Marina Bay Sands at night", caption: "A new home in Singapore", side: "left", tone: "forest", xOffset: -24, yOffset: -325, objectPosition: "center 66%" },
+  { key: "united-states", rotation: -1.8, src: "/media-v1/usa2.webp", alt: "A childhood photo of Rithani outdoors", caption: "Growing up in California", side: "right", tone: "amber", xOffset: -8, yOffset: 10 },
+  { key: "vietnam", rotation: -4.1, src: "/media-v1/vietnam3.webp", alt: "Rithani at a group dinner in Vietnam", caption: "A summer in Ho Chi Minh City", side: "left", tone: "rose", xOffset: 22, yOffset: -68, gapBefore: 28 },
+  { key: "toronto", rotation: 3.2, src: "/media-v1/toronto3.webp", alt: "Rithani with the NiaHealth team in Toronto", caption: "The NiaHealth team in Toronto", side: "right", tone: "forest", xOffset: 28, yOffset: -4 },
+  { key: "building", rotation: 1.5, src: "/media-v1/bharatnatyam.webp", alt: "Rithani's Bharatanatyam mudra recognition project", caption: "Turning ideas into things", side: "left", tone: "amber", xOffset: -18, yOffset: -60, gapBefore: 28 },
+  { key: "joy", rotation: -2.8, src: "/media-v1/friends.webp", alt: "Rithani hiking with friends", caption: "The people who make it fun", side: "left", tone: "rose", xOffset: -16, yOffset: -18, gapBefore: 28 },
+  { key: "dance", rotation: 3.7, src: "/media-v1/passions/dancing/dancing-1.webp", alt: "Rithani performing Bharatanatyam on stage", caption: "Bharatanatyam, always", side: "right", tone: "forest", xOffset: 30, yOffset: 18 },
+  { key: "cooking", rotation: -2.1, src: "/media-v1/passions/cooking/cooking-1.webp", alt: "A meal prepared by Rithani", caption: "Made with love (and avocado)", side: "left", tone: "amber", xOffset: 20, yOffset: -52, gapBefore: 28 },
+  { key: "human-centered-tech", rotation: 2.3, src: "/media-v1/NiaHealth.webp", alt: "A health technology interface designed for NiaHealth", caption: "Technology built around people", side: "right", tone: "rose", xOffset: -10, yOffset: 24 },
 ];
 
-const photoLayouts = [
-  "left-[5%] top-[7%] h-[52%] w-[56%]",
-  "right-[4%] top-[13%] h-[40%] w-[39%]",
-  "bottom-[7%] left-[24%] h-[43%] w-[60%]",
-] as const;
+const mediaByKey = new Map(aboutMedia.map((media) => [media.key, media]));
 
-const photoRotations = [-4, 5, 2] as const;
-
-function JournalPhoto({ photo, index, priority, reduceMotion }: { photo: ChapterPhoto; index: number; priority: boolean; reduceMotion: boolean }) {
+function StoryHighlight({ children, mediaKey, tone }: { children: ReactNode; mediaKey: string; tone: Tone }) {
   return (
-    <motion.figure
-      className={`absolute ${photoLayouts[index]} bg-[#fffdf8] p-2 pb-8 sm:p-2.5 sm:pb-9`}
-      style={{ boxShadow: "0 10px 28px rgba(48, 38, 28, 0.18)" }}
-      initial={reduceMotion ? false : { opacity: 0, y: 16, rotate: index === 1 ? 9 : -8 }}
-      animate={{ opacity: 1, y: 0, rotate: photoRotations[index] }}
-      transition={{ duration: reduceMotion ? 0 : 0.55, delay: reduceMotion ? 0 : 0.12 + index * 0.1, ease }}
-      whileHover={reduceMotion ? undefined : { zIndex: 20, scale: 1.035, rotate: 0 }}
-    >
-      <div className="relative h-full w-full overflow-hidden bg-[#eee9e1]">
-        <Image
-          src={photo.src}
-          alt={photo.alt}
-          fill
-          priority={priority}
-          sizes="(max-width: 767px) 68vw, 32vw"
-          className="object-cover"
-          style={{ objectPosition: photo.objectPosition ?? "center" }}
-        />
-      </div>
-      <figcaption className="absolute inset-x-2 bottom-1.5 text-center font-serif text-[10px] leading-tight text-[#51463c] sm:bottom-2 sm:text-[11px]">
-        {photo.caption}
-      </figcaption>
-    </motion.figure>
+    <mark data-media-key={mediaKey} className="rounded-[4px] px-1 py-0.5 font-medium box-decoration-clone" style={highlightTones[tone]}>
+      {children}
+    </mark>
   );
 }
 
-function PhotoPage({ chapter, chapterIndex, reduceMotion }: { chapter: Chapter; chapterIndex: number; reduceMotion: boolean }) {
+function StoryPhoto({ media, compact = false }: { media: AboutMediaItem; compact?: boolean }) {
   return (
-    <div className="relative min-h-[480px] overflow-hidden px-5 py-6 sm:min-h-[560px] md:min-h-[680px] md:px-8 md:py-9">
-      <svg aria-hidden="true" className="absolute inset-x-8 top-7 h-16 w-[calc(100%-4rem)] opacity-30" viewBox="0 0 460 70" fill="none">
-        <path d="M8 49C84 8 154 66 230 29C305 -7 361 57 452 19" stroke={`var(--pf-${chapter.accent})`} strokeWidth="1.5" strokeDasharray="5 7" strokeLinecap="round" />
-        <circle cx="8" cy="49" r="4" fill={`var(--pf-${chapter.accent})`} />
-        <circle cx="452" cy="19" r="4" fill={`var(--pf-${chapter.accent})`} />
+    <figure className={compact ? "w-[148px] shrink-0" : "absolute w-[154px]"}>
+      <div className="relative aspect-[4/3] overflow-hidden rounded-xl" style={{ boxShadow: "var(--pf-shadow)", transform: `rotate(${media.rotation}deg)` }}>
+        <Image src={media.src} alt={media.alt} fill sizes={compact ? "148px" : "154px"} className="object-cover" style={{ objectPosition: media.objectPosition ?? "center" }} />
+      </div>
+      <figcaption className="mt-3 min-h-8 text-center font-display font-normal text-[11px] not-italic leading-[1.3]" style={{ color: "var(--pf-text-muted)" }}>
+        [{media.caption}]
+      </figcaption>
+    </figure>
+  );
+}
+
+function MobileMoments({ mediaKeys }: { mediaKeys: string[] }) {
+  const items = mediaKeys.map((key) => mediaByKey.get(key)).filter((media): media is AboutMediaItem => Boolean(media));
+
+  return (
+    <div className="-mx-1 mt-5 flex snap-x gap-4 overflow-x-auto px-1 pb-4 xl:hidden">
+      {items.map((media) => (
+        <div key={media.key} className="snap-start px-1 py-2">
+          <StoryPhoto media={media} compact />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function DesktopAnnotations({ placements, height }: { placements: Placement[]; height: number }) {
+  return (
+    <div className="pointer-events-none absolute inset-x-0 top-0 hidden xl:block" style={{ height }} aria-hidden="true">
+      <svg className="absolute inset-0 h-full w-full overflow-visible">
+        {placements.map((placement) => {
+          const startX = placement.side === "left" ? placement.cardX + PHOTO_WIDTH : placement.cardX;
+          const startY = placement.top + PHOTO_HEIGHT / 2;
+          const direction = placement.side === "left" ? 1 : -1;
+          const bend = Math.max(42, Math.abs(placement.anchorX - startX) * 0.48);
+          const stroke = `var(--pf-${placement.tone})`;
+
+          return (
+            <g key={placement.key}>
+              <path d={`M ${startX} ${startY} C ${startX + direction * bend} ${startY}, ${placement.anchorX - direction * 34} ${placement.anchorY}, ${placement.anchorX} ${placement.anchorY}`} fill="none" stroke={stroke} strokeWidth="1.5" strokeDasharray="4 5" strokeLinecap="round" opacity="0.58" />
+              <circle cx={placement.anchorX} cy={placement.anchorY} r="3" fill={stroke} opacity="0.76" />
+            </g>
+          );
+        })}
       </svg>
 
-      <div
-        className="absolute right-5 top-5 z-20 flex h-[76px] w-[76px] rotate-6 items-center justify-center rounded-full border-2 text-center font-mono text-[8px] font-semibold tracking-[0.12em] opacity-70 sm:right-8 sm:top-8"
-        style={{ color: `var(--pf-${chapter.accent})`, borderColor: `var(--pf-${chapter.accent})` }}
-      >
-        {chapter.stamp}
-      </div>
-
-      <div className="relative h-[430px] sm:h-[510px] md:h-[610px]">
-        {chapter.photos.map((photo, index) => (
-          <JournalPhoto key={photo.src} photo={photo} index={index} priority={chapterIndex === 0 && index === 0} reduceMotion={reduceMotion} />
-        ))}
-      </div>
-
-      <div className="absolute bottom-4 right-6 font-mono text-[9px] tracking-[0.18em]" style={{ color: "var(--pf-text-dim)" }}>
-        {String(chapterIndex * 2 + 2).padStart(2, "0")}
-      </div>
+      {placements.map((placement) => (
+        <div key={placement.key} className="pointer-events-auto absolute" style={{ left: placement.cardX, top: placement.top }}>
+          <StoryPhoto media={placement} />
+        </div>
+      ))}
     </div>
-  );
-}
-
-function TextPage({ chapter, chapterIndex }: { chapter: Chapter; chapterIndex: number }) {
-  return (
-    <div className="relative flex min-h-[560px] flex-col px-7 py-9 sm:px-10 sm:py-11 md:min-h-[680px] md:px-12 lg:px-14">
-      <div className="flex items-start justify-between gap-5">
-        <div>
-          <div className="font-mono text-[9px] font-medium uppercase tracking-[0.2em]" style={{ color: `var(--pf-${chapter.accent})` }}>
-            Chapter {String(chapterIndex + 1).padStart(2, "0")}
-          </div>
-          <div className="mt-2 font-mono text-[10px] tracking-[0.12em]" style={{ color: "var(--pf-text-dim)" }}>
-            {chapter.date}
-          </div>
-        </div>
-        <div className="max-w-[150px] text-right font-serif text-[12px] leading-snug" style={{ color: "var(--pf-text-muted)" }}>
-          {chapter.place}
-        </div>
-      </div>
-
-      <div className="my-6 h-px w-full" style={{ background: "var(--pf-border)" }} />
-
-      <h2 className="font-serif text-[clamp(31px,3.8vw,50px)] font-light leading-[1.02] tracking-[-0.035em]" style={{ color: "var(--pf-text)" }}>
-        {chapter.heading}
-      </h2>
-      <p className="mt-6 text-[13.5px] leading-[1.72] tracking-[-0.01em] sm:text-[14px] lg:text-[14.5px]" style={{ color: "var(--pf-text-muted)" }}>
-        {chapter.body}
-      </p>
-
-      <div className="mt-auto flex items-end justify-between gap-6 pt-8">
-        <div className="flex items-center gap-2" aria-hidden="true">
-          <span className="h-2 w-2 rounded-full" style={{ background: `var(--pf-${chapter.accent})` }} />
-          <span className="h-px w-16" style={{ background: `var(--pf-${chapter.accent})`, opacity: 0.5 }} />
-        </div>
-        <div className="font-mono text-[9px] tracking-[0.18em]" style={{ color: "var(--pf-text-dim)" }}>
-          {String(chapterIndex * 2 + 1).padStart(2, "0")}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function TurningPage({ direction, accent }: { direction: number; accent: Accent }) {
-  const next = direction > 0;
-
-  return (
-    <motion.div
-      aria-hidden="true"
-      className={`absolute bottom-0 top-0 z-30 hidden w-1/2 md:block ${next ? "left-1/2 origin-left" : "left-0 origin-right"}`}
-      style={{
-        background: "linear-gradient(90deg, var(--pf-bg-warm), var(--pf-surface) 18%, var(--pf-bg-warm))",
-        border: "1px solid var(--pf-border)",
-        boxShadow: next ? "-18px 0 36px rgba(30,24,18,0.18)" : "18px 0 36px rgba(30,24,18,0.18)",
-        transformStyle: "preserve-3d",
-      }}
-      initial={{ rotateY: 0 }}
-      animate={{ rotateY: next ? -180 : 180 }}
-      transition={{ duration: 0.72, ease: [0.45, 0, 0.2, 1] }}
-    >
-      <div className="absolute inset-x-8 top-1/2 h-px" style={{ background: `var(--pf-${accent})`, opacity: 0.18 }} />
-    </motion.div>
   );
 }
 
 export function MyStoryContent() {
   const shouldReduceMotion = useReducedMotion();
-  const [chapterIndex, setChapterIndex] = useState(0);
-  const [turn, setTurn] = useState<{ direction: number; target: number; id: number } | null>(null);
-  const timersRef = useRef<number[]>([]);
-  const chapter = chapters[chapterIndex];
+  const letterRef = useRef<HTMLDivElement>(null);
+  const copyRef = useRef<HTMLDivElement>(null);
+  const [placements, setPlacements] = useState<Placement[]>([]);
+  const [annotationHeight, setAnnotationHeight] = useState(0);
 
-  const turnTo = useCallback((target: number) => {
-    if (target < 0 || target >= chapters.length || target === chapterIndex || turn) return;
-
-    if (shouldReduceMotion) {
-      setChapterIndex(target);
+  const positionAnnotations = useCallback(() => {
+    const letter = letterRef.current;
+    const copy = copyRef.current;
+    if (!letter || !copy || window.innerWidth < 1280) {
+      setPlacements([]);
+      setAnnotationHeight(copy?.offsetHeight ?? 0);
       return;
     }
 
-    const direction = target > chapterIndex ? 1 : -1;
-    setTurn({ direction, target, id: Date.now() });
-    timersRef.current.push(window.setTimeout(() => setChapterIndex(target), 330));
-    timersRef.current.push(window.setTimeout(() => setTurn(null), 740));
-  }, [chapterIndex, shouldReduceMotion, turn]);
+    const letterRect = letter.getBoundingClientRect();
+    const copyRect = copy.getBoundingClientRect();
+    const railInset = Math.max(8, (copyRect.left - letterRect.left - PHOTO_WIDTH) * 0.42);
+    const nextBottom = { left: -280, right: -220 };
+    let maxBottom = copy.offsetHeight;
+
+    const nextPlacements = aboutMedia.map((media) => {
+      const highlight = copy.querySelector<HTMLElement>(`[data-media-key="${media.key}"]`);
+      const highlightRect = highlight?.getBoundingClientRect();
+      const anchorY = highlightRect ? highlightRect.top - letterRect.top + highlightRect.height / 2 : 0;
+      const minimumTop = media.side === "left" ? -280 : -220;
+      const preferredTop = Math.max(minimumTop, anchorY - PHOTO_HEIGHT / 2 + media.yOffset);
+      const top = Math.max(preferredTop, nextBottom[media.side] + (media.gapBefore ?? 0));
+      const baseCardX = media.side === "left" ? railInset : letterRect.width - railInset - PHOTO_WIDTH;
+      const cardX = baseCardX + media.xOffset;
+      const anchorX = highlightRect ? (media.side === "left" ? highlightRect.left : highlightRect.right) - letterRect.left : copyRect.left - letterRect.left;
+
+      nextBottom[media.side] = top + PHOTO_HEIGHT + PHOTO_GAP;
+      maxBottom = Math.max(maxBottom, top + PHOTO_HEIGHT);
+      return { ...media, top, cardX, anchorX, anchorY };
+    });
+
+    setPlacements(nextPlacements);
+    setAnnotationHeight(maxBottom);
+  }, []);
 
   useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "ArrowRight") turnTo(chapterIndex + 1);
-      if (event.key === "ArrowLeft") turnTo(chapterIndex - 1);
+    const frame = window.requestAnimationFrame(positionAnnotations);
+    const observer = new ResizeObserver(positionAnnotations);
+    if (letterRef.current) observer.observe(letterRef.current);
+    if (copyRef.current) observer.observe(copyRef.current);
+    window.addEventListener("resize", positionAnnotations);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      observer.disconnect();
+      window.removeEventListener("resize", positionAnnotations);
     };
+  }, [positionAnnotations]);
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [chapterIndex, turnTo]);
+  const container = shouldReduceMotion
+    ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.3 } } }
+    : { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { staggerChildren: 0.08, delayChildren: 0.1 } } };
 
-  useEffect(() => () => timersRef.current.forEach((timer) => window.clearTimeout(timer)), []);
+  const item = shouldReduceMotion
+    ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.3 } } }
+    : { hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease } } };
 
   return (
-    <main className="overflow-hidden px-5 pb-20 pt-16 sm:px-8 md:px-[72px] md:pb-28 md:pt-20">
-      <motion.header
-        className="mx-auto mb-9 max-w-[1296px] md:mb-11"
-        initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.65, ease }}
-      >
-        <div className="pf-eyebrow mb-4">My Story</div>
-        <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
-          <div>
-            <h1 className="font-serif text-[clamp(38px,5vw,64px)] font-light leading-[0.96] tracking-[-0.035em]">
-              A life across <span style={{ color: "var(--pf-accent)" }}>timezones</span>
-            </h1>
-            <p className="mt-5 text-[16px] font-light leading-relaxed tracking-tight" style={{ color: "var(--pf-text-muted)" }}>
-              Every move taught me something new. Turn the page to see how I got here.
-            </p>
-          </div>
-          <div className="hidden items-center gap-2 font-mono text-[9px] uppercase tracking-[0.16em] md:flex" style={{ color: "var(--pf-text-dim)" }}>
-            <span>Use arrow keys</span>
-            <span aria-hidden="true">← →</span>
-          </div>
+    <motion.main variants={container} initial="hidden" animate="visible">
+      <motion.div className="mx-auto max-w-[1380px] px-5 pb-20 pt-24 sm:px-10 md:pt-28 xl:px-8" variants={item}>
+        <div className="mx-auto mb-10 w-full max-w-[620px] overflow-hidden">
+          <Image src="/media-v1/handwritten-intro-transparent.png" alt="Hi! I'm Rithani" width={2172} height={724} className="h-[clamp(70px,12vw,112px)] w-full object-cover" sizes="(max-width: 768px) 90vw, 620px" priority />
         </div>
-      </motion.header>
 
-      <section className="mx-auto max-w-[1296px]" aria-label="Interactive travel journal">
-        <div
-          className="relative [perspective:2200px]"
-          aria-live="polite"
-          aria-label={`Chapter ${chapterIndex + 1} of ${chapters.length}: ${chapter.heading}`}
-        >
-          <div
-            className="absolute -inset-x-3 bottom-[-14px] top-5 -z-10 hidden md:block"
-            style={{ background: "var(--pf-bg-warm)", border: "1px solid var(--pf-border)", boxShadow: "var(--pf-shadow-lg)" }}
-          />
+        <div ref={letterRef} className="relative mx-auto w-full" style={{ minHeight: annotationHeight || undefined }}>
+          <DesktopAnnotations placements={placements} height={annotationHeight} />
 
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              key={chapter.id}
-              className="relative grid overflow-hidden border md:grid-cols-2"
-              style={{
-                background: "var(--pf-surface)",
-                borderColor: "var(--pf-border)",
-                boxShadow: "var(--pf-shadow-lg)",
-              }}
-              initial={shouldReduceMotion ? { opacity: 0 } : { opacity: 0.55, scale: 0.992 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0.65 }}
-              transition={{ duration: shouldReduceMotion ? 0.15 : 0.32, ease }}
-            >
-              <TextPage chapter={chapter} chapterIndex={chapterIndex} />
-              <div className="relative border-t md:border-l md:border-t-0" style={{ borderColor: "var(--pf-border)", background: "var(--pf-bg-warm)" }}>
-                <PhotoPage chapter={chapter} chapterIndex={chapterIndex} reduceMotion={Boolean(shouldReduceMotion)} />
+          <div ref={copyRef} className="relative z-10 mx-auto max-w-[700px]">
+            <div className="space-y-5 text-[15px] leading-[1.8] tracking-[-0.01em]" style={{ color: "var(--pf-text-muted)" }}>
+              <div>
+                <p>
+                  Growing up, I was the kid who always asked for more. <StoryHighlight mediaKey="curiosity" tone="rose">To learn more, do more, be more.</StoryHighlight> When I was little, I once asked my mom if I could have two jobs when I grew up. She laughed, but told me something I&apos;ve never forgotten: <em style={{ color: "var(--pf-text)" }}>&ldquo;If your passion is fierce enough, you can make anything happen.&rdquo;</em>
+                </p>
+                <MobileMoments mediaKeys={["curiosity"]} />
               </div>
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute bottom-0 left-1/2 top-0 hidden w-8 -translate-x-1/2 md:block"
-                style={{ background: "linear-gradient(90deg, transparent, rgba(25,20,15,0.08), transparent)" }}
-              />
-            </motion.div>
-          </AnimatePresence>
 
-          {turn && <TurningPage key={turn.id} direction={turn.direction} accent={chapter.accent} />}
-        </div>
+              <div>
+                <p>
+                  While I don&apos;t want to be an actress and doctor anymore, I&apos;ve been chasing that ever since. Not a specific title or a destination, but the feeling of making something that matters to someone. It&apos;s why I packed up and <StoryHighlight mediaKey="singapore" tone="forest">moved to Singapore</StoryHighlight> for university after <StoryHighlight mediaKey="united-states" tone="amber">growing up in the US</StoryHighlight> for 18 years. It&apos;s why I spent a <StoryHighlight mediaKey="vietnam" tone="rose">summer in Vietnam</StoryHighlight> interning at a health tech startup and immersing myself in the local culture. And it&apos;s why I spent a year in <StoryHighlight mediaKey="toronto" tone="forest">Toronto</StoryHighlight>, building health technology alongside founders, clinicians, and product teams before returning to NUS. I&apos;m constantly putting myself in rooms where I know nobody and nothing is familiar because every new place has cracked something open in me. A different way of seeing problems. A deeper understanding of what the people there actually need. Because at the core, we&apos;re building for people, and how can we build for them if we don&apos;t understand them?
+                </p>
+                <MobileMoments mediaKeys={["singapore", "united-states", "vietnam", "toronto"]} />
+              </div>
 
-        <div className="mt-8 flex flex-col-reverse items-center justify-between gap-6 sm:flex-row">
-          <div className="flex items-center gap-2.5" aria-label={`Chapter ${chapterIndex + 1} of ${chapters.length}`}>
-            {chapters.map((item, index) => (
-              <button
-                key={item.id}
-                type="button"
-                onClick={() => turnTo(index)}
-                disabled={Boolean(turn)}
-                aria-label={`Go to chapter ${index + 1}: ${item.heading}`}
-                aria-current={index === chapterIndex ? "step" : undefined}
-                className="h-2 rounded-full transition-all duration-300 disabled:cursor-wait"
-                style={{
-                  width: index === chapterIndex ? 34 : 10,
-                  background: index === chapterIndex ? `var(--pf-${chapter.accent})` : "var(--pf-border-strong)",
-                }}
-              />
-            ))}
-            <span className="ml-2 font-mono text-[10px] tracking-[0.14em]" style={{ color: "var(--pf-text-dim)" }}>
-              {String(chapterIndex + 1).padStart(2, "0")} / {String(chapters.length).padStart(2, "0")}
-            </span>
-          </div>
+              <div>
+                <p>
+                  <StoryHighlight mediaKey="building" tone="amber">So I build.</StoryHighlight> An idea comes to me and I&apos;m already opening my laptop. Sometimes it becomes something real, like a visual Bharatnatyam mudra recognition application that lets young Bharatanatyam students practice on their own. Other times, something fun, like a telegram bot to keep track of a leetcode competition between my friend and I. If a solution helps even one person, let alone <StoryHighlight mediaKey="joy" tone="rose">brings a smile to their face</StoryHighlight>, that matters as much to me as a product used by millions.
+                </p>
+                <MobileMoments mediaKeys={["building", "joy"]} />
+              </div>
 
-          <div className="flex w-full items-center justify-between gap-3 sm:w-auto sm:justify-end">
-            <button
-              type="button"
-              onClick={() => turnTo(chapterIndex - 1)}
-              disabled={chapterIndex === 0 || Boolean(turn)}
-              className="inline-flex min-w-[112px] items-center justify-center gap-2 border-b py-2 text-[13px] font-medium transition-all duration-200 hover:-translate-x-1 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:translate-x-0"
-              style={{ borderColor: "var(--pf-border-strong)", color: "var(--pf-text-muted)" }}
-            >
-              <span aria-hidden="true">←</span> Previous
-            </button>
-            <button
-              type="button"
-              onClick={() => turnTo(chapterIndex + 1)}
-              disabled={chapterIndex === chapters.length - 1 || Boolean(turn)}
-              className="inline-flex min-w-[112px] items-center justify-center gap-2 border-b py-2 text-[13px] font-medium transition-all duration-200 hover:translate-x-1 disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:translate-x-0"
-              style={{ borderColor: `var(--pf-${chapter.accent})`, color: `var(--pf-${chapter.accent})` }}
-            >
-              Next page <span aria-hidden="true">→</span>
-            </button>
+              <div>
+                <p>
+                  What most people don&apos;t expect is that before I ever wrote a line of code, I spent years investing in my creative side: <StoryHighlight mediaKey="dance" tone="forest">dancing Bharatanatyam</StoryHighlight>, singing Carnatic music, going to art classes, and <StoryHighlight mediaKey="cooking" tone="amber">cooking for my family</StoryHighlight>. In fact, my name, <em style={{ color: "var(--pf-rose)" }}>Rithani</em>, means the Hindu goddess of the arts. What those 15 years gave me wasn&apos;t just a creative outlet. They taught me that the most powerful thing you can do is make someone feel something, whether that&apos;s through a performance, a well-told story, or a product that just works the way it should. That&apos;s what I&apos;m still doing, just with different tools now.
+                </p>
+                <MobileMoments mediaKeys={["dance", "cooking"]} />
+              </div>
+
+              <div>
+                <p>
+                  I care most about the place where <StoryHighlight mediaKey="human-centered-tech" tone="rose">technology meets people</StoryHighlight> and how I can build products and deliver stories that matter. I want to be a changemaker not someday, but in every role I take on right now. If that&apos;s the kind of work you resonate with, I&apos;d love to be part of it :)
+                </p>
+                <MobileMoments mediaKeys={["human-centered-tech"]} />
+              </div>
+            </div>
+
+            <Link href="/projects" className="mt-8 inline-flex items-center gap-2 text-[14px] font-medium transition-colors duration-200" style={{ color: "var(--pf-rose)" }}>
+              See what I’m building
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </Link>
           </div>
         </div>
-      </section>
-    </main>
+      </motion.div>
+    </motion.main>
   );
 }
