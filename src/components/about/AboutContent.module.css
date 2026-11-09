@@ -1,0 +1,130 @@
+.page {
+  --font-display: var(--font-display-face), Arial, sans-serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --about-copy: #111;
+  max-width: 1584px;
+  margin: auto;
+  padding: 64px 72px 80px;
+}
+:global([data-theme="dark"]) .page { --about-copy: var(--pf-text); }
+.grid { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); grid-template-rows: 260px 260px minmax(250px,auto) minmax(160px,auto); gap: 16px; }
+.panel, .photoPanel { background: var(--pf-bg); border: 1px solid var(--pf-border); border-radius: 18px; box-shadow: var(--pf-shadow); min-width: 0; transition: box-shadow .2s ease; }
+.panel:hover, .photoPanel:hover { box-shadow: var(--pf-shadow-lg); }
+.bio { grid-column: 1/3; grid-row: 1/4; padding: 32px; display: flex; flex-direction: column; }
+.bio h1 { color: var(--about-copy); font: 300 clamp(30px,3vw,40px)/1.15 var(--font-display); letter-spacing: -.02em; margin-top: 14px; }
+.bioSections { display: grid; gap: 25px; margin-top: 30px; }
+.bioSections h2 { font-size: 11px; font-weight: 300; letter-spacing: .12em; text-transform: uppercase; color: var(--pf-rose-ink); margin-bottom: 8px; }
+.bioSections p { font-size: 17px; line-height: 1.75; color: var(--about-copy); max-width: 65ch; }
+.bioSections strong { font-weight: 500; }
+.highlight { border-radius: 4px; padding: 2px 4px; font-weight: 500; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.rose { background: var(--pf-rose-soft); color: var(--pf-rose-ink); }
+.forest { background: var(--pf-forest-soft); color: var(--pf-forest-ink); }
+.amber { background: var(--pf-amber-soft); color: var(--pf-amber-ink); }
+.bioSections a { color: inherit; text-decoration: underline; text-decoration-color: var(--pf-rose); text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.bioSections a:hover { color: var(--pf-rose); }
+.storyLink { display: inline-flex; align-items: center; gap: 8px; color: var(--pf-rose); font-size: 13px; margin-top: 25px; align-self: flex-start; }
+.storyLink svg { width: 15px; }
+.socials { display: flex; gap: 17px; margin-top: auto; padding-top: 26px; color: var(--pf-text-dim); }
+.socials a:hover { color: var(--pf-rose); }
+.linkedin { grid-column: 4; grid-row: 1; display: flex; flex-direction: column; overflow: hidden; }
+.linkedinBanner { height: 45px; flex-shrink: 0; background: var(--pf-sky-soft); display: flex; justify-content: flex-end; align-items: center; padding: 13px 17px; color: #0a66c2; }
+.linkedinLogo { width: 32px; height: auto; object-fit: contain; }
+.linkedinBody { padding: 0 18px 17px; display: flex; flex-direction: column; flex: 1; }
+.linkedinAvatar { height: 56px; width: 56px; object-fit: cover; border-radius: 50%; border: 3px solid var(--pf-bg); margin: -23px 0 8px; position: relative; }
+.linkedin h2 { font: 300 22px/1.15 var(--font-display); letter-spacing: -.02em; }
+.linkedin p { font-size: 13px; line-height: 1.5; color: var(--pf-text-muted); margin-top: 7px; }
+.linkedinLink { display: flex; align-items: center; justify-content: space-between; gap: 8px; color: var(--pf-rose); font-size: 12px; padding-top: 12px; margin-top: auto; }
+.linkedinLink svg { width: 15px; }
+.photoPanel { position: relative; overflow: hidden; color: #fff; }
+.portrait { grid-column: 3; grid-row: 1/3; }
+.portraitImage { object-fit: cover; object-position: 57% 60%; transform: scale(1.18); }
+.cover { object-fit: cover; }
+.photoShade { position: absolute; inset: 0; background: linear-gradient(180deg,rgba(0,0,0,.18),transparent 38%,rgba(0,0,0,.66)); pointer-events: none; }
+.storytelling { grid-column: 3; grid-row: 3; padding: 17px; display: flex; flex-direction: column; gap: 15px; }
+.filmIntro h2 { font: 300 24px/1.2 var(--font-display); letter-spacing: -.02em; }
+.filmIntro p { font-size: 14px; line-height: 1.65; color: var(--pf-text-muted); margin-top: 8px; }
+.filmPreview { position: relative; display: block; flex: 1; min-height: 140px; width: 100%; padding: 0; border: 0; border-radius: 11px; overflow: hidden; cursor: pointer; background: var(--pf-surface-2); color: #fff; }
+.filmShade { position: absolute; inset: 0; background: linear-gradient(transparent 50%, rgba(0,0,0,.7)); }
+.filmPlay { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); display: grid; place-items: center; width: 45px; height: 45px; border-radius: 50%; padding-left: 3px; background: var(--pf-bg); color: var(--pf-rose); font-size: 15px; box-shadow: var(--pf-shadow); }
+.filmLabel { position: absolute; bottom: 13px; left: 13px; right: 13px; display: flex; align-items: center; justify-content: space-between; gap: 8px; font-size: 12px; }
+.filmLabel svg { width: 15px; }
+.filmDialog { margin: auto; padding: 17px; width: min(860px,92vw); max-width: 92vw; max-height: 92vh; overflow: auto; border: 1px solid var(--pf-border); border-radius: 18px; background: var(--pf-bg); color: var(--pf-text); box-shadow: var(--pf-shadow-lg); }
+.filmDialog::backdrop { background: rgba(20,18,15,.85); }
+.filmDialogHeader { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-bottom: 15px; }
+.filmDialogHeader h2 { font: 300 22px/1.2 var(--font-display); }
+.filmDialogHeader button { border: 1px solid var(--pf-border); background: var(--pf-bg); color: var(--pf-text); padding: 8px 12px; border-radius: 8px; font-size: 12px; cursor: pointer; }
+.filmDialog video { display: block; width: 100%; max-height: 74vh; border-radius: 10px; background: #000; object-fit: contain; }
+.photoTop { position: absolute; left: 20px; right: 20px; top: 19px; display: flex; justify-content: space-between; gap: 10px; font-size: 11px; }
+.photoBottom { position: absolute; bottom: 20px; left: 20px; right: 20px; display: flex; align-items: end; justify-content: space-between; gap: 10px; }
+.photoBottom h2 { font: 300 27px/1.15 var(--font-display); letter-spacing: -.02em; }
+.photoBottom p { font-size: 13px; margin-top: 6px; color: rgba(255,255,255,.85); }
+.photoBottom button { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.5); background: rgba(0,0,0,.12); border-radius: 50%; flex-shrink: 0; color: #fff; cursor: pointer; }
+.photoBottom button svg { width: 15px; }
+.passions { grid-column: 4; grid-row: 2; }
+.projects { grid-column: 4; grid-row: 3; padding: 17px; display: flex; flex-direction: column; gap: 15px; }
+.photoPrint { position: relative; flex: 1; min-height: 130px; overflow: hidden; border-radius: 11px; background: var(--pf-surface-2); }
+.projectImage { object-fit: cover; object-position: 55% top; }
+.projectLabel { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.projectLabel h2 { font: 300 22px/1.15 var(--font-display); letter-spacing: -.02em; }
+.projectLabel p { font-size: 13px; color: var(--pf-text-muted); margin-top: 5px; }
+.projectLabel svg { width: 16px; color: var(--pf-rose); flex-shrink: 0; }
+.contact { grid-column: 1/-1; grid-row: 4; padding: 23px; display: flex; flex-direction: column; justify-content: center; }
+.contactIntro { display: flex; align-items: center; gap: 12px; }
+.mailBadge { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 50%; color: var(--pf-rose); background: var(--pf-rose-soft); flex-shrink: 0; }
+.contactIntro h2 { font: 300 25px/1.15 var(--font-display); }
+.contactIntro p { font-size: 13px; color: var(--pf-text-dim); margin-top: 4px; }
+.composer { display: flex; gap: 10px; align-items: center; border: 1px solid var(--pf-border-strong); border-radius: 25px; padding: 5px 6px 5px 15px; margin-top: 19px; }
+.composer input { width: 100%; min-width: 0; background: transparent; color: var(--pf-text); font-size: 12px; border: 0; padding: 4px 0; outline: none; }
+.composer:focus-within { border-color: var(--pf-rose); }
+.composer a { display: grid; place-items: center; background: var(--pf-rose); color: #fff; height: 29px; width: 29px; border-radius: 50%; flex-shrink: 0; }
+.composer a svg { width: 15px; }
+.emailAddress { align-self: flex-start; font-size: 12px; color: var(--pf-text-dim); margin-top: 10px; }
+.srOnly { position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+.page a:focus-visible, .page button:focus-visible { outline: 2px solid var(--pf-rose); outline-offset: 4px; }
+@media(min-width:1600px) { .grid { grid-template-rows: 280px 280px minmax(250px,auto) minmax(160px,auto); } }
+@media(max-width:1250px) {
+  .page { padding: 45px 40px 65px; }
+  .bio { padding: 27px; }
+  .bioSections p { font-size: 16px; }
+  .photoBottom { left: 16px; right: 16px; bottom: 17px; }
+  .photoBottom h2 { font-size: 25px; }
+  .linkedin h2 { font-size: 21px; }
+  .projects { padding: 14px; }
+  .projectLabel h2 { font-size: 21px; }
+}
+@media(max-width:1100px) {
+  .page { padding: 35px 24px 60px; }
+  .grid { grid-template-columns: repeat(2,minmax(0,1fr)); grid-template-rows: auto 260px 260px 300px auto; }
+  .bio { grid-column: 1/-1; grid-row: 1; padding: 30px; }
+  .bio h1 { font-size: 38px; }
+  .bioSections { grid-template-columns: 1fr 1fr; gap: 25px 30px; }
+  .portrait { grid-column: 1; grid-row: 2/4; }
+  .linkedin { grid-column: 2; grid-row: 2; }
+  .passions { grid-column: 2; grid-row: 3; }
+  .storytelling { grid-column: 1; grid-row: 4; }
+  .projects { grid-column: 2; grid-row: 4; padding: 18px; }
+  .contact { grid-column: 1/-1; grid-row: 5; }
+  .linkedin h2 { font-size: 24px; }
+  .linkedinBody { padding-left: 23px; padding-right: 23px; }
+  .linkedin p { font-size: 14px; }
+}
+@media(max-width:560px) {
+  .page { padding: 25px 20px 50px; }
+  .grid { grid-template-columns: minmax(0,1fr); grid-template-rows: auto; gap: 15px; }
+  .portrait, .bio, .linkedin, .storytelling, .passions, .projects, .contact { grid-column: auto; grid-row: auto; }
+  .portrait { aspect-ratio: 3/4; }
+  .portraitImage { transform: scale(1.12); }
+  .bio { padding: 25px 23px; }
+  .bio h1 { font-size: 32px; margin-top: 10px; }
+  .bioSections { grid-template-columns: 1fr; gap: 25px; }
+  .bioSections p { font-size: 16px; }
+  .linkedin { min-height: 260px; }
+  .storytelling { min-height: 330px; }
+  .passions { height: 330px; }
+  .projects { min-height: 330px; }
+  .photoPrint { min-height: 220px; }
+  .contact { padding: 23px; }
+  .contactIntro h2 { font-size: 24px; }
+  .composer input { font-size: 12px; }
+}
+@media(prefers-reduced-motion:reduce) { .panel, .photoPanel { transition: none; } }
