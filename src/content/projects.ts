@@ -2,8 +2,23 @@ import { Project } from "@/types/content";
 
 export const projects: Project[] = [
   {
+    id: "mudra",
+    name: "Bharatanatyam Mudra Practice Tool",
+    category: "Product/SWE",
+    blurb: "Live-camera practice tool with 88.7% accuracy across 28 mudras, tested with 20+ Bharatanatyam students over 8 weeks.",
+    description: "Built a live-camera Bharatanatyam practice tool using Google MediaPipe to track 21 hand landmarks and classify all 28 single-hand mudras. Trained the model on 1,400+ custom samples, then evaluated how the tool changed independent practice over an eight-week test.",
+    stack: ["Python", "Google MediaPipe", "Flask", "JavaScript", "HTML/CSS"],
+    bullets: [
+      "Improved independent practice by 22% for 20+ students during an eight-week test.",
+      "Reached 88.7% accuracy across 28 mudras using 1,400+ custom training samples and MediaPipe hand landmarks.",
+    ],
+    images: ["/media-v1/projects/mudra-screen.webp"],
+    videoSrc: "/media-v1/projects/mudra-screen-recording.m4v",
+    live: "https://mudra-mediapipe.vercel.app",
+  },
+  {
     id: "closet-ai",
-    name: "Closet AI — AI Wardrobe Stylist",
+    name: "Alankara — AI Wardrobe Stylist",
     category: "Product/SWE",
     blurb: "A private digital closet that turns clothing photos into organized garments, weather-aware outfits, and virtual try-ons.",
     description: "Built a desktop-first AI wardrobe and personal styling app that turns clothing photos into a private digital closet. Users can review extracted garment cutouts, organize what they own, teach the stylist their taste, generate weather-aware outfits, and preview looks with virtual try-on.",
@@ -13,6 +28,21 @@ export const projects: Project[] = [
       "Designed a taste-aware stylist that recommends three weather-appropriate outfits using pieces the user already owns.",
     ],
     images: ["/media-v1/projects/closet-ai-stylist-screen.webp"],
+    videoSrc: "/media-v1/projects/closet-ai-screen-recording.mp4",
+    featured: true,
+  },
+  {
+    id: "timecapsule",
+    name: "Timecapsule",
+    category: "Product/SWE",
+    blurb: "A private, asynchronous photo booth for friends: capture separately, reveal together, and keep the memory.",
+    description: "Built a mobile-first photo booth for groups of 2–6 people. Each person joins through an invite link and confirms their photos privately. Once everyone submits, the group reveals a shared keepsake, customizes its frame, and downloads it.",
+    stack: ["React", "TypeScript", "Express", "PostgreSQL", "Private App Storage"],
+    bullets: [
+      "Built invite-based group booths, a private camera roll with retakes, and a shared reveal that unlocks only when everyone has submitted.",
+      "Implemented frame customization and downloadable keepsakes, with authenticated writes, private storage, and photo access gated by the reveal state.",
+    ],
+    images: [],
     featured: true,
   },
   {
@@ -67,8 +97,7 @@ export const projects: Project[] = [
       "Analyzed over 40,000 rows of patient data from MIMIC III and identified a positive correlation between time to antibiotic after hospital admission and length of stay.",
       "Implemented a mortality prediction model by training an LSTM for early detection and prediction of sepsis based on time-series data of antibiotic administration.",
     ],
-    images: ["/media-v1/images/projects/sepsis-1.webp"],
-    videoSrc: "/NHouse Application Video.mp4",
+    images: [],
     featured: true,
   },
   {
@@ -81,23 +110,8 @@ export const projects: Project[] = [
     bullets: [
       "Used Random Forests, Logistic Regression, XGBoost, and SVM to classify data as high vs low quality 3D-printed tissues, achieving 85% AUC-ROC.",
     ],
-    images: ["/media-v1/images/projects/bioinks-1.webp"],
-    videoSrc: "/PGPR Cluster Leader Application Video.mp4",
+    images: [],
     featured: true,
-  },
-  {
-    id: "mudra",
-    name: "Bharatanatyam Mudra Practice Tool",
-    category: "Product/SWE",
-    blurb: "Live-camera practice tool with 88.7% accuracy across 28 mudras, tested with 20+ Bharatanatyam students over 8 weeks.",
-    description: "Built a live-camera Bharatanatyam practice tool using Google MediaPipe to track 21 hand landmarks and classify all 28 single-hand mudras. Trained the model on 1,400+ custom samples, then evaluated how the tool changed independent practice over an eight-week test.",
-    stack: ["Python", "Google MediaPipe", "Flask", "JavaScript", "HTML/CSS"],
-    bullets: [
-      "Improved independent practice by 22% for 20+ students during an eight-week test.",
-      "Reached 88.7% accuracy across 28 mudras using 1,400+ custom training samples and MediaPipe hand landmarks.",
-    ],
-    images: ["/media-v1/projects/mudra-screen.webp"],
-    live: "https://mudra-mediapipe.vercel.app",
   },
   {
     id: "rag",
@@ -110,7 +124,7 @@ export const projects: Project[] = [
       "Designed and implemented sentence-aware chunking and configurable overlap strategies; generated dense embeddings with LlamaIndex + HuggingFace and indexed in Dockerized Weaviate for Top-K semantic retrieval.",
       "Integrated a local LLM (Mistral via Ollama) for grounded response synthesis and analyzed retrieval relevance and source attribution.",
     ],
-    images: ["/media-v1/images/projects/rag-1.webp"],
+    images: [],
   },
   {
     id: "dropout",
@@ -123,7 +137,7 @@ export const projects: Project[] = [
       "Processed 382 student records across 67 engineered features; merged datasets, created interaction variables, and applied standardization for improved interpretability.",
       "Built and trained a LightGBM binary classifier achieving 80% AUC-ROC with early stopping and hyperparameter optimization; tracked experiments with MLflow.",
     ],
-    images: ["/media-v1/images/projects/dropout-1.webp"],
+    images: [],
   },
   {
     id: "aws-rek",
@@ -136,6 +150,6 @@ export const projects: Project[] = [
       "Created an AWS IAM role and configured policy permissions for S3 and Rekognition.",
       "Leveraged Amazon Rekognition alongside S3 for efficient storage and labelling of image datasets.",
     ],
-    images: ["/media-v1/images/projects/aws-rek-1.webp"],
+    images: [],
   },
 ];

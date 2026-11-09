@@ -3,7 +3,7 @@
 import { useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Badge } from "@/components/shared/Badge";
-import { LaptopMockup } from "@/components/shared/LaptopMockup";
+import { ProjectMedia } from "./ProjectMedia";
 import type { Project } from "@/types/content";
 
 const backdropVariants = {
@@ -52,8 +52,6 @@ export function ProjectModal({
     };
   }, [project, handleKeyDown]);
 
-  const usesLaptopMockup = project?.id === "closet-ai" || project?.id === "mudra";
-
   return (
     <AnimatePresence>
       {project && (
@@ -78,6 +76,9 @@ export function ProjectModal({
 
           {/* Modal */}
           <motion.div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="project-modal-title"
             className="relative w-full max-w-[900px] max-h-[85vh] overflow-y-auto rounded-2xl"
             style={{
               background: "var(--pf-surface)",
@@ -107,50 +108,13 @@ export function ProjectModal({
             </button>
 
             <div className="flex flex-col md:flex-row">
-              {/* Left — Media */}
-              <div className="md:w-[45%] p-6 flex flex-col gap-4">
-                {project.images?.map((src, i) =>
-                  usesLaptopMockup ? (
-                    <div
-                      key={i}
-                      className="flex w-full items-center justify-center rounded-xl px-3 py-5"
-                      style={{ background: "var(--pf-surface-2)" }}
-                    >
-                      <LaptopMockup
-                        src={src}
-                        alt={`${project.name} screenshot ${i + 1} on a laptop`}
-                        objectPosition={project.id === "mudra" ? "top" : "center"}
-                      />
-                    </div>
-                  ) : (
-                    <div
-                      key={i}
-                      className="relative w-full aspect-video rounded-xl overflow-hidden"
-                      style={{ background: "var(--pf-surface-2)" }}
-                    >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={src}
-                        alt={`${project.name} screenshot ${i + 1}`}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  )
-                )}
-                {!project.images?.length && (
-                  <div
-                    className="w-full aspect-video rounded-xl flex items-center justify-center"
-                    style={{ background: "var(--pf-surface-2)", color: "var(--pf-text-dim)" }}
-                  >
-                    <span className="text-sm">No media available</span>
-                  </div>
-                )}
-              </div>
+              <div className="md:w-[45%] p-6"><ProjectMedia project={project} /></div>
 
               {/* Right — Details */}
               <div className="md:w-[55%] p-6 md:pl-2">
                 <h2
-                  className="font-serif font-normal text-[26px] tracking-[-0.02em] leading-tight mb-3"
+                  id="project-modal-title"
+                  className="font-display font-normal text-[26px] tracking-[-0.02em] leading-tight mb-3"
                   style={{ color: "var(--pf-text)" }}
                 >
                   {project.name}

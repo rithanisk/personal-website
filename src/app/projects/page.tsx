@@ -1,57 +1,26 @@
 "use client";
 
 import { useState } from "react";
-import { ProjectCard } from "@/components/projects/ProjectCard";
+import { motion, useReducedMotion } from "framer-motion";
+import { ProjectRow } from "@/components/projects/ProjectRow";
 import { ProjectModal } from "@/components/projects/ProjectModal";
+import styles from "@/components/projects/ProjectsContent.module.css";
 import { projects } from "@/content/projects";
 import type { Project } from "@/types/content";
 
-const projectLayouts = [
-  "md:col-span-7",
-  "md:col-span-5",
-  "md:col-span-5",
-  "md:col-span-7",
-  "md:col-span-7",
-  "md:col-span-5",
-];
-
 export default function ProjectsPage() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const reduceMotion = useReducedMotion();
 
   return (
-    <main className="px-5 md:px-[72px] pt-20 md:pt-24 pb-20">
-      <div className="pf-eyebrow mb-5">Projects</div>
-      <h1
-        className="font-serif font-light tracking-[-0.035em] leading-[0.95]"
-        style={{ fontSize: "clamp(36px, 5vw, 64px)" }}
-      >
-        Side quests when I&apos;m{" "}
-        <span style={{ color: "var(--pf-amber-ink)" }}>
-          bored
-        </span>
-      </h1>
-      <p
-        className="font-serif text-xl font-light mt-6 max-w-[580px]"
-        style={{ color: "var(--pf-text-muted)" }}
-      >
-        Products, AI systems, and research built from user interviews through evaluation and launch.
-      </p>
-      <div className="mt-10 grid gap-5 md:grid-cols-12">
-        {projects.map((project, index) => (
-          <div key={project.id} className={projectLayouts[index % projectLayouts.length]}>
-            <ProjectCard
-              project={project}
-              index={index}
-              onClick={() => setSelectedProject(project)}
-            />
-          </div>
-        ))}
-      </div>
-
-      <ProjectModal
-        project={selectedProject}
-        onClose={() => setSelectedProject(null)}
-      />
+    <main className={styles.page}>
+      <motion.header className={styles.pageHeader} initial={reduceMotion ? false : { opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .5 }}>
+        <div className="pf-eyebrow">Projects</div>
+        <h1>Side quests when I&apos;m <span style={{ color: "var(--pf-amber-ink)" }}>bored</span></h1>
+        <p>Products, AI systems, and research built from user interviews through evaluation and launch.</p>
+      </motion.header>
+      <div className={styles.list}>{projects.map((project) => <ProjectRow key={project.id} project={project} autoPlayVideos={!selectedProject} onDetails={() => setSelectedProject(project)} />)}</div>
+      <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
     </main>
   );
 }
