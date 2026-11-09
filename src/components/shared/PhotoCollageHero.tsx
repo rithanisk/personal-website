@@ -123,17 +123,17 @@ export function PhotoCollageHero() {
           </h1>
           <div
             className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mt-2"
-            style={{ fontSize: "clamp(14px, 1.6vw, 18px)" }}
+            style={{ fontSize: "clamp(15px, 1.7vw, 20px)" }}
           >
             <span className="text-[0.9em]" style={{ color: "var(--pf-text-muted)" }}>I am a</span>
             {[
-              { label: "Builder.", bg: "var(--pf-rose-soft)", color: "var(--pf-rose-ink)" },
-              { label: "Storyteller.", bg: "var(--pf-forest-soft)", color: "var(--pf-forest-ink)" },
-              { label: "Product Thinker.", bg: "var(--pf-amber-soft)", color: "var(--pf-amber-ink)" },
+              { label: "[Builder]", bg: "var(--pf-rose-soft)", color: "var(--pf-rose-ink)" },
+              { label: "[Storyteller]", bg: "var(--pf-forest-soft)", color: "var(--pf-forest-ink)" },
+              { label: "[Product Thinker]", bg: "var(--pf-amber-soft)", color: "var(--pf-amber-ink)" },
             ].map((role) => (
               <span
                 key={role.label}
-                className="inline-block px-3 py-1 rounded-full text-[0.9em] font-medium"
+                className="inline-block whitespace-nowrap px-4 py-1.5 rounded-[10px] font-display font-normal"
                 style={{ background: role.bg, color: role.color }}
               >
                 {role.label}
