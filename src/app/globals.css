@@ -2,6 +2,9 @@
 
 /* ── Light tokens (from design mockup pf-shared.jsx) ── */
 :root {
+  --font-display: var(--font-display-face), Arial, sans-serif;
+  --font-sans: var(--font-inter), Arial, sans-serif;
+  --font-mono: var(--font-inter), Arial, sans-serif;
   --pf-bg: #ffffff;
   --pf-bg-warm: #f9f9f9;
   --pf-surface: #ffffff;
@@ -143,7 +146,7 @@
   --color-pf-lavender-ink: var(--pf-lavender-ink);
   --color-pf-nav-bg: var(--pf-nav-bg);
   --color-pf-nav-border: var(--pf-nav-border);
-  --font-serif: var(--font-source-serif), Georgia, serif;
+  --font-display: var(--font-display-face), Arial, sans-serif;
   --font-sans: var(--font-inter), system-ui, sans-serif;
   --font-mono: var(--font-inter), system-ui, sans-serif;
 }
@@ -157,6 +160,15 @@ body {
   line-height: 1.55;
   transition: background 0.3s ease, color 0.3s ease;
 }
+
+/* Shared light Inter Tight treatment for headings and display titles. */
+h1, h2, h3, h4, h5, h6, .font-display {
+  font-family: var(--font-display);
+  font-weight: 300;
+  letter-spacing: -.02em;
+}
+
+figcaption.font-display { font-weight: 400; }
 
 /* ── Eyebrow text ── */
 .pf-eyebrow {

@@ -32,7 +32,7 @@ export function Navbar() {
       {/* Logo */}
       <Link
         href="/"
-        className="flex items-center gap-2 font-serif text-[18px] tracking-[-0.01em] shrink-0"
+        className="flex items-center gap-2 font-display text-[18px] tracking-[-0.01em] shrink-0"
         style={{ color: "var(--pf-text)" }}
       >
         <span style={{ color: "var(--pf-rose)", fontSize: 22, lineHeight: 1 }}>

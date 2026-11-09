@@ -48,7 +48,7 @@ export function FeatureHeader({
         </span>
       </div>
 
-      <h3 className="-mt-0.5 flex flex-wrap items-baseline gap-x-[0.28em] font-serif text-[24px] leading-[1.08] tracking-[-0.035em] md:text-[26px]">
+      <h3 className="-mt-0.5 flex flex-wrap items-baseline gap-x-[0.28em] font-display text-[24px] leading-[1.08] tracking-[-0.035em] md:text-[26px]">
         {title}
       </h3>
 

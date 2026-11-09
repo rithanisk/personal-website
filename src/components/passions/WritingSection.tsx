@@ -36,7 +36,7 @@ function WritingCard({ entry, index }: { entry: WritingEntry; index: number }) {
             >
               {entry.date}
             </time>
-            <h2 className="font-serif text-[25px] sm:text-[29px] font-light tracking-[-0.025em] leading-tight mt-2">
+            <h2 className="font-display text-[25px] sm:text-[29px] font-light tracking-[-0.025em] leading-tight mt-2">
               {entry.title}
             </h2>
             {entry.excerpt && (
@@ -72,7 +72,7 @@ function WritingCard({ entry, index }: { entry: WritingEntry; index: number }) {
               {entry.body.map((paragraph, paragraphIndex) => (
                 <p
                   key={paragraphIndex}
-                  className="font-serif text-[18px] sm:text-[19px] font-light leading-[1.75]"
+                  className="font-display text-[18px] sm:text-[19px] font-light leading-[1.75]"
                   style={{ color: "var(--pf-text-muted)" }}
                 >
                   {paragraph}
@@ -97,7 +97,7 @@ export function WritingSection() {
         transition={{ duration: 0.4 }}
       >
         <div className="font-mono text-[10.5px] uppercase tracking-[0.18em] opacity-65">Notes, eventually</div>
-        <h2 className="font-serif text-[28px] sm:text-[34px] font-light tracking-[-0.025em] mt-3">
+        <h2 className="font-display text-[28px] sm:text-[34px] font-light tracking-[-0.025em] mt-3">
           A corner for unfinished thoughts.
         </h2>
         <p className="text-[14px] leading-relaxed max-w-[500px] mx-auto mt-3 opacity-75">

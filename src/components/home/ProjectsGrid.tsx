@@ -13,7 +13,7 @@ export function ProjectsGrid() {
       <div className="flex items-baseline justify-between mb-8">
         <div>
           <div className="pf-eyebrow mb-2.5">Featured work</div>
-          <h2 className="font-serif font-light text-[clamp(26px,3.5vw,40px)] tracking-[-0.025em] leading-[1.05]">
+          <h2 className="font-display font-light text-[clamp(26px,3.5vw,40px)] tracking-[-0.025em] leading-[1.05]">
             Selected{" "}
             <span style={{ color: "var(--pf-amber-ink)" }}>projects</span>.
           </h2>

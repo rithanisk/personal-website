@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { Source_Serif_4, Inter } from "next/font/google";
+import { Inter_Tight, Inter } from "next/font/google";
 import { ThemeProvider } from "@/lib/theme";
 import { Navbar } from "@/components/chrome/Navbar";
 import { PortfolioAssistant } from "@/components/chrome/PortfolioAssistant";
 import { GrainOverlay } from "@/components/shared/GrainOverlay";
 import "./globals.css";
 
-const sourceSerif = Source_Serif_4({
-  variable: "--font-source-serif",
+const displayFont = Inter_Tight({
+  variable: "--font-display-face",
   subsets: ["latin"],
   display: "swap",
 });
@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sourceSerif.variable} ${inter.variable}`}
+      className={`${displayFont.variable} ${inter.variable}`}
       suppressHydrationWarning
     >
       <body className="min-h-screen antialiased">

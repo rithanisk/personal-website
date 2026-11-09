@@ -76,7 +76,7 @@ export function ProjectsShowcase() {
       >
         <div>
           <div className="pf-eyebrow mb-2.5">Projects</div>
-          <h2 className="font-serif font-light text-[clamp(26px,3.5vw,40px)] tracking-[-0.025em] leading-[1.05]">
+          <h2 className="font-display font-light text-[clamp(26px,3.5vw,40px)] tracking-[-0.025em] leading-[1.05]">
             What I&apos;m{" "}
             <span style={{ color: "var(--pf-amber-ink)" }}>
               building
@@ -128,7 +128,7 @@ export function ProjectsShowcase() {
                 {/* Description */}
                 <div className="p-5">
                   <h3
-                    className="font-serif font-normal text-[20px] tracking-[-0.02em] leading-tight mb-2"
+                    className="font-display font-normal text-[20px] tracking-[-0.02em] leading-tight mb-2"
                     style={{ color: "var(--pf-text)" }}
                   >
                     {project.title}

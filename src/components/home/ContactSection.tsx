@@ -42,7 +42,7 @@ export function ContactSection() {
         <div className="grid gap-9 lg:grid-cols-[minmax(0,1fr)_minmax(340px,0.72fr)] lg:items-end lg:gap-16">
           <div className="max-w-[700px]">
             <div className="pf-eyebrow mb-3">Say hello</div>
-            <h2 className="font-serif text-[clamp(30px,4vw,48px)] font-light leading-[1.05] tracking-[-0.03em]">
+            <h2 className="font-display text-[clamp(30px,4vw,48px)] font-light leading-[1.05] tracking-[-0.03em]">
               Let&apos;s make something meaningful.
             </h2>
             <p className="mt-4 max-w-[610px] text-[15px] leading-relaxed" style={{ color: "var(--pf-text-muted)" }}>

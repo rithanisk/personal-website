@@ -38,7 +38,7 @@ export function ExperienceCard({ experience: item, active }: { experience: Exper
           {item.dates} {active && "· Current"}
         </div>
         <h3
-          className="font-serif font-normal text-2xl tracking-[-0.02em] leading-[1.15] mb-1.5"
+          className="font-display font-normal text-2xl tracking-[-0.02em] leading-[1.15] mb-1.5"
           style={{ color: "var(--pf-text)" }}
         >
           {item.title}

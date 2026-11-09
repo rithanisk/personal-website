@@ -109,7 +109,7 @@ function ModalContent({ item, category }: { item: PassionItem; category: string 
           Recipe
         </span>
         <h2
-          className="font-serif font-light tracking-[-0.02em] text-[28px] leading-tight mb-3"
+          className="font-display font-light tracking-[-0.02em] text-[28px] leading-tight mb-3"
           style={{ color: "var(--pf-text)" }}
         >
           {item.title}
@@ -134,7 +134,7 @@ function ModalContent({ item, category }: { item: PassionItem; category: string 
           Performance
         </span>
         <h2
-          className="font-serif font-light tracking-[-0.02em] text-[28px] leading-tight mb-3"
+          className="font-display font-light tracking-[-0.02em] text-[28px] leading-tight mb-3"
           style={{ color: "var(--pf-text)" }}
         >
           {item.title}
@@ -159,7 +159,7 @@ function ModalContent({ item, category }: { item: PassionItem; category: string 
         Photography
       </span>
       <h2
-        className="font-serif font-light tracking-[-0.02em] text-[28px] leading-tight mb-3"
+        className="font-display font-light tracking-[-0.02em] text-[28px] leading-tight mb-3"
         style={{ color: "var(--pf-text)" }}
       >
         {item.title}

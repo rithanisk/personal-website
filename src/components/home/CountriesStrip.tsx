@@ -17,7 +17,7 @@ export function CountriesStrip() {
         >
           On the map
         </div>
-        <div className="font-serif text-2xl font-light tracking-[-0.02em]" style={{ color: "var(--pf-text)" }}>
+        <div className="font-display text-2xl font-light tracking-[-0.02em]" style={{ color: "var(--pf-text)" }}>
           Five countries. One notebook.
         </div>
       </div>

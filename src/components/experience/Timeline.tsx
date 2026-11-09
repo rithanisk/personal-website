@@ -38,7 +38,7 @@ function TimelineNode({ item, active }: { item: Experience; active: boolean }) {
       </div>
 
       {/* Title */}
-      <h3 className="font-serif font-normal text-2xl tracking-[-0.02em] leading-[1.15] mb-1.5" style={{ color: "var(--pf-text)" }}>
+      <h3 className="font-display font-normal text-2xl tracking-[-0.02em] leading-[1.15] mb-1.5" style={{ color: "var(--pf-text)" }}>
         {item.title}
       </h3>
 

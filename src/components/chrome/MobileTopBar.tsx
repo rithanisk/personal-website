@@ -18,7 +18,7 @@ export function MobileTopBar() {
       }}
     >
       <div
-        className="flex items-center gap-2 font-serif text-base"
+        className="flex items-center gap-2 font-display text-base"
         style={{ color: "var(--pf-text)" }}
       >
         <span

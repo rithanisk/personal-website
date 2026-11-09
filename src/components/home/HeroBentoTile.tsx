@@ -63,7 +63,7 @@ export function HeroBentoTile({
             </div>
           )}
           <h3
-            className="font-serif font-normal text-[21px] sm:text-[24px] leading-snug tracking-[-0.01em] mb-2"
+            className="font-display font-normal text-[21px] sm:text-[24px] leading-snug tracking-[-0.01em] mb-2"
             style={{ color: accentInk }}
           >
             {title}

@@ -18,7 +18,7 @@ export function PassionsHero() {
         Passions
       </motion.div>
       <motion.h1
-        className="font-serif font-light tracking-[-0.035em] leading-[0.95] max-w-[720px]"
+        className="font-display font-light tracking-[-0.035em] leading-[0.95] max-w-[720px]"
         style={{ fontSize: "clamp(34px, 5vw, 64px)" }}
         {...fade}
         transition={{ duration: 0.5, delay: 0.08, ease: [0.2, 0.7, 0, 1] }}
@@ -28,7 +28,7 @@ export function PassionsHero() {
         the IDE.
       </motion.h1>
       <motion.p
-        className="font-serif text-[19px] font-light mt-5 max-w-[560px]"
+        className="font-display text-[19px] font-light mt-5 max-w-[560px]"
         style={{ color: "var(--pf-text-muted)" }}
         {...fade}
         transition={{ duration: 0.5, delay: 0.16, ease: [0.2, 0.7, 0, 1] }}
