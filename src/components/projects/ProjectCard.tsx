@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { TimecapsulePreview } from "./TimecapsulePreview";
 import { Badge } from "@/components/shared/Badge";
 import { LaptopMockup } from "@/components/shared/LaptopMockup";
 import type { Project } from "@/types/content";
@@ -53,7 +54,9 @@ export function ProjectCard({
         className="relative aspect-[16/9] w-full overflow-hidden"
         style={{ background: "var(--pf-surface-2)" }}
       >
-        {image && usesLaptopMockup ? (
+        {project.id === "timecapsule" ? (
+          <TimecapsulePreview />
+        ) : image && usesLaptopMockup ? (
           <div
             className="absolute inset-0 flex items-center justify-center px-4 pb-1 pt-7 sm:px-7"
             style={{
@@ -86,7 +89,7 @@ export function ProjectCard({
             }}
           >
             <span
-              className="font-serif text-[clamp(72px,10vw,132px)] font-light tracking-[-0.08em] opacity-[0.1]"
+              className="font-display text-[clamp(72px,10vw,132px)] font-light tracking-[-0.08em] opacity-[0.1]"
               style={{ color: categoryColor }}
             >
               {String(index + 1).padStart(2, "0")}
@@ -122,7 +125,7 @@ export function ProjectCard({
             {String(index + 1).padStart(2, "0")}
           </span>
         </div>
-        <h3 className="font-serif text-[24px] font-normal leading-[1.08] tracking-[-0.025em]" style={{ color: "var(--pf-text)" }}>
+        <h3 className="font-display text-[24px] font-normal leading-[1.08] tracking-[-0.025em]" style={{ color: "var(--pf-text)" }}>
           {project.name}
         </h3>
         <p className="mt-3 line-clamp-3 text-[13.5px] leading-relaxed tracking-tight" style={{ color: "var(--pf-text-muted)" }}>
