@@ -52,7 +52,7 @@ export function NiaHealthPhoneVisual() {
               Biological age
             </div>
             <div className="mt-0.5 flex items-baseline gap-1">
-              <span className="font-serif text-[22px] leading-none" style={{ color: "#1a1610" }}>
+              <span className="font-display text-[22px] leading-none" style={{ color: "#1a1610" }}>
                 34.2
               </span>
               <span className="text-[7px]" style={{ color: "#9a8f80" }}>
@@ -138,7 +138,7 @@ export function NiaHealthPhoneVisual() {
           />
         </div>
         <div className="mt-1.5 flex items-baseline justify-between">
-          <span className="font-serif text-[15px] leading-none" style={{ color: "var(--pf-text)" }}>
+          <span className="font-display text-[15px] leading-none" style={{ color: "var(--pf-text)" }}>
             3 min
           </span>
           <span className="text-[7px]" style={{ color: "var(--pf-text-dim)" }}>
@@ -581,7 +581,7 @@ export function NusTaFeature() {
             <span style={{ color: blue }}>IS1108 · week 9</span>
             <span style={{ color: "var(--pf-text-dim)" }}>AI governance</span>
           </div>
-          <div className="mt-1.5 font-serif text-[12.5px] leading-[1.25]" style={{ color: "var(--pf-text)" }}>
+          <div className="mt-1.5 font-display text-[12.5px] leading-[1.25]" style={{ color: "var(--pf-text)" }}>
             When an AI system causes harm, who should be accountable?
           </div>
 
@@ -634,7 +634,7 @@ export function NusTaFeature() {
             NUS
             <span className="absolute inset-x-0 bottom-0 h-[3px]" style={{ background: "#ef7c00" }} />
           </span>
-          <span className="whitespace-nowrap font-serif text-[19px] leading-none tracking-[-0.02em] md:text-[21px]">
+          <span className="whitespace-nowrap font-display text-[19px] leading-none tracking-[-0.02em] md:text-[21px]">
             National University of Singapore
           </span>
         </div>
@@ -659,7 +659,7 @@ export function NusTaFeature() {
         <div className="mt-4 grid max-w-[50%] grid-cols-2 gap-2">
           {metrics.map((m) => (
             <div key={m.label}>
-              <div className="font-serif text-[23px] leading-none md:text-[27px]" style={{ color: orange }}>
+              <div className="font-display text-[23px] leading-none md:text-[27px]" style={{ color: orange }}>
                 {m.value}
               </div>
               <div className="mt-1 text-[9px] leading-[1.2]" style={{ color: "var(--pf-text-muted)" }}>

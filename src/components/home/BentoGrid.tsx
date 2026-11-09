@@ -89,14 +89,14 @@ function CardTitle({
         <div>
           {companyNote ? (
             <span
-              className="block whitespace-nowrap font-serif text-lg leading-tight tracking-[-0.03em] md:text-2xl"
+              className="block whitespace-nowrap font-display text-lg leading-tight tracking-[-0.03em] md:text-2xl"
               style={{ color: textColor }}
             >
               {title} ({companyNote})
             </span>
           ) : (
             <span
-              className="font-serif text-lg leading-tight tracking-[-0.02em] md:text-[21px]"
+              className="font-display text-lg leading-tight tracking-[-0.02em] md:text-[21px]"
               style={{ color: textColor }}
             >
               {title}
@@ -133,7 +133,7 @@ function CardTitle({
     return (
       <div className="flex flex-wrap items-baseline gap-x-2">
         <span
-          className="font-serif text-lg md:text-xl tracking-[-0.02em] leading-tight"
+          className="font-display text-lg md:text-xl tracking-[-0.02em] leading-tight"
           style={{ color: "#fff" }}
         >
           {title}
@@ -153,7 +153,7 @@ function CardTitle({
 
   return (
     <span
-      className="font-serif text-lg md:text-2xl tracking-[-0.02em] leading-tight"
+      className="font-display text-lg md:text-2xl tracking-[-0.02em] leading-tight"
       style={{ color: textColor }}
     >
       {title}
@@ -238,7 +238,7 @@ function NiaHealthFeature() {
 
         <div className="mt-1 flex flex-wrap items-baseline gap-x-1.5 gap-y-0.5">
           <span className="font-sans text-xs font-medium leading-tight md:text-[13px]" style={{ color: "var(--pf-text-muted)" }}>
-            AI/Software Engineer Intern
+            AI Product Engineer
           </span>
           <span className="text-xs" style={{ color: "var(--pf-text-dim)" }}>·</span>
           <span className="font-sans text-xs font-normal leading-tight" style={{ color: "var(--pf-text-dim)" }}>
@@ -256,7 +256,7 @@ function NiaHealthFeature() {
         <div className="mt-4 grid max-w-[54%] grid-cols-3 gap-2">
           {metrics.map((metric) => (
             <div key={metric.value} className="text-center">
-              <div className="font-serif text-[23px] font-semibold leading-none md:text-[27px]" style={{ color: "#bc8432" }}>
+              <div className="font-display text-[23px] font-semibold leading-none md:text-[27px]" style={{ color: "#bc8432" }}>
                 {metric.value}
               </div>
               <div className="mt-1 text-[9px] leading-[1.2]" style={{ color: "var(--pf-text-muted)" }}>
@@ -313,10 +313,10 @@ function MudraFeature() {
           </span>
         </div>
 
-        <h3 className="-mt-0.5 flex items-baseline gap-2 whitespace-nowrap font-serif text-[26px] leading-none tracking-[-0.035em]">
+        <h3 className="-mt-0.5 flex items-baseline gap-2 whitespace-nowrap font-display text-[26px] leading-none tracking-[-0.035em]">
           <span>Mudra</span>
           <span
-            className={`${recognitionFont.className} text-[34px] font-normal tracking-normal`}
+            className="font-display text-[26px] font-normal"
             style={{ color: "var(--tile-ink)" }}
           >
             Recognition
@@ -372,7 +372,7 @@ function ClosetAiFeature() {
           </span>
         </div>
 
-        <h3 className="-mt-0.5 flex items-baseline gap-1.5 whitespace-nowrap font-serif text-[26px] leading-none tracking-[-0.035em]">
+        <h3 className="-mt-0.5 flex items-baseline gap-1.5 whitespace-nowrap font-display text-[26px] leading-none tracking-[-0.035em]">
           <span>Closet</span>
           <span className="italic" style={{ color: accent }}>
             AI
@@ -446,7 +446,7 @@ function BuymedFeature() {
             className="block h-6 w-6 shrink-0 rounded-[7px] object-cover"
           />
           <span
-            className="font-sans text-[22px] font-semibold leading-none tracking-[-0.04em]"
+            className="font-display text-[22px] font-normal leading-none tracking-[-0.02em]"
             style={{ color: "var(--tile-ink)" }}
             aria-label="Buymed"
           >
@@ -481,7 +481,7 @@ function BuymedFeature() {
         <div className="mt-4 grid max-w-[56%] grid-cols-3 gap-2">
           {metrics.map((metric) => (
             <div key={metric.value}>
-              <div className="font-serif text-xl leading-none md:text-2xl" style={{ color: "var(--tile-ink)" }}>
+              <div className="font-display text-xl leading-none md:text-2xl" style={{ color: "var(--tile-ink)" }}>
                 {metric.value}
               </div>
               <div className="mt-1 text-[9px] leading-[1.2]" style={{ color: "var(--pf-text-muted)" }}>
@@ -880,7 +880,7 @@ const cards: CardProps[] = [
     title: "NiaHealth",
     variant: "niahealth-feature",
     companyNote: "Health Tech Startup, Series A",
-    role: "AI/Software Engineer Intern",
+    role: "AI Product Engineer",
     date: "Aug 2025 — Jul 2026",
     description:
       "Built AI and full-stack health products used by thousands, cutting report processing by 70% and scaling operations 9×.",
@@ -928,7 +928,7 @@ const cards: CardProps[] = [
   },
   {
     type: "project",
-    title: "Closet AI",
+    title: "Alankara",
     variant: "closet-feature",
     description: "AI-ranked outfits from your own wardrobe",
     href: "/projects",
@@ -1004,7 +1004,7 @@ export function BentoGrid() {
       >
         <div>
           <div className="pf-eyebrow mb-2.5">Highlights</div>
-          <h2 className="font-serif font-light text-[clamp(26px,3.5vw,40px)] tracking-[-0.025em] leading-[1.05]">
+          <h2 className="text-[clamp(26px,3.5vw,40px)] leading-[1.12]" style={{ fontFamily: "var(--font-display-face), Arial, sans-serif", fontWeight: 300, letterSpacing: "-.02em" }}>
             What I&apos;ve been{" "}
             <span style={{ color: "var(--pf-forest-ink)" }}>
               doing
