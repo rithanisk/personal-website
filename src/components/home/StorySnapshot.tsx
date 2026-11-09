@@ -33,7 +33,7 @@ export function StorySnapshot() {
       >
         <div>
           <div className="pf-eyebrow mb-2.5">About</div>
-          <h2 className="font-serif font-light text-[clamp(26px,3.5vw,40px)] tracking-[-0.025em] leading-[1.05]">
+          <h2 className="font-display font-light text-[clamp(26px,3.5vw,40px)] tracking-[-0.025em] leading-[1.05]">
             My{" "}
             <span style={{ color: "var(--pf-rose-ink)" }}>
               story
@@ -52,7 +52,7 @@ export function StorySnapshot() {
 
       <div className="max-w-[640px]">
         <motion.p
-          className="font-serif text-[20px] font-light leading-relaxed tracking-tight"
+          className="font-display text-[20px] font-light leading-relaxed tracking-tight"
           style={{ color: "var(--pf-text)" }}
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -101,7 +101,7 @@ export function StorySnapshot() {
               className="text-[15px] leading-relaxed tracking-tight"
               style={{ color: "var(--pf-text-muted)" }}
             >
-              Back at NUS, researching multimodal machine learning and building new AI products.
+              Back at NUS, researching ICU mortality prediction and building new AI products.
             </p>
           </motion.div>
         </motion.div>

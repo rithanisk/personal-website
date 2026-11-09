@@ -103,12 +103,12 @@ function ExperienceSnapshot({ tone, company, role, dates, summary, bubbles, reve
           </span>
         </div>
         <h3
-          className="font-serif font-normal tracking-[-0.02em] leading-[1.12] mb-[18px]"
+          className="font-display font-normal tracking-[-0.02em] leading-[1.12] mb-[18px]"
           style={{ fontSize: 38, color: "var(--pf-text)" }}
         >
           {role}
         </h3>
-        <p className="font-serif text-[19px] leading-[1.55] font-light" style={{ color: "var(--pf-text-muted)" }}>
+        <p className="font-display text-[19px] leading-[1.55] font-light" style={{ color: "var(--pf-text-muted)" }}>
           {summary}
         </p>
         <Link
@@ -139,7 +139,7 @@ export function ExperienceSnapshots() {
       <div className="flex items-baseline justify-between mb-3 pb-[18px] border-b border-pf-border">
         <div>
           <div className="pf-eyebrow mb-2.5">Snapshots</div>
-          <h2 className="font-serif font-light text-[clamp(26px,3.5vw,40px)] tracking-[-0.025em] leading-[1.05]">
+          <h2 className="font-display font-light text-[clamp(26px,3.5vw,40px)] tracking-[-0.025em] leading-[1.05]">
             Where I&apos;ve{" "}
             <span style={{ color: "var(--pf-forest-ink)" }}>built</span> things.
           </h2>
@@ -154,7 +154,7 @@ export function ExperienceSnapshots() {
           tone="rose"
           dates="AUG 2025 — JUL 2026 · TORONTO"
           company="NiaHealth (Health Tech Startup, Series A)"
-          role="AI/Software Engineer Intern"
+          role="AI Product Engineer"
           summary="Built AI and full-stack health products used by thousands, cutting report processing by 70%, scaling operations 9×, and launching a cycle-tracking MVP to 8,000+ users."
           bubbles={[
             { size: 170, x: -80, y: -30, kind: "code", caption: "Pipeline · v2", palette: { a: "#aa6373", b: "#e3b8a3", c: "#6b3842" } },

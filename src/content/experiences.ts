@@ -10,16 +10,24 @@ export const experiences: Experience[] = [
     dates: "August 2026 – Present",
     current: true,
     overview:
-      "Researching multimodal methods for predicting mortality risk from chest X-rays, ECG signals, and longitudinal ICU data.",
-    stack: ["PyTorch", "Multimodal ML", "ResNet-50", "Neural ODEs", "MIMIC-IV"],
+      "Studying difficulty-aware mortality prediction for ICU patients with acute kidney injury and hypertension using electronic health records and ECG measurements.",
+    stack: ["Python", "DuckDB / SQL", "LightGBM", "MIMIC-IV + ECG", "Subgroup Evaluation"],
     bullets: [
-      "Designing a **PyTorch multimodal model** that fuses chest X-ray, ECG, and Neural ODE lab encoders across **3 ICU modalities**.",
-      "Patched a **data-leakage bug** that mixed features across ICU stays while reproducing a MIMIC-IV acute kidney injury baseline.",
+      "Built a **DuckDB/SQL pipeline for 5,697 ECG-linked ICU stays**, with patient-separated training, validation, and test sets.",
+      "Compared five LightGBM variants using EHR, ECG, and difficulty-group weighting; difficult-subgroup recall rose from **27.9% to 41.2% at the same alert budget**.",
+      "Documented methods, subgroup analysis, and limitations in the **final CA report**. External validation and PCA-based analysis are planned.",
+    ],
+    photos: [
+      { src: "/media-v1/experience/research/research-recall.png", alt: "Mortality recall at the same alert budget, comparing baseline and group-weighted models", caption: "Mortality recall at 466 alerts per model · Figure 6, final CA report" },
+      { src: "/media-v1/experience/research/research-pipeline.png", alt: "Research pipeline showing completed and planned work", caption: "The research pipeline · Figure 2, final CA report" },
+    ],
+    artifacts: [
+      { title: "Final CA Report", href: "/reports/research/final-ca-report.pdf", type: "report", description: "Difficulty-aware mortality prediction for ICU patients with acute kidney injury and hypertension." },
     ],
   },
   {
     id: "nia",
-    title: "AI/Software Engineer Intern",
+    title: "AI Product Engineer",
     company: "NiaHealth",
     program: "Health Tech Startup, Series A",
     location: "Toronto, ON",
@@ -185,6 +193,7 @@ export const experiences: Experience[] = [
       "Mentored students through real-world ethical dilemmas involving data collection, surveillance, and internal biases.",
     ],
     photos: [
+      { src: "/media-v1/experience/ta/tutorial-2026.jpg", alt: "Rithani with her IS1108 tutorial students in November 2026", caption: "The IS1108 tutorial crew · November 2026", width: 4032, height: 3024 },
       {
         src: "/media-v1/ta.webp",
         alt: "Rithani with her IS1108 students",
