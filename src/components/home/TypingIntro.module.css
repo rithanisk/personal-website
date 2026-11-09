@@ -1,0 +1,18 @@
+.heading {
+  position: relative;
+  font-family: var(--font-display-face), Arial, sans-serif;
+  font-weight: 300;
+  letter-spacing: -.02em;
+  font-size: clamp(32px, 4.4vw, 58px);
+  line-height: 1.12;
+  margin: 0;
+}
+.spacer { display: block; visibility: hidden; user-select: none; }
+.visual { position: absolute; inset: 0; }
+.cursor { display: inline-block; position: relative; width: 0; height: .85em; vertical-align: -.04em; }
+.cursor::after { content: ""; position: absolute; left: .03em; top: 0; bottom: 0; width: 2px; background: var(--pf-rose); animation: cursor-blink .8s step-end infinite; }
+@keyframes cursor-blink { 0%, 49% { opacity: 1; } 50%, 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .spacer { visibility: visible; user-select: text; }
+  .visual { display: none; }
+}

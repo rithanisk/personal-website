@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { HeroMedia } from "./HeroMedia";
+import { TypingIntro } from "./TypingIntro";
 import { HeroBlobs } from "./HeroBlobs";
 import { profile } from "@/content/profile";
 
@@ -63,23 +64,7 @@ export function HeroSection() {
           variants={itemVariants}
           className="relative flex flex-col justify-center p-6 sm:p-7 rounded-2xl flex-1"
         >
-          <h1
-            className="font-serif font-light tracking-[-0.03em] leading-[1.08] mb-0"
-            style={{ fontSize: "clamp(32px, 4.4vw, 58px)" }}
-          >
-            I&apos;m{" "}
-            <span className="font-light" style={{ color: "var(--pf-rose)" }}>
-              Rithani
-            </span>
-            , and I build{" "}
-            <span
-              className="font-light"
-              style={{ color: "var(--pf-forest-ink)" }}
-            >
-              intelligent software
-            </span>{" "}
-            with real, measurable impact.
-          </h1>
+          <TypingIntro />
           <p
             className="text-[16px] sm:text-[17px] leading-relaxed tracking-tight mt-4"
             style={{ color: "var(--pf-text-muted)" }}
