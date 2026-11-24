@@ -30,7 +30,7 @@ export function AboutContent() {
     <main className={styles.page}>
       <motion.div className={styles.grid} initial={reduceMotion ? false : "hidden"} animate="visible" variants={{ visible: { transition: { staggerChildren: .075 } } }}>
         <motion.figure variants={tileVariants} className={`${styles.photoPanel} ${styles.portrait}`}>
-          <Image src="/media-v1/toronto.webp" alt="Portrait of Rithani Saravanakumar in Toronto" fill sizes="(max-width: 560px) 90vw, (max-width: 950px) 45vw, 25vw" className={styles.portraitImage} priority />
+          <Image src="/media-v1/about-brooklyn-bridge.webp" alt="Rithani Saravanakumar on the Brooklyn Bridge at sunset" fill sizes="(max-width: 560px) 90vw, (max-width: 950px) 45vw, 25vw" className={styles.portraitImage} priority />
         </motion.figure>
         <motion.section variants={tileVariants} className={`${styles.panel} ${styles.bio}`} aria-labelledby="about-title">
           <header>
