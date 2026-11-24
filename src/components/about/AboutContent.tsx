@@ -55,7 +55,7 @@ export function AboutContent() {
           <div className={styles.linkedinBody}>
             <Image src="/media-v1/about-avatar.webp" alt="" width={56} height={56} className={styles.linkedinAvatar} />
             <h2>Rithani Saravanakumar</h2>
-            <p>Computer Science @ NUS<br />AI products · ML research</p>
+            <p>Computer Science @ National University of Singapore | Prev SWE @ NiaHealth</p>
             <span className={styles.linkedinLink}>View LinkedIn profile <ArrowRightIcon /></span>
           </div>
         </motion.a>
